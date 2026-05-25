@@ -1,0 +1,66 @@
+[
+  {
+    "company": "Pagar.me",
+    "role": "Staff QA Engineer",
+    "period": "2021 - Presente",
+    "summary": "Liderança técnica em automação de testes e qualidade. Implementação de pipelines CI/CD e arquitetura de testes escalável.",
+    "icon": "⚡",
+    "rarity": "legendary"
+  },
+  {
+    "company": "Pagar.me",
+    "role": "Tech Lead QA",
+    "period": "2019 - 2021",
+    "summary": "Gestão de time de QA, definição de estratégias de teste e mentoria de desenvolvedores juniores.",
+    "icon": "🛡️",
+    "rarity": "elite"
+  },
+  {
+    "company": "Concrete Solutions",
+    "role": "Senior Developer",
+    "period": "2017 - 2019",
+    "summary": "Desenvolvimento full stack para clientes enterprise. Foco em React, Node.js e arquitetura de microsserviços.",
+    "icon": "🎯",
+    "rarity": "elite"
+  },
+  {
+    "company": "ThoughtWorks",
+    "role": "Software Developer",
+    "period": "2015 - 2017",
+    "summary": "Desenvolvimento ágil com práticas de TDD, pair programming e entrega contínua em projetos internacionais.",
+    "icon": "🚀",
+    "rarity": "elite"
+  },
+  {
+    "company": "Accenture",
+    "role": "Full Stack Developer",
+    "period": "2013 - 2015",
+    "summary": "Desenvolvimento de aplicações web corporativas usando Java, Spring e Angular.",
+    "icon": "💎",
+    "rarity": "rare"
+  },
+  {
+    "company": "IBM",
+    "role": "Junior Developer",
+    "period": "2011 - 2013",
+    "summary": "Manutenção de sistemas legados e desenvolvimento de novas funcionalidades em Java e SQL.",
+    "icon": "🔷",
+    "rarity": "rare"
+  },
+  {
+    "company": "Stefanini",
+    "role": "Trainee Developer",
+    "period": "2010 - 2011",
+    "summary": "Primeira experiência profissional. Suporte técnico e desenvolvimento de scripts de automação.",
+    "icon": "⚙️",
+    "rarity": "common"
+  },
+  {
+    "company": "Freelance",
+    "role": "Consultant",
+    "period": "2018 - Presente",
+    "summary": "Projetos pontuais de consultoria em qualidade de software e arquitetura frontend.",
+    "icon": "🌟",
+    "rarity": "rare"
+  }
+]

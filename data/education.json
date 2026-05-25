@@ -1,0 +1,16 @@
+[
+  {
+    "school": "Universidade de São Paulo",
+    "degree": "Bacharelado em Ciência da Computação",
+    "period": "2008 - 2012",
+    "icon": "🎓",
+    "status": "completed"
+  },
+  {
+    "school": "Coursera / Stanford",
+    "degree": "Machine Learning Specialization",
+    "period": "2020",
+    "icon": "🤖",
+    "status": "completed"
+  }
+]

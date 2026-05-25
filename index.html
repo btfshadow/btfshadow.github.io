@@ -361,6 +361,70 @@
       gap: var(--spacing-md);
     }
 
+    /* Main Quests (Education) - Building Style */
+    .quests-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--spacing-md);
+    }
+    @media (max-width: 1024px) {
+      .quests-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .quests-grid { grid-template-columns: 1fr; }
+    }
+
+    .quest-card {
+      background: var(--bg-card);
+      padding: var(--spacing-md);
+      border: var(--border-thin);
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
+    }
+    .quest-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    }
+    .quest-icon {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: var(--spacing-sm);
+    }
+    .quest-school {
+      font-family: var(--font-title);
+      font-size: 1.2rem;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+    .quest-degree {
+      font-size: 0.9rem;
+      color: var(--blue);
+      margin-bottom: var(--spacing-xs);
+    }
+    .quest-period {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: var(--spacing-sm);
+    }
+    .quest-status {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-family: var(--font-body);
+    }
+    .quest-status.completed {
+      background: var(--green);
+      color: #000;
+    }
+    .quest-status.incomplete {
+      background: var(--cherry);
+      color: #fff;
+    }
+
     .info-card {
       background: var(--bg-card);
       padding: var(--spacing-md);
@@ -457,13 +521,13 @@
       </div>
     </section>
 
-    <!-- EDUCATION -->
+    <!-- EDUCATION (MAIN QUESTS) -->
     <section class="gym-section" aria-labelledby="edu-title">
       <div class="section-header">
         <span class="terminal-prompt">></span>
-        <h2 id="edu-title">Education</h2>
+        <h2 id="edu-title">Main Quests</h2>
       </div>
-      <div class="list-grid" id="education-container">
+      <div class="quests-grid" id="education-container">
         <!-- Injected via JS -->
       </div>
     </section>
@@ -739,7 +803,32 @@
       `).join('');
     }
 
-    // Generic List Renderer (Education, Courses, Certs, Projects)
+    // Main Quests (Education) Renderer
+    function renderEducation(data) {
+      const container = document.getElementById('education-container');
+      if (!data || data.length === 0) {
+        container.innerHTML = `<p style="color:var(--text-muted)">No main quests found.</p>`;
+        return;
+      }
+
+      container.innerHTML = data.map(edu => {
+        const isCompleted = edu.status === 'completed' || edu.completed === true;
+        const statusClass = isCompleted ? 'completed' : 'incomplete';
+        const statusText = isCompleted ? '✓ Completed' : '○ In Progress';
+        
+        return `
+          <article class="quest-card pixel-border">
+            <span class="quest-icon">${edu.icon || '🏛️'}</span>
+            <h3 class="quest-school">${edu.school}</h3>
+            <div class="quest-degree">${edu.degree}</div>
+            <div class="quest-period">${edu.period}</div>
+            <span class="quest-status ${statusClass}">${statusText}</span>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // Generic List Renderer (Courses, Certs, Projects, Blog)
     function renderGenericList(data, containerId, type) {
       const container = document.getElementById(containerId);
       if (!data || data.length === 0) {
@@ -751,8 +840,8 @@
       
       container.innerHTML = data.map(item => `
         <article class="info-card ${isBlog ? 'blog-card' : ''} pixel-border">
-          <h3 class="info-title">${isBlog ? item.title : (item.name || item.title || item.school)}</h3>
-          <div class="info-sub">${item.issuer || item.provider || item.degree || item.tags?.join(', ')}</div>
+          <h3 class="info-title">${isBlog ? item.title : (item.name || item.title)}</h3>
+          <div class="info-sub">${item.issuer || item.provider || item.tags?.join(', ')}</div>
           <div class="info-meta ${isBlog ? 'blog-date' : ''}">${item.year || item.period || item.date}</div>
           <p class="info-desc">${item.excerpt || item.description || item.summary || ''}</p>
         </article>
@@ -847,7 +936,7 @@
       renderMainSkills(skills);
       renderPCBox(skills);
       renderExperiences(experiences);
-      renderGenericList(education, 'education-container', 'education');
+      renderEducation(education);
       renderGenericList(courses, 'courses-container', 'courses');
       renderGenericList(certifications, 'certs-container', 'certifications');
       renderGenericList(projects, 'projects-container', 'projects');
