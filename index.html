@@ -3,33 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Sophia Simões - Staff QA Engineer Portfolio | AI-Augmented Testing | DevSecOps"/>
   <title>Sophia Simões | QA Engineer • AI • Terminal RPG Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=VT323&display=swap" rel="stylesheet"/>
   <style>
+    /* ========================================
+       CSS VARIABLES & RESET
+       ======================================== */
     :root {
-      --bg-primary: #0a0a0f;
-      --bg-secondary: #111827;
-      --bg-card: #1a1a2e;
-      --purple-main: #7c3aed;
-      --purple-light: #a855f7;
-      --cherry-main: #dc2626;
-      --cherry-light: #ef4444;
-      --yellow-accent: #fbbf24;
-      --blue-accent: #3b82f6;
-      --text-primary: #f3f4f6;
-      --text-secondary: #9ca3af;
-      --terminal-green: #22c55e;
-      --border-pixel: 3px solid var(--purple-main);
+      /* Colors */
+      --bg: #0a0a0f;
+      --bg-card: #111827;
+      --bg-card-hover: #1f2937;
+      --purple: #7c3aed;
+      --cherry: #dc2626;
+      --yellow: #fbbf24;
+      --blue: #3b82f6;
+      --green: #10b981;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border: #374151;
+      
+      /* Fonts */
+      --font-title: 'VT323', monospace;
+      --font-body: 'Fira Code', monospace;
+      
+      /* Spacing */
+      --spacing-xs: 0.25rem;
+      --spacing-sm: 0.5rem;
+      --spacing-md: 1rem;
+      --spacing-lg: 1.5rem;
+      --spacing-xl: 2rem;
+      
+      /* Borders */
+      --border-radius: 4px;
+      --border-width: 2px;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
 
     body {
-      font-family: 'Fira Code', monospace;
-      background: var(--bg-primary);
-      color: var(--text-primary);
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
       line-height: 1.6;
+      min-height: 100vh;
       overflow-x: hidden;
       position: relative;
       background-image: 
@@ -37,44 +66,87 @@
         radial-gradient(circle at 90% 80%, rgba(220, 38, 38, 0.05) 0%, transparent 20%);
     }
 
-    /* Subtle Scanline - menos intrusivo */
-    body::before {
-      content: "";
+    /* ========================================
+       ACCESSIBILITY
+       ======================================== */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ========================================
+       SCANLINE OVERLAY
+       ======================================== */
+    .scanlines {
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1000;
       background: repeating-linear-gradient(
         0deg,
-        transparent,
-        transparent 2px,
-        rgba(10, 10, 15, 0.15) 2px,
-        rgba(10, 10, 15, 0.15) 4px
+        rgba(0, 0, 0, 0.1),
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 2px
       );
-      pointer-events: none;
-      z-index: 9999;
       opacity: 0.2;
     }
 
-    /* Pixel Border Style */
+    /* ========================================
+       PIXEL BORDER UTILITIES
+       ======================================== */
     .pixel-border {
       position: relative;
-      border: var(--border-pixel);
-      border-radius: 4px;
+      border: var(--border-width) solid var(--border);
+      box-shadow: 
+        -2px 0 0 0 var(--border),
+        2px 0 0 0 var(--border),
+        0 -2px 0 0 var(--border),
+        0 2px 0 0 var(--border);
+      border-radius: var(--border-radius);
     }
+    
     .pixel-border::before {
       content: "";
       position: absolute;
       top: -3px; left: -3px; right: -3px; bottom: -3px;
-      border: 2px solid var(--cherry-main);
+      border: 2px solid var(--cherry);
       border-radius: 6px;
       pointer-events: none;
       opacity: 0.5;
     }
 
-    /* Header / Terminal Bar */
+    .dashed-border {
+      border: 2px dashed var(--border);
+    }
+
+    /* ========================================
+       HEADER / TERMINAL BAR
+       ======================================== */
     header {
-      background: var(--bg-secondary);
-      border-bottom: var(--border-pixel);
-      padding: 1rem 2rem;
+      background: var(--bg-card);
+      border-bottom: var(--border-width) solid var(--purple);
+      padding: var(--spacing-md) var(--spacing-lg);
       position: sticky;
       top: 0;
       z-index: 100;
@@ -82,88 +154,89 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: var(--spacing-md);
     }
 
     .terminal-prompt {
-      color: var(--terminal-green);
+      color: var(--green);
       font-weight: 500;
-      font-family: 'VT323', monospace;
+      font-family: var(--font-title);
       font-size: 1.1rem;
     }
 
-    .terminal-prompt span { color: var(--purple-light); }
+    .terminal-prompt span { color: var(--purple); }
 
     nav ul {
       display: flex;
       list-style: none;
-      gap: 1rem;
+      gap: var(--spacing-sm);
       flex-wrap: wrap;
     }
 
     nav a {
-      color: var(--text-primary);
+      color: var(--text);
       text-decoration: none;
       padding: 0.4rem 0.9rem;
       border: 2px solid transparent;
-      border-radius: 4px;
+      border-radius: var(--border-radius);
       transition: all 0.2s ease;
-      font-family: 'VT323', monospace;
+      font-family: var(--font-title);
       font-size: 1.1rem;
       position: relative;
     }
 
     nav a:hover, nav a.active {
-      border-color: var(--yellow-accent);
+      border-color: var(--yellow);
       background: rgba(251, 191, 36, 0.1);
-      color: var(--yellow-accent);
+      color: var(--yellow);
     }
 
     nav a::before { 
       content: "▶ "; 
-      color: var(--purple-light);
+      color: var(--purple);
       font-size: 0.9rem;
     }
 
-    /* Hero Section - Pokemon Style */
+    /* ========================================
+       HERO SECTION - POKEMON RPG STYLE
+       ======================================== */
     .hero {
-      padding: 4rem 2rem;
+      padding: calc(var(--spacing-xl) * 2) var(--spacing-lg);
       text-align: center;
-      background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-      border-bottom: 2px dashed var(--purple-main);
+      background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg) 100%);
+      border-bottom: 2px dashed var(--purple);
       position: relative;
     }
 
-    /* Avatar Placeholder - Pixel Style */
     .hero-avatar {
       width: 80px;
       height: 80px;
-      margin: 0 auto 1.5rem;
-      background: linear-gradient(135deg, var(--purple-main), var(--cherry-main));
-      border: 3px solid var(--yellow-accent);
+      margin: 0 auto var(--spacing-lg);
+      background: linear-gradient(135deg, var(--purple), var(--cherry));
+      border: 3px solid var(--yellow);
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'VT323', monospace;
+      font-family: var(--font-title);
       font-size: 2rem;
       color: white;
       box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
     }
 
     .hero h1 {
-      font-family: 'VT323', monospace;
+      font-family: var(--font-title);
       font-size: 2rem;
-      margin-bottom: 0.5rem;
-      color: var(--purple-light);
-      text-shadow: 2px 2px 0 var(--cherry-main);
+      margin-bottom: var(--spacing-sm);
+      color: var(--purple);
+      text-shadow: 2px 2px 0 var(--cherry);
       letter-spacing: 1px;
     }
 
     .hero-subtitle {
-      font-family: 'Fira Code', monospace;
-      color: var(--text-secondary);
-      margin-bottom: 1.5rem;
+      font-family: var(--font-body);
+      color: var(--text-muted);
+      margin-bottom: var(--spacing-lg);
       font-size: 1.1rem;
     }
 
@@ -171,71 +244,71 @@
     .rpg-stats {
       display: flex;
       justify-content: center;
-      gap: 2rem;
-      margin: 1.5rem 0;
+      gap: var(--spacing-xl);
+      margin: var(--spacing-lg) 0;
       flex-wrap: wrap;
     }
 
     .stat-bar {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-family: 'VT323', monospace;
+      gap: var(--spacing-xs);
+      font-family: var(--font-title);
       font-size: 1rem;
     }
 
-    .stat-bar span { color: var(--text-secondary); }
+    .stat-bar span { color: var(--text-muted); }
     
     .bar-fill {
       width: 100px;
       height: 12px;
-      background: var(--bg-card);
-      border: 2px solid var(--purple-main);
+      background: var(--bg-card-hover);
+      border: 2px solid var(--purple);
       border-radius: 2px;
       position: relative;
       overflow: hidden;
     }
     
-    .bar-fill.hp { background: linear-gradient(90deg, var(--cherry-main), var(--cherry-light)); }
-    .bar-fill.exp { background: linear-gradient(90deg, var(--blue-accent), var(--purple-light)); }
+    .bar-fill.hp { background: linear-gradient(90deg, var(--cherry), #ef4444); }
+    .bar-fill.exp { background: linear-gradient(90deg, var(--blue), #a855f7); }
 
     .hero-tags {
       display: flex;
       justify-content: center;
-      gap: 0.5rem;
+      gap: var(--spacing-xs);
       flex-wrap: wrap;
-      margin: 1.5rem 0;
+      margin: var(--spacing-lg) 0;
     }
 
     .tag {
       background: rgba(124, 58, 237, 0.2);
-      border: 2px solid var(--purple-light);
+      border: 2px solid var(--purple);
       padding: 0.3rem 0.8rem;
-      border-radius: 4px;
-      font-family: 'VT323', monospace;
+      border-radius: var(--border-radius);
+      font-family: var(--font-title);
       font-size: 0.9rem;
-      color: var(--purple-light);
+      color: var(--purple);
     }
 
     .tag.rare {
-      border-color: var(--yellow-accent);
-      color: var(--yellow-accent);
+      border-color: var(--yellow);
+      color: var(--yellow);
       background: rgba(251, 191, 36, 0.15);
     }
 
     .cta-buttons {
       display: flex;
       justify-content: center;
-      gap: 1rem;
+      gap: var(--spacing-md);
       flex-wrap: wrap;
-      margin-top: 1rem;
+      margin-top: var(--spacing-md);
     }
 
     .btn {
       padding: 0.8rem 1.5rem;
       border: none;
-      border-radius: 4px;
-      font-family: 'VT323', monospace;
+      border-radius: var(--border-radius);
+      font-family: var(--font-title);
       font-size: 1.1rem;
       font-weight: normal;
       cursor: pointer;
@@ -257,54 +330,56 @@
     .btn:hover::after { left: 100%; }
 
     .btn-primary {
-      background: var(--purple-main);
+      background: var(--purple);
       color: white;
-      border: 2px solid var(--purple-light);
+      border: 2px solid #a855f7;
     }
     .btn-primary:hover {
-      background: var(--purple-light);
+      background: #a855f7;
       box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
     }
 
     .btn-secondary {
       background: transparent;
-      border: 2px solid var(--cherry-main);
-      color: var(--cherry-light);
+      border: 2px solid var(--cherry);
+      color: #ef4444;
     }
     .btn-secondary:hover {
       background: rgba(220, 38, 38, 0.1);
-      color: var(--cherry-main);
+      color: var(--cherry);
     }
 
-    /* Sections */
+    /* ========================================
+       SECTIONS
+       ======================================== */
     section {
-      padding: 3rem 2rem;
+      padding: calc(var(--spacing-xl) + var(--spacing-md)) var(--spacing-lg);
       max-width: 1200px;
       margin: 0 auto;
     }
 
     .section-title {
-      font-family: 'VT323', monospace;
+      font-family: var(--font-title);
       font-size: 1.8rem;
-      color: var(--cherry-light);
-      margin-bottom: 2rem;
+      color: #ef4444;
+      margin-bottom: var(--spacing-xl);
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      text-shadow: 1px 1px 0 var(--purple-main);
+      gap: var(--spacing-xs);
+      text-shadow: 1px 1px 0 var(--purple);
     }
 
     .section-title::before {
       content: "◆";
-      color: var(--yellow-accent);
+      color: var(--yellow);
     }
 
     /* Pokemon-Style Card */
     .project-card {
       background: var(--bg-card);
-      border: var(--border-pixel);
+      border: var(--border-width) solid var(--purple);
       border-radius: 8px;
-      padding: 1.5rem;
+      padding: var(--spacing-lg);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       position: relative;
     }
@@ -313,7 +388,7 @@
       content: "";
       position: absolute;
       top: 4px; left: 4px; right: 4px; bottom: 4px;
-      border: 1px solid var(--cherry-main);
+      border: 1px solid var(--cherry);
       border-radius: 6px;
       pointer-events: none;
       opacity: 0.3;
@@ -322,58 +397,58 @@
     .project-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 8px 25px rgba(124, 58, 237, 0.2);
-      border-color: var(--yellow-accent);
+      border-color: var(--yellow);
     }
 
     .project-card h3 {
-      color: var(--purple-light);
-      margin-bottom: 0.5rem;
+      color: var(--purple);
+      margin-bottom: var(--spacing-xs);
       font-size: 1.2rem;
-      font-family: 'VT323', monospace;
+      font-family: var(--font-title);
     }
 
     .project-card p {
-      color: var(--text-secondary);
+      color: var(--text-muted);
       font-size: 0.95rem;
-      margin-bottom: 1rem;
+      margin-bottom: var(--spacing-md);
     }
 
     .project-tech {
       display: flex;
-      gap: 0.5rem;
+      gap: var(--spacing-xs);
       flex-wrap: wrap;
-      margin-bottom: 1rem;
+      margin-bottom: var(--spacing-md);
     }
 
     .project-tech span {
       background: rgba(220, 38, 38, 0.15);
-      color: var(--cherry-light);
-      border: 1px solid var(--cherry-main);
+      color: #ef4444;
+      border: 1px solid var(--cherry);
       padding: 0.2rem 0.6rem;
       border-radius: 3px;
-      font-family: 'VT323', monospace;
+      font-family: var(--font-title);
       font-size: 0.8rem;
     }
 
     .project-links a {
-      color: var(--terminal-green);
+      color: var(--green);
       text-decoration: none;
-      font-family: 'VT323', monospace;
+      font-family: var(--font-title);
       font-size: 0.95rem;
-      margin-right: 1rem;
+      margin-right: var(--spacing-md);
     }
     .project-links a:hover { 
-      color: var(--yellow-accent);
+      color: var(--yellow);
       text-decoration: underline;
     }
 
     /* Featured Badge - Pokemon Style */
     .badge-featured {
       display: inline-block;
-      background: linear-gradient(135deg, var(--yellow-accent), #f59e0b);
+      background: linear-gradient(135deg, var(--yellow), #f59e0b);
       color: #000;
       padding: 0.2rem 0.7rem;
-      font-family: 'VT323', monospace;
+      font-family: var(--font-title);
       font-size: 0.85rem;
       border-radius: 3px;
       margin-bottom: 0.8rem;
@@ -384,83 +459,83 @@
     /* CV Section */
     .cv-container {
       background: var(--bg-card);
-      border: var(--border-pixel);
+      border: var(--border-width) solid var(--purple);
       border-radius: 8px;
-      padding: 2rem;
+      padding: var(--spacing-xl);
     }
 
-    .cv-section { margin-bottom: 2rem; }
+    .cv-section { margin-bottom: var(--spacing-xl); }
 
     .cv-section h4 {
-      color: var(--purple-light);
-      margin-bottom: 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px dashed var(--purple-main);
-      font-family: 'VT323', monospace;
+      color: var(--purple);
+      margin-bottom: var(--spacing-md);
+      padding-bottom: var(--spacing-xs);
+      border-bottom: 2px dashed var(--purple);
+      font-family: var(--font-title);
       font-size: 1.3rem;
     }
 
     .cv-item {
-      margin-bottom: 1.5rem;
-      padding: 1rem;
-      padding-left: 1.5rem;
-      border-left: 3px solid var(--cherry-main);
+      margin-bottom: var(--spacing-lg);
+      padding: var(--spacing-md);
+      padding-left: calc(var(--spacing-md) + 0.5rem);
+      border-left: 3px solid var(--cherry);
       background: rgba(17, 24, 39, 0.5);
       border-radius: 0 4px 4px 0;
     }
 
     .cv-item h5 { 
-      color: var(--text-primary); 
+      color: var(--text); 
       margin-bottom: 0.3rem;
-      font-family: 'VT323', monospace;
+      font-family: var(--font-title);
       font-size: 1.1rem;
     }
     .cv-item .meta { 
-      color: var(--text-secondary); 
+      color: var(--text-muted); 
       font-size: 0.9rem; 
       margin-bottom: 0.5rem;
-      font-family: 'Fira Code', monospace;
+      font-family: var(--font-body);
     }
     .cv-item ul { 
-      padding-left: 1.5rem; 
-      color: var(--text-secondary); 
+      padding-left: var(--spacing-lg); 
+      color: var(--text-muted); 
       font-size: 0.95rem;
     }
     .cv-item li { margin-bottom: 0.3rem; }
 
     /* Blog Section */
-    .blog-posts { display: flex; flex-direction: column; gap: 1.5rem; }
+    .blog-posts { display: flex; flex-direction: column; gap: var(--spacing-lg); }
 
     .blog-post {
       background: var(--bg-card);
-      border-left: 4px solid var(--purple-light);
-      padding: 1.5rem;
+      border-left: 4px solid var(--purple);
+      padding: var(--spacing-lg);
       border-radius: 0 8px 8px 0;
-      border: 2px solid var(--purple-main);
+      border: 2px solid var(--purple);
     }
 
     .blog-post h3 {
-      color: var(--cherry-light);
-      margin-bottom: 0.5rem;
-      font-family: 'VT323', monospace;
+      color: #ef4444;
+      margin-bottom: var(--spacing-xs);
+      font-family: var(--font-title);
       font-size: 1.2rem;
     }
 
     .blog-post .date {
-      color: var(--text-secondary);
+      color: var(--text-muted);
       font-size: 0.85rem;
-      margin-bottom: 1rem;
+      margin-bottom: var(--spacing-md);
       display: block;
-      font-family: 'Fira Code', monospace;
+      font-family: var(--font-body);
     }
 
     .blog-post a {
-      color: var(--terminal-green);
+      color: var(--green);
       text-decoration: none;
-      font-family: 'VT323', monospace;
+      font-family: var(--font-title);
     }
     .blog-post a:hover { 
-      color: var(--yellow-accent);
+      color: var(--yellow);
       text-decoration: underline;
     }
 
@@ -468,27 +543,27 @@
     .contact-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
+      gap: var(--spacing-xl);
     }
 
     .contact-info {
       background: var(--bg-card);
-      border: var(--border-pixel);
+      border: var(--border-width) solid var(--purple);
       border-radius: 8px;
-      padding: 1.5rem;
+      padding: var(--spacing-lg);
     }
 
     .contact-info p {
-      margin-bottom: 1rem;
-      color: var(--text-secondary);
+      margin-bottom: var(--spacing-md);
+      color: var(--text-muted);
     }
 
     .contact-info a {
-      color: var(--purple-light);
+      color: var(--purple);
       text-decoration: none;
     }
     .contact-info a:hover { 
-      color: var(--yellow-accent);
+      color: var(--yellow);
       text-decoration: underline;
     }
 
@@ -496,12 +571,12 @@
     .contact-form textarea {
       width: 100%;
       padding: 0.8rem;
-      margin-bottom: 1rem;
-      background: var(--bg-secondary);
-      border: 2px solid var(--purple-main);
-      border-radius: 4px;
-      color: var(--text-primary);
-      font-family: 'Fira Code', monospace;
+      margin-bottom: var(--spacing-md);
+      background: var(--bg-card);
+      border: 2px solid var(--purple);
+      border-radius: var(--border-radius);
+      color: var(--text);
+      font-family: var(--font-body);
       font-size: 0.95rem;
       transition: border-color 0.2s ease;
     }
@@ -509,7 +584,7 @@
     .contact-form input:focus,
     .contact-form textarea:focus {
       outline: none;
-      border-color: var(--yellow-accent);
+      border-color: var(--yellow);
       box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
     }
 
@@ -517,40 +592,40 @@
 
     /* Footer */
     footer {
-      background: var(--bg-secondary);
-      border-top: 2px solid var(--purple-main);
-      padding: 2rem;
+      background: var(--bg-card);
+      border-top: 2px solid var(--purple);
+      padding: var(--spacing-xl);
       text-align: center;
-      color: var(--text-secondary);
+      color: var(--text-muted);
       font-size: 0.9rem;
-      font-family: 'Fira Code', monospace;
+      font-family: var(--font-body);
     }
 
-    footer a { color: var(--purple-light); text-decoration: none; }
-    footer a:hover { color: var(--yellow-accent); text-decoration: underline; }
+    footer a { color: var(--purple); text-decoration: none; }
+    footer a:hover { color: var(--yellow); text-decoration: underline; }
 
     /* Pixel Divider */
     .pixel-divider {
       height: 6px;
       background: repeating-linear-gradient(
         90deg,
-        var(--purple-main) 0px,
-        var(--purple-main) 8px,
-        var(--cherry-main) 8px,
-        var(--cherry-main) 16px,
-        var(--yellow-accent) 16px,
-        var(--yellow-accent) 24px
+        var(--purple) 0px,
+        var(--purple) 8px,
+        var(--cherry) 8px,
+        var(--cherry) 16px,
+        var(--yellow) 16px,
+        var(--yellow) 24px
       );
-      margin: 2rem 0;
+      margin: var(--spacing-xl) 0;
       border-radius: 2px;
-      border: 2px solid var(--bg-primary);
+      border: 2px solid var(--bg);
     }
 
     /* Retro Console Prompt */
     .console-prompt {
-      font-family: 'VT323', monospace;
-      color: var(--terminal-green);
-      margin-bottom: 0.5rem;
+      font-family: var(--font-title);
+      color: var(--green);
+      margin-bottom: var(--spacing-xs);
     }
 
     /* Mobile Responsive */
@@ -561,17 +636,8 @@
       .hero h1 { font-size: 1.5rem; }
       .hero-avatar { width: 60px; height: 60px; font-size: 1.5rem; }
       .section-title { font-size: 1.4rem; }
-      .rpg-stats { gap: 1rem; }
+      .rpg-stats { gap: var(--spacing-md); }
       .bar-fill { width: 70px; }
-    }
-
-    /* Accessibility */
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition: none !important;
-      }
     }
 
     /* Subtle hover effects only - no blinking */
@@ -581,6 +647,8 @@
   </style>
 </head>
 <body>
+  <!-- Scanline overlay for retro effect -->
+  <div class="scanlines" aria-hidden="true"></div>
 
   <!-- Header / Terminal Bar -->
   <header>
@@ -607,11 +675,11 @@
     <!-- RPG Stats Bar -->
     <div class="rpg-stats">
       <div class="stat-bar">
-        <span style="color:var(--cherry-light)">HP:</span>
+        <span style="color:#ef4444">HP:</span>
         <div class="bar-fill hp" style="width:85%"></div>
       </div>
       <div class="stat-bar">
-        <span style="color:var(--blue-accent)">EXP:</span>
+        <span style="color:var(--blue)">EXP:</span>
         <div class="bar-fill exp" style="width:70%"></div>
       </div>
     </div>
@@ -627,6 +695,42 @@
     <div class="cta-buttons">
       <a href="#cv" class="btn btn-primary">▶ view_cv.sh</a>
       <a href="#contact" class="btn btn-secondary">▶ contact --freelance</a>
+    </div>
+  </section>
+
+  <div class="pixel-divider"></div>
+
+  <!-- Skills Pokédex Section -->
+  <section id="skills">
+    <h2 class="section-title">◆ ./skills.dex</h2>
+    
+    <!-- Skills Legend -->
+    <div class="skills-legend" role="list" aria-label="Skills status legend" style="display:flex;gap:1rem;margin-bottom:1.5rem;font-size:0.85rem;flex-wrap:wrap;">
+      <div class="legend-item" role="listitem" style="display:flex;align-items:center;gap:0.25rem;color:var(--text-muted);">
+        <span class="legend-dot seen" aria-hidden="true" style="width:12px;height:12px;border-radius:50%;background-color:var(--text-muted);opacity:0.5;"></span>
+        <span>Seen</span>
+      </div>
+      <div class="legend-item" role="listitem" style="display:flex;align-items:center;gap:0.25rem;color:var(--text-muted);">
+        <span class="legend-dot studied" aria-hidden="true" style="width:12px;height:12px;border-radius:50%;background-color:var(--blue);"></span>
+        <span>Studied</span>
+      </div>
+      <div class="legend-item" role="listitem" style="display:flex;align-items:center;gap:0.25rem;color:var(--text-muted);">
+        <span class="legend-dot active" aria-hidden="true" style="width:12px;height:12px;border-radius:50%;background-color:var(--green);position:relative;"></span>
+        <span>Active</span>
+      </div>
+    </div>
+
+    <!-- Captured Skills (Main Skills) -->
+    <div id="captured-skills" class="captured-skills" aria-label="Main skills showcase" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-bottom:2rem;">
+      <!-- Dynamically rendered via JS -->
+    </div>
+
+    <!-- All Skills List -->
+    <div class="all-skills">
+      <h3 class="section-header" style="font-family:var(--font-title);font-size:1.2rem;color:var(--yellow);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:2px dashed var(--border);">&gt; all.skills</h3>
+      <div id="all-skills" class="skills-list" aria-label="Complete skills list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.75rem;">
+        <!-- Dynamically rendered via JS -->
+      </div>
     </div>
   </section>
 
@@ -909,6 +1013,463 @@
     console.log('%c> welcome to sophia@qa-terminal', 'color: #7c3aed; font-weight: bold; font-family: monospace; font-size: 14px;');
     console.log('%c> type: help', 'color: #9ca3af; font-family: monospace;');
     console.log('%c> available: [projects] [cv] [blog] [contact]', 'color: #dc2626; font-family: monospace;');
+
+    /**
+     * ========================================
+     * SKILLS DATA - POKÉDEX STYLE
+     * Customize your skills here!
+     * ========================================
+     * 
+     * HOW TO CUSTOMIZE:
+     * 
+     * 1. Add a new skill:
+     *    - Copy any existing skill object
+     *    - Modify the properties (name, type, level, state, moveset, icon)
+     *    - Add it to the skills array
+     * 
+     * 2. Adjust skill level:
+     *    - Change the 'level' property (1 year ≈ 1 level, max 15)
+     *    - The progress bar will update automatically
+     * 
+     * 3. Change skill state:
+     *    - 'seen': You've heard of it (opacity 0.5)
+     *    - 'studied': You've taken a course/trained (bold with blue border)
+     *    - 'active': You use it daily (shows Pokéball icon)
+     * 
+     * 4. Change main skills:
+     *    - Set 'isMain: true' for skills you want in the "Captured Pokémon" section
+     *    - Only 6 main skills will be shown in the top section
+     */
+    
+    const skillsData = [
+      // === MAIN SKILLS (Captured Pokémon) ===
+      {
+        id: 1,
+        name: "Test Automation",
+        type: "QA Engineering",
+        level: 10,
+        state: "active",
+        isMain: true,
+        icon: "🤖",
+        moveset: ["Appium", "Selenium", "Cucumber", "Jenkins"]
+      },
+      {
+        id: 2,
+        name: "AI/LLMs",
+        type: "AI Engineering",
+        level: 8,
+        state: "active",
+        isMain: true,
+        icon: "🧠",
+        moveset: ["Ollama", "CrewAI", "Prompt Eng.", "n8n"]
+      },
+      {
+        id: 3,
+        name: "DevSecOps",
+        type: "DevOps",
+        level: 7,
+        state: "active",
+        isMain: true,
+        icon: "🔐",
+        moveset: ["SonarQube", "MobSF", "SDAT", "Shift-Left"]
+      },
+      {
+        id: 4,
+        name: "Python",
+        type: "Backend/AI",
+        level: 6,
+        state: "active",
+        isMain: true,
+        icon: "🐍",
+        moveset: ["Scripting", "Automation", "FastAPI", "Data Analysis"]
+      },
+      {
+        id: 5,
+        name: "Ruby",
+        type: "Backend",
+        level: 8,
+        state: "active",
+        isMain: true,
+        icon: "💎",
+        moveset: ["RSpec", "Capybara", "Rails", "Gems"]
+      },
+      {
+        id: 6,
+        name: "Embedded Systems",
+        type: "Hardware",
+        level: 5,
+        state: "studied",
+        isMain: true,
+        icon: "🔌",
+        moveset: ["Bluetooth", "IoT", "Arduino", "Prototyping"]
+      },
+
+      // === SECONDARY SKILLS ===
+      {
+        id: 7,
+        name: "Java",
+        type: "Backend",
+        level: 6,
+        state: "active",
+        isMain: false,
+        icon: "☕",
+        moveset: ["Spring Boot", "JUnit", "Maven", "Gradle"]
+      },
+      {
+        id: 8,
+        name: "Docker",
+        type: "DevOps",
+        level: 6,
+        state: "active",
+        isMain: false,
+        icon: "🐳",
+        moveset: ["Containers", "Docker Compose", "Images", "Networking"]
+      },
+      {
+        id: 9,
+        name: "SQL",
+        type: "Database",
+        level: 7,
+        state: "active",
+        isMain: false,
+        icon: "📊",
+        moveset: ["PostgreSQL", "MySQL", "Query Optimization", "Indexes"]
+      },
+      {
+        id: 10,
+        name: "JavaScript",
+        type: "Frontend",
+        level: 5,
+        state: "studied",
+        isMain: false,
+        icon: "🟨",
+        moveset: ["ES6+", "Node.js", "DOM", "Async/Await"]
+      },
+      {
+        id: 11,
+        name: "Git",
+        type: "Tools",
+        level: 8,
+        state: "active",
+        isMain: false,
+        icon: "📦",
+        moveset: ["Branching", "Rebase", "Hooks", "CI/CD"]
+      },
+      {
+        id: 12,
+        name: "Agile/Scrum",
+        type: "Methodology",
+        level: 9,
+        state: "active",
+        isMain: false,
+        icon: "📋",
+        moveset: ["Sprint Planning", "Retrospectives", "User Stories", "Kanban"]
+      },
+      {
+        id: 13,
+        name: "Computer Vision",
+        type: "AI/Research",
+        level: 3,
+        state: "studied",
+        isMain: false,
+        icon: "👁️",
+        moveset: ["OpenCV", "Object Tracking", "AR", "Research"]
+      },
+      {
+        id: 14,
+        name: "Kubernetes",
+        type: "DevOps",
+        level: 2,
+        state: "seen",
+        isMain: false,
+        icon: "☸️",
+        moveset: ["Pods", "Services", "Deployments"]
+      },
+      {
+        id: 15,
+        name: "AWS",
+        type: "Cloud",
+        level: 4,
+        state: "studied",
+        isMain: false,
+        icon: "☁️",
+        moveset: ["EC2", "S3", "Lambda", "RDS"]
+      }
+    ];
+
+    /**
+     * Calculate level percentage for progress bar
+     * @param {number} level - Current skill level (1-15)
+     * @returns {number} - Percentage value (0-100)
+     */
+    function calculateLevelPercentage(level) {
+      const maxLevel = 15;
+      return Math.min((level / maxLevel) * 100, 100);
+    }
+
+    /**
+     * Render captured skills (main skills showcase)
+     */
+    function renderCapturedSkills() {
+      const container = document.getElementById('captured-skills');
+      if (!container) return;
+
+      const mainSkills = skillsData.filter(skill => skill.isMain).slice(0, 6);
+
+      if (mainSkills.length === 0) {
+        container.innerHTML = '<p style="color: var(--text-muted); text-align: center;">No main skills configured</p>';
+        return;
+      }
+
+      container.innerHTML = mainSkills.map(skill => `
+        <article class="skill-card" 
+                 tabindex="0" 
+                 role="button"
+                 aria-label="${skill.name} - Level ${skill.level} ${skill.type} specialist">
+          <div class="skill-card-header">
+            <div class="skill-icon" aria-hidden="true">${skill.icon}</div>
+            <div>
+              <h3 class="skill-name">${skill.name}</h3>
+              <p class="skill-type">${skill.type}</p>
+            </div>
+          </div>
+          
+          <div class="level-container">
+            <div class="level-label">
+              <span>Level</span>
+              <span>Lv.${skill.level}/15</span>
+            </div>
+            <div class="level-bar" role="progressbar" 
+                 aria-valuenow="${skill.level}" 
+                 aria-valuemin="0" 
+                 aria-valuemax="15"
+                 aria-label="${skill.name} proficiency level">
+              <div class="level-fill" style="width: ${calculateLevelPercentage(skill.level)}%"></div>
+            </div>
+          </div>
+          
+          <div class="moveset">
+            <p class="moveset-label">Moveset:</p>
+            <div class="moveset-list">
+              ${skill.moveset.map(move => `<span class="move-tag">${move}</span>`).join('')}
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    /**
+     * Render all skills list with state indicators
+     */
+    function renderAllSkills() {
+      const container = document.getElementById('all-skills');
+      if (!container) return;
+
+      const statePriority = { active: 0, studied: 1, seen: 2 };
+      const sortedSkills = [...skillsData].sort((a, b) => statePriority[a.state] - statePriority[b.state]);
+
+      container.innerHTML = sortedSkills.map(skill => {
+        let stateClass = '';
+        let stateStyle = '';
+        
+        if (skill.state === 'seen') {
+          stateClass = 'skill-seen';
+          stateStyle = 'opacity: 0.5; color: var(--text-muted);';
+        } else if (skill.state === 'studied') {
+          stateClass = 'skill-studied';
+          stateStyle = 'font-weight: 600; color: var(--blue); border-bottom: 2px solid var(--blue);';
+        } else if (skill.state === 'active') {
+          stateClass = 'skill-active';
+          stateStyle = 'position: relative; padding-left: 1.5rem;';
+        }
+
+        return `
+          <div class="skill-entry ${stateClass}" 
+               style="${stateStyle}"
+               role="listitem"
+               aria-label="${skill.name} - ${skill.state}">
+            ${skill.state === 'active' ? '<span class="pokeball-indicator" aria-hidden="true"></span>' : ''}
+            ${skill.name}
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Initialize skills rendering
+    renderCapturedSkills();
+    renderAllSkills();
+
+    /**
+     * ========================================
+     * CSS FOR SKILLS SECTION
+     * Injected dynamically for Pokédex styling
+     * ========================================
+     */
+    const skillStyles = document.createElement('style');
+    skillStyles.textContent = `
+      /* Skill Card Styles */
+      .skill-card {
+        background-color: var(--bg-card-hover);
+        border: 2px solid var(--border);
+        border-radius: var(--border-radius);
+        padding: var(--spacing-md);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        cursor: pointer;
+      }
+      
+      .skill-card:hover,
+      .skill-card:focus {
+        transform: scale(1.02);
+        box-shadow: 0 0 15px rgba(124, 58, 237, 0.3);
+        border-color: var(--purple);
+        outline: none;
+      }
+      
+      .skill-card-header {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-sm);
+      }
+      
+      .skill-icon {
+        font-size: 2rem;
+        flex-shrink: 0;
+      }
+      
+      .skill-name {
+        font-family: var(--font-title);
+        font-size: 1.2rem;
+        color: var(--text);
+        margin: 0;
+      }
+      
+      .skill-type {
+        font-family: var(--font-body);
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin: 0;
+      }
+      
+      /* Level Bar */
+      .level-container {
+        margin-bottom: var(--spacing-sm);
+      }
+      
+      .level-label {
+        display: flex;
+        justify-content: space-between;
+        font-family: var(--font-title);
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-bottom: 0.25rem;
+      }
+      
+      .level-bar {
+        width: 100%;
+        height: 16px;
+        background: var(--bg-card);
+        border: 2px solid var(--border);
+        border-radius: 2px;
+        overflow: hidden;
+        position: relative;
+      }
+      
+      .level-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--purple), var(--blue));
+        transition: width 0.3s ease;
+      }
+      
+      /* Moveset */
+      .moveset {
+        margin-top: var(--spacing-sm);
+      }
+      
+      .moveset-label {
+        font-family: var(--font-title);
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-bottom: 0.25rem;
+      }
+      
+      .moveset-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+      }
+      
+      .move-tag {
+        background: rgba(124, 58, 237, 0.2);
+        color: var(--purple);
+        border: 1px solid var(--purple);
+        padding: 0.2rem 0.5rem;
+        border-radius: 3px;
+        font-family: var(--font-title);
+        font-size: 0.75rem;
+      }
+      
+      /* Skill Entry States */
+      .skill-entry {
+        padding: 0.5rem;
+        border-radius: var(--border-radius);
+        font-family: var(--font-body);
+        font-size: 0.95rem;
+      }
+      
+      .skill-seen {
+        opacity: 0.5;
+        color: var(--text-muted);
+      }
+      
+      .skill-studied {
+        font-weight: 600;
+        color: var(--blue);
+        border-bottom: 2px solid var(--blue);
+      }
+      
+      .skill-active {
+        position: relative;
+        padding-left: 1.5rem;
+      }
+      
+      /* Pokéball Indicator */
+      .pokeball-indicator {
+        position: absolute;
+        left: var(--spacing-sm);
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        background: radial-gradient(
+          circle at 30% 30%,
+          var(--cherry) 0%,
+          var(--cherry) 45%,
+          var(--text) 45%,
+          var(--text) 55%,
+          var(--cherry) 55%,
+          var(--cherry) 100%
+        );
+        border: 2px solid var(--text);
+        border-radius: 50%;
+      }
+      
+      /* Responsive adjustments */
+      @media (max-width: 640px) {
+        .captured-skills {
+          grid-template-columns: 1fr;
+        }
+        
+        .skills-list {
+          grid-template-columns: 1fr;
+        }
+        
+        .skills-legend {
+          justify-content: center;
+        }
+      }
+    `;
+    document.head.appendChild(skillStyles);
   </script>
 </body>
 </html>
