@@ -1,25 +1,914 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Space Shooter Pro</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
-    <script src="TemplateData/UnityProgress.js"></script>
-    <script src="Build/UnityLoader.js"></script>
-    <script>
-      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/btfshadow.github.io.json", {onProgress: UnityProgress});
-    </script>
-  </head>
-  <body>
-    <div class="webgl-content">
-      <div id="unityContainer" style="width: 960px; height: 600px"></div>
-      <div class="footer">
-        <div class="webgl-logo"></div>
-        <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
-        <div class="title">Space Shooter Pro</div>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sophia Simões | QA Engineer • AI • Terminal RPG Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=VT323&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #111827;
+      --bg-card: #1a1a2e;
+      --purple-main: #7c3aed;
+      --purple-light: #a855f7;
+      --cherry-main: #dc2626;
+      --cherry-light: #ef4444;
+      --yellow-accent: #fbbf24;
+      --blue-accent: #3b82f6;
+      --text-primary: #f3f4f6;
+      --text-secondary: #9ca3af;
+      --terminal-green: #22c55e;
+      --border-pixel: 3px solid var(--purple-main);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Fira Code', monospace;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(220, 38, 38, 0.05) 0%, transparent 20%);
+    }
+
+    /* Subtle Scanline - menos intrusivo */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(10, 10, 15, 0.15) 2px,
+        rgba(10, 10, 15, 0.15) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.2;
+    }
+
+    /* Pixel Border Style */
+    .pixel-border {
+      position: relative;
+      border: var(--border-pixel);
+      border-radius: 4px;
+    }
+    .pixel-border::before {
+      content: "";
+      position: absolute;
+      top: -3px; left: -3px; right: -3px; bottom: -3px;
+      border: 2px solid var(--cherry-main);
+      border-radius: 6px;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    /* Header / Terminal Bar */
+    header {
+      background: var(--bg-secondary);
+      border-bottom: var(--border-pixel);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .terminal-prompt {
+      color: var(--terminal-green);
+      font-weight: 500;
+      font-family: 'VT323', monospace;
+      font-size: 1.1rem;
+    }
+
+    .terminal-prompt span { color: var(--purple-light); }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: var(--text-primary);
+      text-decoration: none;
+      padding: 0.4rem 0.9rem;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      font-family: 'VT323', monospace;
+      font-size: 1.1rem;
+      position: relative;
+    }
+
+    nav a:hover, nav a.active {
+      border-color: var(--yellow-accent);
+      background: rgba(251, 191, 36, 0.1);
+      color: var(--yellow-accent);
+    }
+
+    nav a::before { 
+      content: "▶ "; 
+      color: var(--purple-light);
+      font-size: 0.9rem;
+    }
+
+    /* Hero Section - Pokemon Style */
+    .hero {
+      padding: 4rem 2rem;
+      text-align: center;
+      background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+      border-bottom: 2px dashed var(--purple-main);
+      position: relative;
+    }
+
+    /* Avatar Placeholder - Pixel Style */
+    .hero-avatar {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      background: linear-gradient(135deg, var(--purple-main), var(--cherry-main));
+      border: 3px solid var(--yellow-accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'VT323', monospace;
+      font-size: 2rem;
+      color: white;
+      box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+    }
+
+    .hero h1 {
+      font-family: 'VT323', monospace;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--purple-light);
+      text-shadow: 2px 2px 0 var(--cherry-main);
+      letter-spacing: 1px;
+    }
+
+    .hero-subtitle {
+      font-family: 'Fira Code', monospace;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    /* RPG Stats Bar */
+    .rpg-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+
+    .stat-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'VT323', monospace;
+      font-size: 1rem;
+    }
+
+    .stat-bar span { color: var(--text-secondary); }
+    
+    .bar-fill {
+      width: 100px;
+      height: 12px;
+      background: var(--bg-card);
+      border: 2px solid var(--purple-main);
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .bar-fill.hp { background: linear-gradient(90deg, var(--cherry-main), var(--cherry-light)); }
+    .bar-fill.exp { background: linear-gradient(90deg, var(--blue-accent), var(--purple-light)); }
+
+    .hero-tags {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin: 1.5rem 0;
+    }
+
+    .tag {
+      background: rgba(124, 58, 237, 0.2);
+      border: 2px solid var(--purple-light);
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      font-family: 'VT323', monospace;
+      font-size: 0.9rem;
+      color: var(--purple-light);
+    }
+
+    .tag.rare {
+      border-color: var(--yellow-accent);
+      color: var(--yellow-accent);
+      background: rgba(251, 191, 36, 0.15);
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .btn {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      font-family: 'VT323', monospace;
+      font-size: 1.1rem;
+      font-weight: normal;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.3s ease;
+    }
+    .btn:hover::after { left: 100%; }
+
+    .btn-primary {
+      background: var(--purple-main);
+      color: white;
+      border: 2px solid var(--purple-light);
+    }
+    .btn-primary:hover {
+      background: var(--purple-light);
+      box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid var(--cherry-main);
+      color: var(--cherry-light);
+    }
+    .btn-secondary:hover {
+      background: rgba(220, 38, 38, 0.1);
+      color: var(--cherry-main);
+    }
+
+    /* Sections */
+    section {
+      padding: 3rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: 'VT323', monospace;
+      font-size: 1.8rem;
+      color: var(--cherry-light);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-shadow: 1px 1px 0 var(--purple-main);
+    }
+
+    .section-title::before {
+      content: "◆";
+      color: var(--yellow-accent);
+    }
+
+    /* Pokemon-Style Card */
+    .project-card {
+      background: var(--bg-card);
+      border: var(--border-pixel);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      top: 4px; left: 4px; right: 4px; bottom: 4px;
+      border: 1px solid var(--cherry-main);
+      border-radius: 6px;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    .project-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(124, 58, 237, 0.2);
+      border-color: var(--yellow-accent);
+    }
+
+    .project-card h3 {
+      color: var(--purple-light);
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+      font-family: 'VT323', monospace;
+    }
+
+    .project-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-tech {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .project-tech span {
+      background: rgba(220, 38, 38, 0.15);
+      color: var(--cherry-light);
+      border: 1px solid var(--cherry-main);
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+      font-family: 'VT323', monospace;
+      font-size: 0.8rem;
+    }
+
+    .project-links a {
+      color: var(--terminal-green);
+      text-decoration: none;
+      font-family: 'VT323', monospace;
+      font-size: 0.95rem;
+      margin-right: 1rem;
+    }
+    .project-links a:hover { 
+      color: var(--yellow-accent);
+      text-decoration: underline;
+    }
+
+    /* Featured Badge - Pokemon Style */
+    .badge-featured {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--yellow-accent), #f59e0b);
+      color: #000;
+      padding: 0.2rem 0.7rem;
+      font-family: 'VT323', monospace;
+      font-size: 0.85rem;
+      border-radius: 3px;
+      margin-bottom: 0.8rem;
+      border: 2px solid #000;
+      font-weight: bold;
+    }
+
+    /* CV Section */
+    .cv-container {
+      background: var(--bg-card);
+      border: var(--border-pixel);
+      border-radius: 8px;
+      padding: 2rem;
+    }
+
+    .cv-section { margin-bottom: 2rem; }
+
+    .cv-section h4 {
+      color: var(--purple-light);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px dashed var(--purple-main);
+      font-family: 'VT323', monospace;
+      font-size: 1.3rem;
+    }
+
+    .cv-item {
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      padding-left: 1.5rem;
+      border-left: 3px solid var(--cherry-main);
+      background: rgba(17, 24, 39, 0.5);
+      border-radius: 0 4px 4px 0;
+    }
+
+    .cv-item h5 { 
+      color: var(--text-primary); 
+      margin-bottom: 0.3rem;
+      font-family: 'VT323', monospace;
+      font-size: 1.1rem;
+    }
+    .cv-item .meta { 
+      color: var(--text-secondary); 
+      font-size: 0.9rem; 
+      margin-bottom: 0.5rem;
+      font-family: 'Fira Code', monospace;
+    }
+    .cv-item ul { 
+      padding-left: 1.5rem; 
+      color: var(--text-secondary); 
+      font-size: 0.95rem;
+    }
+    .cv-item li { margin-bottom: 0.3rem; }
+
+    /* Blog Section */
+    .blog-posts { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .blog-post {
+      background: var(--bg-card);
+      border-left: 4px solid var(--purple-light);
+      padding: 1.5rem;
+      border-radius: 0 8px 8px 0;
+      border: 2px solid var(--purple-main);
+    }
+
+    .blog-post h3 {
+      color: var(--cherry-light);
+      margin-bottom: 0.5rem;
+      font-family: 'VT323', monospace;
+      font-size: 1.2rem;
+    }
+
+    .blog-post .date {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      display: block;
+      font-family: 'Fira Code', monospace;
+    }
+
+    .blog-post a {
+      color: var(--terminal-green);
+      text-decoration: none;
+      font-family: 'VT323', monospace;
+    }
+    .blog-post a:hover { 
+      color: var(--yellow-accent);
+      text-decoration: underline;
+    }
+
+    /* Contact Section */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .contact-info {
+      background: var(--bg-card);
+      border: var(--border-pixel);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .contact-info p {
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+    }
+
+    .contact-info a {
+      color: var(--purple-light);
+      text-decoration: none;
+    }
+    .contact-info a:hover { 
+      color: var(--yellow-accent);
+      text-decoration: underline;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      background: var(--bg-secondary);
+      border: 2px solid var(--purple-main);
+      border-radius: 4px;
+      color: var(--text-primary);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.95rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--yellow-accent);
+      box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+    }
+
+    .contact-form textarea { min-height: 120px; resize: vertical; }
+
+    /* Footer */
+    footer {
+      background: var(--bg-secondary);
+      border-top: 2px solid var(--purple-main);
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-family: 'Fira Code', monospace;
+    }
+
+    footer a { color: var(--purple-light); text-decoration: none; }
+    footer a:hover { color: var(--yellow-accent); text-decoration: underline; }
+
+    /* Pixel Divider */
+    .pixel-divider {
+      height: 6px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--purple-main) 0px,
+        var(--purple-main) 8px,
+        var(--cherry-main) 8px,
+        var(--cherry-main) 16px,
+        var(--yellow-accent) 16px,
+        var(--yellow-accent) 24px
+      );
+      margin: 2rem 0;
+      border-radius: 2px;
+      border: 2px solid var(--bg-primary);
+    }
+
+    /* Retro Console Prompt */
+    .console-prompt {
+      font-family: 'VT323', monospace;
+      color: var(--terminal-green);
+      margin-bottom: 0.5rem;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      header { flex-direction: column; align-items: flex-start; }
+      nav ul { gap: 0.5rem; }
+      nav a { font-size: 1rem; padding: 0.3rem 0.7rem; }
+      .hero h1 { font-size: 1.5rem; }
+      .hero-avatar { width: 60px; height: 60px; font-size: 1.5rem; }
+      .section-title { font-size: 1.4rem; }
+      .rpg-stats { gap: 1rem; }
+      .bar-fill { width: 70px; }
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition: none !important;
+      }
+    }
+
+    /* Subtle hover effects only - no blinking */
+    .hover-glow:hover {
+      box-shadow: 0 0 12px rgba(124, 58, 237, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header / Terminal Bar -->
+  <header>
+    <div class="terminal-prompt">
+      > sophia@qa-terminal:<span>~</span>$
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#home" class="active">./home</a></li>
+        <li><a href="#projects">./projects</a></li>
+        <li><a href="#cv">./cv</a></li>
+        <li><a href="#blog">./blog</a></li>
+        <li><a href="#contact">./contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section - Pokemon RPG Style -->
+  <section id="home" class="hero">
+    <div class="hero-avatar">👾</div>
+    <h1>SOPHIA SIMÕES GONÇALVES</h1>
+    <p class="hero-subtitle">Staff QA Engineer • AI-Augmented Testing • DevSecOps</p>
+    
+    <!-- RPG Stats Bar -->
+    <div class="rpg-stats">
+      <div class="stat-bar">
+        <span style="color:var(--cherry-light)">HP:</span>
+        <div class="bar-fill hp" style="width:85%"></div>
+      </div>
+      <div class="stat-bar">
+        <span style="color:var(--blue-accent)">EXP:</span>
+        <div class="bar-fill exp" style="width:70%"></div>
       </div>
     </div>
-  </body>
+
+    <div class="hero-tags">
+      <span class="tag rare">🤖 AI/LLMs</span>
+      <span class="tag">🔧 Automation</span>
+      <span class="tag">📊 DevSecOps</span>
+      <span class="tag">👥 Mentorship</span>
+      <span class="tag">🎮 Electronics/3D</span>
+    </div>
+
+    <div class="cta-buttons">
+      <a href="#cv" class="btn btn-primary">▶ view_cv.sh</a>
+      <a href="#contact" class="btn btn-secondary">▶ contact --freelance</a>
+    </div>
+  </section>
+
+  <div class="pixel-divider"></div>
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <h2 class="section-title">◆ ./projects</h2>
+    <div class="projects-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;">
+      
+      <!-- Project 1 - Featured -->
+      <div class="project-card pixel-border hover-glow">
+        <span class="badge-featured">★ FEATURED</span>
+        <h3>🤖 AI Test Agents with CrewAI</h3>
+        <p>Autonomous agents that generate, execute, and review test cases using local LLMs (Ollama) + CrewAI orchestration.</p>
+        <div class="project-tech">
+          <span>Python</span><span>CrewAI</span><span>Ollama</span><span>n8n</span>
+        </div>
+        <div class="project-links">
+          <a href="#" target="_blank">[GitHub]</a>
+          <a href="#" target="_blank">[Case Study]</a>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card pixel-border hover-glow">
+        <h3>⚙️ Cost-Optimized CI/CD</h3>
+        <p>Refactored test pyramid + parallel execution strategy that reduced infrastructure costs by 50% while improving reliability.</p>
+        <div class="project-tech">
+          <span>Jenkins</span><span>Docker</span><span>Ruby</span><span>Java</span>
+        </div>
+        <div class="project-links">
+          <a href="#" target="_blank">[Architecture]</a>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card pixel-border hover-glow">
+        <h3>📱 POS Device Farm</h3>
+        <p>Custom device farm for payment terminal testing, reducing manual validation effort by 60% and accelerating firmware releases.</p>
+        <div class="project-tech">
+          <span>Appium</span><span>Python</span><span>Embedded</span><span>Bluetooth</span>
+        </div>
+        <div class="project-links">
+          <a href="#" target="_blank">[Demo]</a>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="project-card pixel-border hover-glow">
+        <h3>🔐 DevSecOps Gates</h3>
+        <p>Integrated static analysis (SonarQube, MobSF, SDAT) into CI pipelines, catching 90% of critical vulnerabilities pre-merge.</p>
+        <div class="project-tech">
+          <span>SonarQube</span><span>MobSF</span><span>SDAT</span><span>Shift-Left</span>
+        </div>
+        <div class="project-links">
+          <a href="#" target="_blank">[Guide]</a>
+        </div>
+      </div>
+
+      <!-- Project 5 -->
+      <div class="project-card pixel-border hover-glow">
+        <h3>🔬 AR Research (Academic)</h3>
+        <p>Early research on object trajectory prediction using Augmented Reality + computer vision (UNIP, 2013).</p>
+        <div class="project-tech">
+          <span>Computer Vision</span><span>AR</span><span>Research</span>
+        </div>
+        <div class="project-links">
+          <a href="#" target="_blank">[Paper]</a>
+        </div>
+      </div>
+
+      <!-- Project 6 -->
+      <div class="project-card pixel-border hover-glow">
+        <h3>♿ Wheelchair Prototype</h3>
+        <p>Hardware+software prototype for Bluetooth-based wheelchair control, combining embedded programming + accessible UX.</p>
+        <div class="project-tech">
+          <span>Embedded</span><span>Bluetooth</span><span>UX</span><span>Prototyping</span>
+        </div>
+        <div class="project-links">
+          <a href="#" target="_blank">[Photos]</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="pixel-divider"></div>
+
+  <!-- CV Section -->
+  <section id="cv">
+    <h2 class="section-title">◆ ./cv</h2>
+    <div class="cv-container pixel-border">
+      
+      <div class="cv-section">
+        <h4>🎯 Professional Summary</h4>
+        <p>Staff QA Engineer with 10+ years building quality strategies for high-scale fintechs. Specialized in AI-augmented testing, DevSecOps, and cost-optimized pipelines. Reduced testing infrastructure costs by up to 50% and deployed AI agents to automate ~70% of test scenarios.</p>
+      </div>
+
+      <div class="cv-section">
+        <h4>💼 Experience</h4>
+        
+        <div class="cv-item">
+          <h5>Staff QA Engineer — Pagar.me</h5>
+          <div class="meta">Jan 2023 – Present | Remote/Hybrid</div>
+          <ul>
+            <li>Lead quality strategy for payments unit; reduced production incidents by 40% in 6 months</li>
+            <li>Pioneered AI-augmented testing with local LLMs + CrewAI agents</li>
+            <li>Mentor 3 Senior QAs; previously guided 3 Juniors to Mid-level + 1 to Management</li>
+          </ul>
+        </div>
+
+        <div class="cv-item">
+          <h5>Tech Lead QA — Pagar.me</h5>
+          <div class="meta">Oct 2021 – Jan 2023</div>
+          <ul>
+            <li>Led squad of 7 QAs across 3 product teams</li>
+            <li>Architected device farm for POS testing (60% manual effort reduction)</li>
+            <li>Integrated static security analysis (SonarQube, MobSF) into CI pipelines</li>
+          </ul>
+        </div>
+
+        <div class="cv-item">
+          <h5>QA Chapter Lead — Concrete Solutions</h5>
+          <div class="meta">Apr 2017 – Sep 2019</div>
+          <ul>
+            <li>Technical QA leadership for enterprise digital media projects</li>
+            <li>Built automation frameworks with Ruby, Cucumber, Appium, Jenkins CI</li>
+            <li>Championed Specification by Example & Agile Testing practices</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="cv-section">
+        <h4>🎓 Education</h4>
+        <div class="cv-item">
+          <h5>B.Eng. Computer Engineering — UNIVESP</h5>
+          <div class="meta">2018 – 2023</div>
+          <p>Focus: Software quality, embedded systems, test automation</p>
+        </div>
+        <div class="cv-item">
+          <h5>Postgrad. Software Engineering — UNIP</h5>
+          <div class="meta">2015 – 2016</div>
+          <p>Focus: QA processes, Agile, TestLink, Bizagi/Enterprise Architect</p>
+        </div>
+      </div>
+
+      <div class="cv-section">
+        <h4>🔧 Core Skills</h4>
+        <p><strong>AI & Testing:</strong> LLMs (Ollama, Claude), Prompt Engineering, CrewAI, n8n, Test Generation</p>
+        <p><strong>Languages:</strong> Java, Ruby, SQL, Python (scripting)</p>
+        <p><strong>Tools:</strong> Appium, Selenium, Cucumber, Jenkins, SonarQube, MobSF, Docker</p>
+        <p><strong>Strategy:</strong> Test Pyramid, Shift-Left, Risk-Based Testing, DevSecOps, Cost Optimization</p>
+        <p><strong>Languages:</strong> Portuguese (Native), English (Intermediate — Technical Interviews)</p>
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href="SophiaSimoes_CV_PrincipalQA_Global.pdf" download class="btn btn-primary">
+          ▶ download_cv.pdf
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="pixel-divider"></div>
+
+  <!-- Blog Section -->
+  <section id="blog">
+    <h2 class="section-title">◆ ./blog</h2>
+    <div class="blog-posts">
+      
+      <article class="blog-post">
+        <h3>How I Use Local LLMs to Cut QA Costs by 50%</h3>
+        <span class="date">📅 December 2025 • 8 min read</span>
+        <p>Exploring practical patterns for integrating Ollama + CrewAI into test pipelines — with real metrics from fintech environments...</p>
+        <a href="#">[Read Full Post →]</a>
+      </article>
+
+      <article class="blog-post">
+        <h3>Building a Device Farm for POS Testing: Lessons Learned</h3>
+        <span class="date">📅 November 2025 • 6 min read</span>
+        <p>Hardware constraints, Bluetooth quirks, and automation strategies for payment terminal validation at scale...</p>
+        <a href="#">[Read Full Post →]</a>
+      </article>
+
+      <article class="blog-post">
+        <h3>Prompt Engineering for QA: A Practical Harness</h3>
+        <span class="date">📅 October 2025 • 10 min read</span>
+        <p>Designing reusable prompt templates for test case generation, edge-case discovery, and root cause analysis...</p>
+        <a href="#">[Read Full Post →]</a>
+      </article>
+
+    </div>
+  </section>
+
+  <div class="pixel-divider"></div>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2 class="section-title">◆ ./contact</h2>
+    <div class="contact-grid">
+      
+      <div class="contact-info pixel-border">
+        <p class="console-prompt">> whois sophia</p>
+        <p>📍 São Paulo, Brazil (Open to Remote-First Global / Japan Relocation)</p>
+        <p>✉ <a href="mailto:sophia.simoesg@gmail.com">sophia.simoesg@gmail.com</a></p>
+        <p>🔗 <a href="https://linkedin.com/in/sophiasimoes8" target="_blank">linkedin.com/in/sophiasimoes8</a></p>
+        <p>🐙 <a href="https://github.com/sophiasimoes" target="_blank">github.com/sophiasimoes</a></p>
+        
+        <div style="margin-top: 1.5rem; padding-top:1rem; border-top:1px dashed var(--purple-main);">
+          <p class="console-prompt">> freelance_services</p>
+          <ul style="padding-left: 1.5rem; color: var(--text-secondary); font-size:0.95rem;">
+            <li>QA Strategy Audit (4-6 weeks)</li>
+            <li>AI-Testing Workshop for Engineering Teams</li>
+            <li>Technical Mentorship for Senior QAs</li>
+            <li>On-Demand Consulting (hourly)</li>
+          </ul>
+        </div>
+      </div>
+
+      <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input type="text" name="name" placeholder="> your_name" required/>
+        <input type="email" name="email" placeholder="> your_email" required/>
+        <input type="text" name="subject" placeholder="> subject (e.g., freelance_quote)" required/>
+        <textarea name="message" placeholder="> message_ --type='your_inquiry'" required></textarea>
+        <button type="submit" class="btn btn-primary">▶ send_message.sh</button>
+      </form>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      > echo "Built with ❤️ + ☕ by Sophia Simões"<br/>
+      > last_update: <span id="lastUpdate"></span><br/>
+      > status: <span style="color: var(--terminal-green);">● online</span>
+    </p>
+    <p style="margin-top: 1rem; font-family: 'VT323', monospace; font-size: 1rem;">
+      <a href="#home">[./home]</a> • 
+      <a href="#projects">[./projects]</a> • 
+      <a href="#cv">[./cv]</a> • 
+      <a href="#blog">[./blog]</a> • 
+      <a href="#contact">[./contact]</a>
+    </p>
+  </footer>
+
+  <script>
+    // Dynamic Last Update Date
+    document.getElementById('lastUpdate').textContent = new Date().toLocaleDateString('en-US', {
+      year: 'numeric', month: 'short', day: 'numeric'
+    });
+
+    // Smooth Scroll for Navigation
+    document.querySelectorAll('nav a, .cta-buttons a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+          document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+          this.classList.add('active');
+        }
+      });
+    });
+
+    // Form Submission Feedback
+    const form = document.querySelector('.contact-form');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('> message_sent.log ✓\n> Thank you! I will respond within 2 business days.');
+        form.reset();
+      });
+    }
+
+    // Console Easter Egg
+    console.log('%c> welcome to sophia@qa-terminal', 'color: #7c3aed; font-weight: bold; font-family: monospace; font-size: 14px;');
+    console.log('%c> type: help', 'color: #9ca3af; font-family: monospace;');
+    console.log('%c> available: [projects] [cv] [blog] [contact]', 'color: #dc2626; font-family: monospace;');
+  </script>
+</body>
 </html>
