@@ -780,7 +780,7 @@
     // Pipeline de Fetch com Validação e Fallback
     async function fetchData(file, schemaName, isArray = false) {
       try {
-        const response = await fetch(`data/${file}.json`);
+        const response = await fetch(`data/${currentLang}/${file}.json`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         
         const json = await response.json();
@@ -807,7 +807,7 @@
         }
         return json;
       } catch (error) {
-        console.warn(`⚠️ Could not load data/${file}.json (${error.message}). Using fallback data.`);
+        console.warn(`⚠️ Could not load data/${currentLang}/${file}.json (${error.message}). Using fallback data.`);
         return getFallbackData(file);
       }
     }
@@ -1167,12 +1167,12 @@
 
     async function loadI18n(lang) {
       try {
-        const response = await fetch(`data/i18n-${lang}.json`);
+        const response = await fetch(`data/${lang}/i18n.json`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         return await response.json();
       } catch (error) {
-        console.warn(`⚠️ Could not load i18n-${lang}.json, using pt as fallback.`);
-        return await (await fetch('data/i18n-pt.json')).json();
+        console.warn(`⚠️ Could not load data/${lang}/i18n.json, using pt as fallback.`);
+        return await (await fetch('data/pt/i18n.json')).json();
       }
     }
 
@@ -1206,6 +1206,30 @@
       if (lang === currentLang) return;
       currentLang = lang;
       i18nData = await loadI18n(lang);
+      
+      // Reload all data with new language (without re-initializing UI state)
+      const [trainer, skills, experiences, education, courses, certifications, projects, blog] = await Promise.all([
+        fetchData('trainer', 'trainer', false),
+        fetchData('skills', 'skill', true),
+        fetchData('experiences', 'experience', true),
+        fetchData('education', 'education', true),
+        fetchData('courses', 'course', true),
+        fetchData('certifications', 'certification', true),
+        fetchData('projects', 'project', true),
+        fetchData('blog', 'blog', true)
+      ]);
+
+      // Render sections
+      renderTrainer(trainer);
+      renderMainSkills(skills);
+      renderPCBox(skills);
+      renderExperiences(experiences);
+      renderEducation(education);
+      renderGenericList(courses, 'courses-container', 'courses');
+      renderGenericList(certifications, 'certs-container', 'certifications');
+      renderGenericList(projects, 'projects-container', 'projects');
+      renderGenericList(blog, 'blog-container', 'blog');
+      
       updateLanguageUI();
       localStorage.setItem('devdex-lang', lang);
     }
