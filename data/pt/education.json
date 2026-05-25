@@ -1,0 +1,23 @@
+[
+  {
+    "school": "UNIVESP",
+    "degree": "Bacharelado em Engenharia da Computação",
+    "period": "2018 – 2023",
+    "icon": "🏛️",
+    "status": "concluído"
+  },
+  {
+    "school": "UNIP",
+    "degree": "Pós-graduação em Engenharia de Software",
+    "period": "2015 – 2016",
+    "icon": "📜",
+    "status": "concluído"
+  },
+  {
+    "school": "UNIP",
+    "degree": "Bacharelado em Sistemas de Informação",
+    "period": "2010 – 2013",
+    "icon": "💻",
+    "status": "concluído"
+  }
+]

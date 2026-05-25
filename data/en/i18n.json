@@ -1,0 +1,47 @@
+{
+  "lang": "en",
+  "name": "English",
+  "flag": "🇺🇸",
+  "proficiency": "Fluent",
+  "proficiencyLevel": 85,
+  "ui": {
+    "trainerInfo": "> trainer.info",
+    "capturedSkills": "> captured.skills",
+    "pcBox": "> pc.full.box",
+    "gymBadges": "> gym.badges",
+    "mainQuests": "> main.quests",
+    "sideProjects": "> side.projects",
+    "logEntries": "> log.entries",
+    "requestQuest": "> request.quest",
+    "viewDetails": "View Details",
+    "github": "GitHub",
+    "readArticle": "Read Article",
+    "level": "Lv.",
+    "moveset": "Moveset",
+    "status": {
+      "active": "Active",
+      "studied": "Studied",
+      "seen": "Seen",
+      "completed": "Completed",
+      "inProgress": "In Progress"
+    },
+    "form": {
+      "title": "Request a Quest (Quote)",
+      "name": "Trainer Name",
+      "email": "Contact Email",
+      "type": "Quest Type",
+      "types": {
+        "audit": "QA Audit",
+        "ai": "AI Consulting",
+        "dev": "Fullstack Development",
+        "other": "Other"
+      },
+      "message": "Mission Details",
+      "submit": "Send Mission",
+      "sending": "Sending...",
+      "success": "Mission received! I'll respond soon.",
+      "error": "Transmission failed. Try again."
+    },
+    "footer": "DevDex © 2024. All rights reserved."
+  }
+}

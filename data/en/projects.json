@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Augmented Reality Research",
+    "description": "Researched object trajectory prediction using AR and computer vision. Presented at UNIP Annual Research Convention (2013).",
+    "tags": ["Computer Vision", "AR", "Research"],
+    "icon": "🔬",
+    "links": {
+      "github": null,
+      "article": null
+    }
+  },
+  {
+    "title": "Mobile-Controlled Wheelchair Prototype",
+    "description": "Capstone project: Built integrated hardware+software prototype for Bluetooth-based remote control. Showcased at campus outreach event.",
+    "tags": ["Embedded Systems", "Bluetooth", "Accessibility", "IoT"],
+    "icon": "♿",
+    "links": {
+      "github": null,
+      "article": null
+    }
+  },
+  {
+    "title": "DevDex Portfolio",
+    "description": "Pokédex-style portfolio with retro terminal aesthetic. Pure HTML/CSS/JS with dynamic JSON data loading.",
+    "tags": ["HTML", "CSS", "JavaScript", "JSON"],
+    "icon": "🎮",
+    "links": {
+      "github": "https://github.com/sophiasimoes8/devdex",
+      "article": null
+    }
+  }
+]

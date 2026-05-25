@@ -1,0 +1,58 @@
+[
+  {
+    "company": "Pagar.me",
+    "role": "Staff QA エンジニア",
+    "period": "2023 年 1 月 – 現在",
+    "summary": "品質戦略を主導し、本番環境でのインシデントを 40% 削減。LLM と CrewAI エージェントを使用した AI 拡張テストのパイオニアとして、テスト設計時間を 35% 短縮。CI/CD パイプラインを最適化し、インフラコストを 50% 削減。",
+    "icon": "⚡",
+    "rarity": "legendary"
+  },
+  {
+    "company": "Pagar.me",
+    "role": "Tech Lead QA",
+    "period": "2021 年 10 月 – 2023 年 1 月",
+    "summary": "3 つのプロダクトチームにまたがる 7 名の QA チームをリード。POS テスト用のデバイスファームを設計し、手動検証を 60% 削減。静的セキュリティ分析（SonarQube、MobSF）を統合し、マージ前の重要な脆弱性の 90% を検出。",
+    "icon": "🛡️",
+    "rarity": "elite"
+  },
+  {
+    "company": "Pagar.me",
+    "role": "テストエンジニア",
+    "period": "2020 年 9 月 – 2022 年 12 月",
+    "summary": "CI/CD パイプラインを最適化し、テスト自動化戦略を再構築。フィードバックループを加速し、テストの信頼性を向上させながら、インフラコストを 50% 削減。",
+    "icon": "🎯",
+    "rarity": "elite"
+  },
+  {
+    "company": "PagSeguro PagBank",
+    "role": "QA エンジニア",
+    "period": "2019 年 9 月 – 2020 年 9 月",
+    "summary": "規制されたフィンテック環境において、大量決済製品の品質を確保。手動テストと自動テストをアジャイル配信に整合させ、QA プロセスを合理化。",
+    "icon": "💳",
+    "rarity": "elite"
+  },
+  {
+    "company": "Concrete Solutions",
+    "role": "QA チャプターリード",
+    "period": "2017 年 4 月 – 2019 年 9 月",
+    "summary": "デジタルメディアプロジェクトの技術的 QA リーダーシップ。Ruby、Cucumber、Appium を使用した自動化フレームワークを構築し、Jenkins CI と統合。Specification by Example プラクティスを推進。",
+    "icon": "🎬",
+    "rarity": "elite"
+  },
+  {
+    "company": "Stefanini (IBM Consulting)",
+    "role": "ジュニアテストアナリスト",
+    "period": "2016 年 2 月 – 2017 年 3 月",
+    "summary": "規制された銀行環境で機能テストを実行し、自動化を導入。IBM Rational ツール（RTC、RQM、RFT）を運用し、要件のトレーサビリティを確保。",
+    "icon": "🏦",
+    "rarity": "rare"
+  },
+  {
+    "company": "フリーランス",
+    "role": "ストラテジックコンサルタント",
+    "period": "2018 年 – 現在",
+    "summary": "QA 監査、AI テストワークショップ、技術メンタリング。リモートファーストのグローバル職種や、ビザスポンサーシップ付きの日本への移住にオープン。",
+    "icon": "🌟",
+    "rarity": "mystic"
+  }
+]

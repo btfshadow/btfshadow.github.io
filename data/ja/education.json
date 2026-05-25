@@ -1,0 +1,23 @@
+[
+  {
+    "school": "UNIVESP",
+    "degree": "コンピュータ工学学士",
+    "period": "2018 – 2023",
+    "icon": "🏛️",
+    "status": "completed"
+  },
+  {
+    "school": "UNIP",
+    "degree": "ソフトウェア工学修士課程修了",
+    "period": "2015 – 2016",
+    "icon": "📜",
+    "status": "completed"
+  },
+  {
+    "school": "UNIP",
+    "degree": "情報システム学士",
+    "period": "2010 – 2013",
+    "icon": "💻",
+    "status": "completed"
+  }
+]

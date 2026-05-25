@@ -1,0 +1,47 @@
+{
+  "lang": "ja",
+  "name": "日本語",
+  "flag": "🇯🇵",
+  "proficiency": "初級 (N5)",
+  "proficiencyLevel": 20,
+  "ui": {
+    "trainerInfo": "> トレーナー情報",
+    "capturedSkills": "> 捕獲済みスキル",
+    "pcBox": "> PC ボックス",
+    "gymBadges": "> ジムバッジ",
+    "mainQuests": "> メインクエスト",
+    "sideProjects": "> サイドプロジェクト",
+    "logEntries": "> ログエントリー",
+    "requestQuest": "> クエスト依頼",
+    "viewDetails": "詳細を見る",
+    "github": "GitHub",
+    "readArticle": "記事を読む",
+    "level": "Lv.",
+    "moveset": "技セット",
+    "status": {
+      "active": "アクティブ",
+      "studied": "学習済み",
+      "seen": "発見済み",
+      "completed": "完了",
+      "inProgress": "進行中"
+    },
+    "form": {
+      "title": "クエスト依頼（見積もり）",
+      "name": "トレーナー名",
+      "email": "連絡先メール",
+      "type": "クエストタイプ",
+      "types": {
+        "audit": "QA 監査",
+        "ai": "AI コンサルティング",
+        "dev": "フルスタック開発",
+        "other": "その他"
+      },
+      "message": "ミッション詳細",
+      "submit": "ミッションを送信",
+      "sending": "送信中...",
+      "success": "ミッション受信！すぐにご返信します。",
+      "error": "送信失敗。もう一度お試しください。"
+    },
+    "footer": "DevDex © 2024. All rights reserved."
+  }
+}

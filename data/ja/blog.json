@@ -1,0 +1,32 @@
+[
+  {
+    "title": "AI 拡張テスト：QA の未来",
+    "date": "2024-12-01",
+    "excerpt": "LLM、CrewAI エージェント、プロンプトエンジニアリングが、エッジケースのカバレッジを向上させながら、テストシナリオの 70% を自動化する方法。",
+    "icon": "🤖",
+    "links": {
+      "github": null,
+      "article": "https://dev.to/sophiasimoes8/ai-augmented-testing-future-qa"
+    }
+  },
+  {
+    "title": "CI/CD コストを 50% 削減",
+    "date": "2024-11-15",
+    "excerpt": "品質やカバレッジを犠牲にすることなく、テストピラミッドアーキテクチャとインフラコストを最適化するための戦略。",
+    "icon": "💰",
+    "links": {
+      "github": null,
+      "article": "https://dev.to/sophiasimoes8/reducing-cicd-costs-50"
+    }
+  },
+  {
+    "title": "ジュニアからリーダーシップへのメンタリング",
+    "date": "2024-10-20",
+    "excerpt": "7 名以上の QA エンジニアのキャリアをガイドし、エンジニアリングマネジメントへの昇進も含むサポートから学んだ教訓。",
+    "icon": "🌱",
+    "links": {
+      "github": null,
+      "article": "https://dev.to/sophiasimoes8/mentoring-junior-leadership"
+    }
+  }
+]
