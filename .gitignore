@@ -1,1 +1,1 @@
-Nothing should be ignored based on the provided file changes. The added files (README.md, pokedex.html) are source/config files that should be tracked in version control.
+(index.html is a source file, no build artifacts, dependencies, or temp files detected in changes)
