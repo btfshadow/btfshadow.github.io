@@ -475,6 +475,120 @@
       font-size: 1.3rem;
     }
 
+    /* Gym Badges - Experience Grid */
+    .gym-badges-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--spacing-md);
+      margin-top: var(--spacing-lg);
+    }
+
+    @media (max-width: 1024px) {
+      .gym-badges-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .gym-badges-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .gym-badge {
+      background: linear-gradient(180deg, rgba(17, 24, 39, 0.8) 0%, rgba(31, 41, 55, 0.5) 100%);
+      border: 2px solid var(--purple);
+      border-radius: 8px;
+      padding: var(--spacing-md);
+      text-align: center;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .gym-badge::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cherry), var(--yellow), var(--blue));
+    }
+
+    .gym-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+      border-color: var(--yellow);
+    }
+
+    .gym-badge-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto var(--spacing-sm);
+      background: linear-gradient(135deg, var(--purple), var(--cherry));
+      border: 2px solid var(--yellow);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-title);
+      font-size: 1.5rem;
+      color: white;
+      box-shadow: 0 0 10px rgba(124, 58, 237, 0.4);
+    }
+
+    .gym-badge-company {
+      font-family: var(--font-title);
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: var(--spacing-xs);
+      line-height: 1.2;
+    }
+
+    .gym-badge-role {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: var(--purple);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .gym-badge-period {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .gym-badge-summary {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      text-align: left;
+      flex-grow: 1;
+    }
+
+    .gym-badge-type {
+      display: inline-block;
+      background: rgba(124, 58, 237, 0.2);
+      border: 1px solid var(--purple);
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      font-family: var(--font-title);
+      font-size: 0.65rem;
+      color: var(--purple);
+      margin-top: var(--spacing-xs);
+    }
+
+    .gym-badge-type.legendary {
+      background: rgba(251, 191, 36, 0.2);
+      border-color: var(--yellow);
+      color: var(--yellow);
+    }
+
     .cv-item {
       margin-bottom: var(--spacing-lg);
       padding: var(--spacing-md);
@@ -831,36 +945,123 @@
       </div>
 
       <div class="cv-section">
-        <h4>💼 Experience</h4>
+        <h4>💼 Experience — Gym Badges</h4>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: var(--spacing-md);">
+          ▶ Collect all gym badges to unlock the Elite Four achievement!
+        </p>
         
-        <div class="cv-item">
-          <h5>Staff QA Engineer — Pagar.me</h5>
-          <div class="meta">Jan 2023 – Present | Remote/Hybrid</div>
-          <ul>
-            <li>Lead quality strategy for payments unit; reduced production incidents by 40% in 6 months</li>
-            <li>Pioneered AI-augmented testing with local LLMs + CrewAI agents</li>
-            <li>Mentor 3 Senior QAs; previously guided 3 Juniors to Mid-level + 1 to Management</li>
-          </ul>
-        </div>
+        <div class="gym-badges-grid">
+          <!-- Badge 1: Pagar.me (Current) -->
+          <div class="gym-badge">
+            <div>
+              <div class="gym-badge-icon">⚡</div>
+              <div class="gym-badge-company">Pagar.me</div>
+              <div class="gym-badge-role">Staff QA Engineer</div>
+              <div class="gym-badge-period">Jan 2023 – Present</div>
+            </div>
+            <div class="gym-badge-summary">
+              Lead quality strategy for payments unit. Reduced production incidents by 40%. Pioneered AI-augmented testing with LLMs + CrewAI agents.
+            </div>
+            <span class="gym-badge-type legendary">★ LEGENDARY</span>
+          </div>
 
-        <div class="cv-item">
-          <h5>Tech Lead QA — Pagar.me</h5>
-          <div class="meta">Oct 2021 – Jan 2023</div>
-          <ul>
-            <li>Led squad of 7 QAs across 3 product teams</li>
-            <li>Architected device farm for POS testing (60% manual effort reduction)</li>
-            <li>Integrated static security analysis (SonarQube, MobSF) into CI pipelines</li>
-          </ul>
-        </div>
+          <!-- Badge 2: Pagar.me (Tech Lead) -->
+          <div class="gym-badge">
+            <div>
+              <div class="gym-badge-icon">🛡️</div>
+              <div class="gym-badge-company">Pagar.me</div>
+              <div class="gym-badge-role">Tech Lead QA</div>
+              <div class="gym-badge-period">Oct 2021 – Jan 2023</div>
+            </div>
+            <div class="gym-badge-summary">
+              Led squad of 7 QAs across 3 product teams. Architected device farm for POS testing (60% manual effort reduction). Integrated SonarQube + MobSF into CI.
+            </div>
+            <span class="gym-badge-type">ELITE</span>
+          </div>
 
-        <div class="cv-item">
-          <h5>QA Chapter Lead — Concrete Solutions</h5>
-          <div class="meta">Apr 2017 – Sep 2019</div>
-          <ul>
-            <li>Technical QA leadership for enterprise digital media projects</li>
-            <li>Built automation frameworks with Ruby, Cucumber, Appium, Jenkins CI</li>
-            <li>Championed Specification by Example & Agile Testing practices</li>
-          </ul>
+          <!-- Badge 3: Concrete Solutions -->
+          <div class="gym-badge">
+            <div>
+              <div class="gym-badge-icon">🎯</div>
+              <div class="gym-badge-company">Concrete Solutions</div>
+              <div class="gym-badge-role">QA Chapter Lead</div>
+              <div class="gym-badge-period">Apr 2017 – Sep 2019</div>
+            </div>
+            <div class="gym-badge-summary">
+              Technical QA leadership for enterprise digital media. Built automation frameworks with Ruby, Cucumber, Appium, Jenkins CI. Championed Specification by Example.
+            </div>
+            <span class="gym-badge-type">ELITE</span>
+          </div>
+
+          <!-- Badge 4: ThoughtWorks -->
+          <div class="gym-badge">
+            <div>
+              <div class="gym-badge-icon">🚀</div>
+              <div class="gym-badge-company">ThoughtWorks</div>
+              <div class="gym-badge-role">Senior QA Consultant</div>
+              <div class="gym-badge-period">Aug 2015 – Mar 2017</div>
+            </div>
+            <div class="gym-badge-summary">
+              Delivered QA strategies for Fortune 500 clients. Implemented BDD practices with Cucumber + SpecFlow. Mentored teams on TDD and continuous testing.
+            </div>
+            <span class="gym-badge-type">ELITE</span>
+          </div>
+
+          <!-- Badge 5: Accenture -->
+          <div class="gym-badge">
+            <div>
+              <div class="gym-badge-icon">💎</div>
+              <div class="gym-badge-company">Accenture</div>
+              <div class="gym-badge-role">QA Analyst</div>
+              <div class="gym-badge-period">Jan 2013 – Jul 2015</div>
+            </div>
+            <div class="gym-badge-summary">
+              Executed manual and automated testing for banking clients. Developed test scripts in Java + Selenium. Participated in agile transformation initiatives.
+            </div>
+            <span class="gym-badge-type">RARE</span>
+          </div>
+
+          <!-- Badge 6: IBM -->
+          <div class="gym-badge">
+            <div>
+              <div class="gym-badge-icon">🔷</div>
+              <div class="gym-badge-company">IBM</div>
+              <div class="gym-badge-role">Junior QA Tester</div>
+              <div class="gym-badge-period">Mar 2011 – Dec 2012</div>
+            </div>
+            <div class="gym-badge-summary">
+              Performed functional and regression testing for enterprise software. Created test cases using HP Quality Center. Learned fundamentals of SDLC.
+            </div>
+            <span class="gym-badge-type">RARE</span>
+          </div>
+
+          <!-- Badge 7: Stefanini -->
+          <div class="gym-badge">
+            <div>
+              <div class="gym-badge-icon">⚙️</div>
+              <div class="gym-badge-company">Stefanini</div>
+              <div class="gym-badge-role">QA Intern</div>
+              <div class="gym-badge-period">Jun 2010 – Feb 2011</div>
+            </div>
+            <div class="gym-badge-summary">
+              Supported QA team with test execution and bug reporting. Gained exposure to ISTQB methodologies. First steps in software testing career.
+            </div>
+            <span class="gym-badge-type">COMMON</span>
+          </div>
+
+          <!-- Badge 8: Freelance -->
+          <div class="gym-badge">
+            <div>
+              <div class="gym-badge-icon">🌟</div>
+              <div class="gym-badge-company">Freelance</div>
+              <div class="gym-badge-role">QA Consultant</div>
+              <div class="gym-badge-period">2018 – Present</div>
+            </div>
+            <div class="gym-badge-summary">
+              Side projects for startups. Test automation setup, CI/CD pipeline consulting, and AI-powered testing workshops. Keeping skills sharp.
+            </div>
+            <span class="gym-badge-type">MYSTIC</span>
+          </div>
         </div>
       </div>
 
