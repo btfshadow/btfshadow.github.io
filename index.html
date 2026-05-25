@@ -777,39 +777,55 @@
       return true;
     }
 
-    // Pipeline de Fetch com Validação e Fallback
+    // Pipeline de Fetch com Validação e Fallback (com suporte a i18n)
     async function fetchData(file, schemaName, isArray = false) {
-      try {
-        const response = await fetch(`data/${file}.json`);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        
-        const json = await response.json();
-        
-        if (isArray && Array.isArray(json)) {
-          // Validar cada item do array
-          const validData = json.filter((item, idx) => 
-            validateData(item, schemaName, `[${idx}]`)
-          );
+      // Tenta carregar do idioma atual primeiro, depois fallback para pt, depois en
+      const langPaths = [
+        `data/${currentLang}/${file}.json`,
+        `data/pt/${file}.json`,
+        `data/en/${file}.json`,
+        `data/${file}.json`  // fallback raiz
+      ];
+      
+      for (const path of langPaths) {
+        try {
+          const response = await fetch(path);
+          if (!response.ok) continue;  // Tenta próximo path
           
-          if (validData.length === 0 && json.length > 0) {
-            console.error(`❌ All items in ${file}.json failed validation. Using fallback.`);
-            return getFallbackData(file);
+          const json = await response.json();
+          
+          if (isArray && Array.isArray(json)) {
+            // Validar cada item do array
+            const validData = json.filter((item, idx) => 
+              validateData(item, schemaName, `[${idx}]`)
+            );
+            
+            if (validData.length === 0 && json.length > 0) {
+              console.error(`❌ All items in ${path} failed validation. Trying next language.`);
+              continue;  // Tenta próximo idioma
+            }
+            console.log(`✅ Loaded ${path}`);
+            return validData;
+          } else if (!isArray) {
+            // Validar objeto único
+            if (validateData(json, schemaName)) {
+              console.log(`✅ Loaded ${path}`);
+              return json;
+            } else {
+              console.error(`❌ ${path} failed validation. Trying next language.`);
+              continue;  // Tenta próximo idioma
+            }
           }
-          return validData;
-        } else if (!isArray) {
-          // Validar objeto único
-          if (validateData(json, schemaName)) {
-            return json;
-          } else {
-            console.error(`❌ ${file}.json failed validation. Using fallback.`);
-            return getFallbackData(file);
-          }
+          return json;
+        } catch (error) {
+          console.warn(`⚠️ Could not load ${path} (${error.message}). Trying next language...`);
+          continue;
         }
-        return json;
-      } catch (error) {
-        console.warn(`⚠️ Could not load data/${file}.json (${error.message}). Using fallback data.`);
-        return getFallbackData(file);
       }
+      
+      // Se todos os paths falharam, usa fallback hardcoded
+      console.error(`❌ All language paths failed for ${file}. Using hardcoded fallback.`);
+      return getFallbackData(file);
     }
 
     /**
@@ -861,6 +877,27 @@
     // Render Trainer
     function renderTrainer(data) {
       const container = document.getElementById('trainer-container');
+      
+      // Render language proficiency buttons
+      const renderLanguageButtons = () => {
+        if (!data.languages || !Array.isArray(data.languages)) return '';
+        
+        return data.languages.map(lang => {
+          const levelPercent = getLanguageLevelPercent(lang.level);
+          return `
+            <div class="lang-proficiency">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.25rem;">
+                <span>${lang.flag} ${lang.name}</span>
+                <span style="font-size:0.7rem;color:var(--yellow);">${lang.level}</span>
+              </div>
+              <div class="proficiency-bar">
+                <div class="proficiency-fill" style="width:${levelPercent}%"></div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      };
+      
       const contactLinks = data.contact ? `
         <div class="trainer-meta" style="margin-top: 0.75rem;">
           ${data.contact.email ? `<span><a href="mailto:${data.contact.email}" aria-label="Email">✉ Email</a></span>` : ''}
@@ -882,7 +919,21 @@
           ${contactLinks}
           <p class="trainer-desc">> ${data.description || 'No data available.'}</p>
         </div>
+        <div style="margin-top:var(--spacing-md);display:flex;flex-direction:column;gap:var(--spacing-xs);">
+          ${renderLanguageButtons()}
+        </div>
       `;
+    }
+    
+    // Helper to convert language level to percentage
+    function getLanguageLevelPercent(level) {
+      if (!level) return 0;
+      const levelStr = level.toLowerCase();
+      if (levelStr.includes('nativo') || levelStr.includes('native') || levelStr.includes('ネイティブ')) return 100;
+      if (levelStr.includes('avançado') || levelStr.includes('advanced') || levelStr.includes('上級') || levelStr.includes('c1')) return 85;
+      if (levelStr.includes('intermediário') || levelStr.includes('intermediate') || levelStr.includes('中級') || levelStr.includes('n3') || levelStr.includes('b1') || levelStr.includes('b2')) return 60;
+      if (levelStr.includes('básico') || levelStr.includes('basic') || levelStr.includes('初級') || levelStr.includes('n4') || levelStr.includes('n5') || levelStr.includes('a1') || levelStr.includes('a2')) return 35;
+      return 50;
     }
 
     // Render Main Skills
@@ -1207,6 +1258,10 @@
       currentLang = lang;
       i18nData = await loadI18n(lang);
       updateLanguageUI();
+      
+      // Recarregar todos os dados no novo idioma
+      await initPortfolio();
+      
       localStorage.setItem('devdex-lang', lang);
     }
 
