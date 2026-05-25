@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Developer Pokédex Portfolio - A retro-themed developer profile">
+    <title>DevDex | Developer Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=VT323&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           CSS VARIABLES & RESET
+           ======================================== */
+        :root {
+            /* Colors */
+            --bg: #0a0a0f;
+            --bg-card: #111827;
+            --bg-card-hover: #1f2937;
+            --purple: #7c3aed;
+            --cherry: #dc2626;
+            --yellow: #fbbf24;
+            --blue: #3b82f6;
+            --green: #10b981;
+            --text: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border: #374151;
+            
+            /* Fonts */
+            --font-title: 'VT323', monospace;
+            --font-body: 'Fira Code', monospace;
+            
+            /* Spacing */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            
+            /* Borders */
+            --border-radius: 4px;
+            --border-width: 2px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           ACCESSIBILITY
+           ======================================== */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* ========================================
+           SCANLINE OVERLAY
+           ======================================== */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+        }
+
+        /* ========================================
+           LAYOUT CONTAINER
+           ======================================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            padding: var(--spacing-lg) 0;
+        }
+
+        h1 {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            color: var(--yellow);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .subtitle {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        /* ========================================
+           PIXEL BORDER UTILITIES
+           ======================================== */
+        .pixel-border {
+            border: var(--border-width) solid var(--border);
+            box-shadow: 
+                -2px 0 0 0 var(--border),
+                2px 0 0 0 var(--border),
+                0 -2px 0 0 var(--border),
+                0 2px 0 0 var(--border);
+        }
+
+        .pixel-border-top {
+            border-top: var(--border-width) solid var(--border);
+        }
+
+        .pixel-border-bottom {
+            border-bottom: var(--border-width) solid var(--border);
+        }
+
+        .dashed-border {
+            border: 2px dashed var(--border);
+        }
+
+        /* ========================================
+           MAIN POKEDEX GRID
+           ======================================== */
+        .pokedex-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        @media (min-width: 768px) {
+            .pokedex-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* ========================================
+           TRAINER PROFILE CARD
+           ======================================== */
+        .trainer-card {
+            background-color: var(--bg-card);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius);
+        }
+
+        .trainer-header {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 2px dashed var(--border);
+        }
+
+        .trainer-avatar {
+            width: 80px;
+            height: 80px;
+            background-color: var(--bg-card-hover);
+            border: 2px solid var(--purple);
+            image-rendering: pixelated;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-title);
+            font-size: 2rem;
+            color: var(--purple);
+        }
+
+        .trainer-info {
+            flex: 1;
+        }
+
+        .trainer-name {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            color: var(--text);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .trainer-title {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            color: var(--blue);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .trainer-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+            font-family: var(--font-title);
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .trainer-meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .trainer-meta-item::before {
+            content: ">";
+            color: var(--green);
+        }
+
+        .trainer-description {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .terminal-prompt {
+            font-family: var(--font-title);
+            color: var(--green);
+            margin-bottom: var(--spacing-sm);
+            font-size: 1rem;
+        }
+
+        /* ========================================
+           SKILLS SECTION
+           ======================================== */
+        .skills-section {
+            background-color: var(--bg-card);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius);
+        }
+
+        .section-header {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            color: var(--yellow);
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px dashed var(--border);
+        }
+
+        .skills-legend {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            font-size: 0.85rem;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--text-muted);
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.seen {
+            background-color: var(--text-muted);
+            opacity: 0.5;
+        }
+
+        .legend-dot.studied {
+            background-color: var(--blue);
+        }
+
+        .legend-dot.active {
+            background-color: var(--green);
+            position: relative;
+        }
+
+        .legend-dot.active::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px;
+            height: 4px;
+            background-color: var(--text);
+            border-radius: 50%;
+        }
+
+        /* ========================================
+           CAPTURED POKÉMON (MAIN SKILLS)
+           ======================================== */
+        .captured-skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .skill-card {
+            background-color: var(--bg-card-hover);
+            border: 2px solid var(--border);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+
+        .skill-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+            border-color: var(--purple);
+        }
+
+        .skill-card-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .skill-icon {
+            width: 32px;
+            height: 32px;
+            background-color: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .skill-name {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            color: var(--text);
+        }
+
+        .skill-type {
+            font-family: var(--font-title);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .level-container {
+            margin: var(--spacing-sm) 0;
+        }
+
+        .level-label {
+            font-family: var(--font-title);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: var(--spacing-xs);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .level-bar {
+            height: 12px;
+            background-color: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .level-fill {
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                var(--blue) 0%,
+                var(--purple) 50%,
+                var(--cherry) 100%
+            );
+            transition: width 0.3s ease;
+            image-rendering: pixelated;
+        }
+
+        .moveset {
+            margin-top: var(--spacing-sm);
+            padding-top: var(--spacing-sm);
+            border-top: 1px dashed var(--border);
+        }
+
+        .moveset-label {
+            font-family: var(--font-title);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .moveset-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+        }
+
+        .move-tag {
+            font-size: 0.75rem;
+            background-color: var(--bg);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            color: var(--text-muted);
+        }
+
+        /* ========================================
+           ALL SKILLS LIST
+           ======================================== */
+        .all-skills {
+            margin-top: var(--spacing-xl);
+        }
+
+        .skills-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--spacing-sm);
+        }
+
+        .skill-entry {
+            padding: var(--spacing-sm) var(--spacing-md);
+            background-color: var(--bg-card-hover);
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            font-family: var(--font-title);
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .skill-entry:hover {
+            border-color: var(--text-muted);
+        }
+
+        .skill-entry.seen {
+            opacity: 0.5;
+            color: var(--text-muted);
+        }
+
+        .skill-entry.studied {
+            font-weight: 600;
+            border-bottom: 2px solid var(--blue);
+        }
+
+        .skill-entry.active {
+            position: relative;
+            padding-left: calc(var(--spacing-md) + 20px);
+        }
+
+        .skill-entry.active::before {
+            content: "";
+            position: absolute;
+            left: var(--spacing-sm);
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            background: radial-gradient(
+                circle at 30% 30%,
+                var(--cherry) 0%,
+                var(--cherry) 45%,
+                var(--text) 45%,
+                var(--text) 55%,
+                var(--cherry) 55%,
+                var(--cherry) 100%
+            );
+            border: 2px solid var(--text);
+            border-radius: 50%;
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        footer {
+            text-align: center;
+            padding: var(--spacing-xl) 0;
+            margin-top: var(--spacing-xl);
+            border-top: 2px dashed var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--blue);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ========================================
+           RESPONSIVE ADJUSTMENTS
+           ======================================== */
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .trainer-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .trainer-meta {
+                justify-content: center;
+            }
+
+            .captured-skills {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-list {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-legend {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scanline overlay for retro effect -->
+    <div class="scanlines" aria-hidden="true"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>DevDex</h1>
+            <p class="subtitle">Developer Portfolio v1.0</p>
+        </header>
+
+        <!-- Main Pokedex Grid -->
+        <main class="pokedex-grid">
+            <!-- Trainer Profile Card -->
+            <section class="trainer-card pixel-border" aria-labelledby="trainer-heading">
+                <div class="terminal-prompt">&gt; trainer.info</div>
+                
+                <div class="trainer-header">
+                    <div class="trainer-avatar" aria-label="Trainer avatar placeholder">
+                        👤
+                    </div>
+                    <div class="trainer-info">
+                        <h2 id="trainer-heading" class="trainer-name">Your Name</h2>
+                        <p class="trainer-title">Full Stack Developer</p>
+                        <div class="trainer-meta">
+                            <span class="trainer-meta-item">Type: Frontend/Backend</span>
+                            <span class="trainer-meta-item">Region: São Paulo, BR</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="trainer-description">
+                    Passionate developer with 5+ years of experience building scalable web applications. 
+                    Specialized in modern JavaScript frameworks and cloud infrastructure. Always learning, always coding.
+                </p>
+            </section>
+
+            <!-- Skills Pokedex Section -->
+            <section class="skills-section pixel-border" aria-labelledby="skills-heading">
+                <h2 id="skills-heading" class="section-header">&gt; skills.dex</h2>
+                
+                <!-- Legend -->
+                <div class="skills-legend" role="list" aria-label="Skills status legend">
+                    <div class="legend-item" role="listitem">
+                        <span class="legend-dot seen" aria-hidden="true"></span>
+                        <span>Seen</span>
+                    </div>
+                    <div class="legend-item" role="listitem">
+                        <span class="legend-dot studied" aria-hidden="true"></span>
+                        <span>Studied</span>
+                    </div>
+                    <div class="legend-item" role="listitem">
+                        <span class="legend-dot active" aria-hidden="true"></span>
+                        <span>Active</span>
+                    </div>
+                </div>
+
+                <!-- Captured Skills (Main Skills) -->
+                <div id="captured-skills" class="captured-skills" aria-label="Main skills showcase">
+                    <!-- Dynamically rendered via JS -->
+                </div>
+
+                <!-- All Skills List -->
+                <div class="all-skills">
+                    <h3 class="section-header" style="font-size: 1.2rem;">&gt; all.skills</h3>
+                    <div id="all-skills" class="skills-list" aria-label="Complete skills list">
+                        <!-- Dynamically rendered via JS -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>Built with ❤️ and ☕ | <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+            <p style="margin-top: var(--spacing-sm); font-size: 0.8rem;">Compatible with GitHub Pages & Vercel</p>
+        </footer>
+    </div>
+
+    <script>
+        /**
+         * ========================================
+         * DEVELOPER POKEDEX - SKILLS DATA
+         * ========================================
+         * 
+         * HOW TO CUSTOMIZE:
+         * 
+         * 1. Add a new skill:
+         *    - Copy any existing skill object
+         *    - Modify the properties (name, type, level, state, moveset, icon)
+         *    - Add it to the skills array
+         * 
+         * 2. Adjust skill level:
+         *    - Change the 'level' property (1 year ≈ 1 level, max 15)
+         *    - The progress bar will update automatically
+         * 
+         * 3. Change skill state:
+         *    - 'seen': You've heard of it (opacity 0.5)
+         *    - 'studied': You've taken a course/trained (bold with blue border)
+         *    - 'active': You use it daily (shows Pokéball icon)
+         * 
+         * 4. Change main skills:
+         *    - Set 'isMain: true' for skills you want in the "Captured Pokémon" section
+         *    - Only 6 main skills will be shown in the top section
+         */
+
+        const skillsData = [
+            // === MAIN SKILLS (Captured Pokémon) ===
+            {
+                id: 1,
+                name: "JavaScript",
+                type: "Frontend",
+                level: 8,
+                state: "active",
+                isMain: true,
+                icon: "🟨",
+                moveset: ["ES6+", "Async/Await", "DOM Manipulation", "Event Loop"]
+            },
+            {
+                id: 2,
+                name: "React",
+                type: "Frontend",
+                level: 6,
+                state: "active",
+                isMain: true,
+                icon: "⚛️",
+                moveset: ["Hooks", "Context API", "Redux", "Next.js"]
+            },
+            {
+                id: 3,
+                name: "Node.js",
+                type: "Backend",
+                level: 7,
+                state: "active",
+                isMain: true,
+                icon: "🟩",
+                moveset: ["Express", "REST APIs", "Microservices", "NPM"]
+            },
+            {
+                id: 4,
+                name: "Python",
+                type: "Backend/AI",
+                level: 5,
+                state: "active",
+                isMain: true,
+                icon: "🐍",
+                moveset: ["FastAPI", "Django", "Data Analysis", "Automation"]
+            },
+            {
+                id: 5,
+                name: "TypeScript",
+                type: "Frontend",
+                level: 6,
+                state: "active",
+                isMain: true,
+                icon: "🔷",
+                moveset: ["Types", "Generics", "Decorators", "Config"]
+            },
+            {
+                id: 6,
+                name: "CSS/SASS",
+                type: "Frontend",
+                level: 8,
+                state: "active",
+                isMain: true,
+                icon: "🎨",
+                moveset: ["Flexbox", "Grid", "Animations", "Responsive"]
+            },
+
+            // === SECONDARY SKILLS ===
+            {
+                id: 7,
+                name: "Vue.js",
+                type: "Frontend",
+                level: 3,
+                state: "studied",
+                isMain: false,
+                icon: "💚",
+                moveset: ["Vuex", "Vue Router", "Composition API"]
+            },
+            {
+                id: 8,
+                name: "Docker",
+                type: "DevOps",
+                level: 4,
+                state: "active",
+                isMain: false,
+                icon: "🐳",
+                moveset: ["Containers", "Docker Compose", "Images"]
+            },
+            {
+                id: 9,
+                name: "AWS",
+                type: "Cloud",
+                level: 4,
+                state: "studied",
+                isMain: false,
+                icon: "☁️",
+                moveset: ["EC2", "S3", "Lambda", "RDS"]
+            },
+            {
+                id: 10,
+                name: "GraphQL",
+                type: "Backend",
+                level: 3,
+                state: "studied",
+                isMain: false,
+                icon: "◈",
+                moveset: ["Queries", "Mutations", "Apollo"]
+            },
+            {
+                id: 11,
+                name: "PostgreSQL",
+                type: "Database",
+                level: 5,
+                state: "active",
+                isMain: false,
+                icon: "🐘",
+                moveset: ["SQL", "Joins", "Indexes", "Transactions"]
+            },
+            {
+                id: 12,
+                name: "MongoDB",
+                type: "Database",
+                level: 4,
+                state: "studied",
+                isMain: false,
+                icon: "🍃",
+                moveset: ["Aggregation", "Indexing", "Mongoose"]
+            },
+            {
+                id: 13,
+                name: "Git",
+                type: "Tools",
+                level: 7,
+                state: "active",
+                isMain: false,
+                icon: "📦",
+                moveset: ["Branching", "Rebase", "Hooks", "CI/CD"]
+            },
+            {
+                id: 14,
+                name: "Jest",
+                type: "Testing",
+                level: 4,
+                state: "studied",
+                isMain: false,
+                icon: "🧪",
+                moveset: ["Unit Tests", "Mocking", "Snapshots"]
+            },
+            {
+                id: 15,
+                name: "Tailwind CSS",
+                type: "Frontend",
+                level: 5,
+                state: "active",
+                isMain: false,
+                icon: "🌬️",
+                moveset: ["Utility Classes", "Custom Config", "Plugins"]
+            },
+            {
+                id: 16,
+                name: "Redis",
+                type: "Database",
+                level: 2,
+                state: "seen",
+                isMain: false,
+                icon: "🔴",
+                moveset: ["Caching", "Pub/Sub"]
+            },
+            {
+                id: 17,
+                name: "Kubernetes",
+                type: "DevOps",
+                level: 2,
+                state: "seen",
+                isMain: false,
+                icon: "☸️",
+                moveset: ["Pods", "Services", "Deployments"]
+            },
+            {
+                id: 18,
+                name: "Terraform",
+                type: "DevOps",
+                level: 2,
+                state: "seen",
+                isMain: false,
+                icon: "🏗️",
+                moveset: ["IaC", "Providers", "Modules"]
+            },
+            {
+                id: 19,
+                name: "Machine Learning",
+                type: "AI",
+                level: 1,
+                state: "seen",
+                isMain: false,
+                icon: "🤖",
+                moveset: ["Scikit-learn", "Basic Models"]
+            },
+            {
+                id: 20,
+                name: "Rust",
+                type: "Systems",
+                level: 1,
+                state: "seen",
+                isMain: false,
+                icon: "🦀",
+                moveset: ["Ownership", "Borrowing"]
+            }
+        ];
+
+        /**
+         * ========================================
+         * RENDER FUNCTIONS
+         * ========================================
+         */
+
+        /**
+         * Calculate level percentage for progress bar
+         * @param {number} level - Current skill level (1-15)
+         * @returns {number} - Percentage value (0-100)
+         */
+        function calculateLevelPercentage(level) {
+            const maxLevel = 15;
+            return Math.min((level / maxLevel) * 100, 100);
+        }
+
+        /**
+         * Render captured skills (main skills showcase)
+         * @param {Array} skills - Array of skill objects with isMain: true
+         */
+        function renderCapturedSkills(skills) {
+            const container = document.getElementById('captured-skills');
+            
+            if (!container) {
+                console.error('Captured skills container not found');
+                return;
+            }
+
+            // Filter and limit to 6 main skills
+            const mainSkills = skills.filter(skill => skill.isMain).slice(0, 6);
+
+            if (mainSkills.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-muted); text-align: center;">No main skills configured</p>';
+                return;
+            }
+
+            container.innerHTML = mainSkills.map(skill => `
+                <article class="skill-card" 
+                         tabindex="0" 
+                         role="button"
+                         aria-label="${skill.name} - Level ${skill.level} ${skill.type} specialist">
+                    <div class="skill-card-header">
+                        <div class="skill-icon" aria-hidden="true">${skill.icon}</div>
+                        <div>
+                            <h3 class="skill-name">${skill.name}</h3>
+                            <p class="skill-type">${skill.type}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="level-container">
+                        <div class="level-label">
+                            <span>Level</span>
+                            <span>Lv.${skill.level}/15</span>
+                        </div>
+                        <div class="level-bar" role="progressbar" 
+                             aria-valuenow="${skill.level}" 
+                             aria-valuemin="0" 
+                             aria-valuemax="15"
+                             aria-label="${skill.name} proficiency level">
+                            <div class="level-fill" style="width: ${calculateLevelPercentage(skill.level)}%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="moveset">
+                        <p class="moveset-label">Moveset:</p>
+                        <div class="moveset-list">
+                            ${skill.moveset.map(move => `<span class="move-tag">${move}</span>`).join('')}
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        /**
+         * Render all skills list with state indicators
+         * @param {Array} skills - Array of all skill objects
+         */
+        function renderAllSkills(skills) {
+            const container = document.getElementById('all-skills');
+            
+            if (!container) {
+                console.error('All skills container not found');
+                return;
+            }
+
+            // Sort by state priority: active > studied > seen
+            const statePriority = { active: 0, studied: 1, seen: 2 };
+            const sortedSkills = [...skills].sort((a, b) => {
+                return statePriority[a.state] - statePriority[b.state];
+            });
+
+            container.innerHTML = sortedSkills.map(skill => `
+                <div class="skill-entry ${skill.state}" 
+                     role="listitem"
+                     aria-label="${skill.name} - ${skill.state}">
+                    ${skill.name}
+                </div>
+            `).join('');
+        }
+
+        /**
+         * Initialize and render all components
+         */
+        function init() {
+            try {
+                renderCapturedSkills(skillsData);
+                renderAllSkills(skillsData);
+                console.log('DevDex initialized successfully!');
+            } catch (error) {
+                console.error('Error initializing DevDex:', error);
+            }
+        }
+
+        // Run initialization when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+        /**
+         * ========================================
+         * HELPER FUNCTION: ADD NEW SKILL
+         * ========================================
+         * 
+         * Uncomment and modify this function to add skills dynamically
+         * 
+         * function addSkill(skillObj) {
+         *     const newId = Math.max(...skillsData.map(s => s.id)) + 1;
+         *     skillsData.push({ ...skillObj, id: newId });
+         *     init(); // Re-render
+         * }
+         * 
+         * Example usage:
+         * addSkill({
+         *     name: "New Skill",
+         *     type: "Category",
+         *     level: 3,
+         *     state: "studied",
+         *     isMain: false,
+         *     icon: "🆕",
+         *     moveset: ["Feature 1", "Feature 2"]
+         * });
+         */
+    </script>
+</body>
+</html>
