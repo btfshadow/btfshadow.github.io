@@ -1,92 +1,92 @@
 [
   {
-    "name": "JavaScript",
+    "name": "AI-Augmented Testing",
+    "level": 10,
+    "state": "active",
+    "isMain": true,
+    "icon": "🤖",
+    "moveset": ["LLMs (Claude, Copilot)", "CrewAI Agents", "Prompt Engineering", "Ollama/LM Studio"]
+  },
+  {
+    "name": "Test Automation",
     "level": 12,
     "state": "active",
     "isMain": true,
     "icon": "⚡",
-    "moveset": ["ES6+", "Async/Await", "DOM Manipulation", "Event Loop"]
+    "moveset": ["Appium", "Selenium", "Cucumber", "RSpec"]
   },
   {
-    "name": "React",
-    "level": 10,
-    "state": "active",
-    "isMain": true,
-    "icon": "⚛️",
-    "moveset": ["Hooks", "Redux", "Next.js", "Context API"]
-  },
-  {
-    "name": "Node.js",
+    "name": "DevSecOps",
     "level": 9,
-    "state": "studied",
-    "isMain": true,
-    "icon": "🟢",
-    "moveset": ["Express", "API Design", "Streams", "Worker Threads"]
-  },
-  {
-    "name": "CSS/SASS",
-    "level": 14,
     "state": "active",
     "isMain": true,
-    "icon": "🎨",
-    "moveset": ["Grid", "Flexbox", "Animations", "Tailwind"]
+    "icon": "🔒",
+    "moveset": ["SonarQube", "MegaLinter", "SDAT", "MobSF"]
   },
   {
-    "name": "TypeScript",
+    "name": "CI/CD Optimization",
+    "level": 11,
+    "state": "active",
+    "isMain": true,
+    "icon": "🔄",
+    "moveset": ["Jenkins", "Pipeline Design", "Cost Reduction 50%", "Test Pyramid"]
+  },
+  {
+    "name": "Java",
     "level": 8,
     "state": "active",
     "isMain": true,
-    "icon": "📘",
-    "moveset": ["Generics", "Utility Types", "Decorators"]
+    "icon": "☕",
+    "moveset": ["Test Frameworks", "OOP", "Integration Tests"]
   },
   {
-    "name": "Python",
+    "name": "Ruby",
     "level": 7,
     "state": "studied",
     "isMain": true,
-    "icon": "🐍",
-    "moveset": ["Django", "FastAPI", "Data Scripts"]
+    "icon": "💎",
+    "moveset": ["Cucumber", "RSpec", "Calabash"]
   },
   {
-    "name": "Git",
-    "level": 11,
-    "state": "active",
+    "name": "Python",
+    "level": 6,
+    "state": "studied",
     "isMain": false,
-    "icon": "📦"
+    "icon": "🐍"
   },
   {
     "name": "SQL",
     "level": 8,
-    "state": "seen",
+    "state": "active",
     "isMain": false,
     "icon": "🗄️"
   },
   {
     "name": "Docker",
-    "level": 6,
+    "level": 5,
     "state": "studied",
     "isMain": false,
     "icon": "🐳"
   },
   {
-    "name": "AWS",
-    "level": 5,
-    "state": "seen",
-    "isMain": false,
-    "icon": "☁️"
-  },
-  {
-    "name": "GraphQL",
-    "level": 7,
-    "state": "studied",
-    "isMain": false,
-    "icon": "◈"
-  },
-  {
-    "name": "Jest",
-    "level": 9,
+    "name": "Git",
+    "level": 10,
     "state": "active",
     "isMain": false,
-    "icon": "✅"
+    "icon": "📦"
+  },
+  {
+    "name": "Agile/Scrum",
+    "level": 11,
+    "state": "active",
+    "isMain": false,
+    "icon": "📋"
+  },
+  {
+    "name": "JMeter",
+    "level": 6,
+    "state": "studied",
+    "isMain": false,
+    "icon": "⏱️"
   }
 ]

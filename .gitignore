@@ -1,1 +1,4 @@
-Nothing should be ignored based on the provided file changes, as only source/config files (README.md, index.html) were modified and no build artifacts, dependencies, or temporary files were detected.
+```
+# Data files - assuming these might be generated or temporary
+data/*.json
+```

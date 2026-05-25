@@ -1,16 +1,23 @@
 [
   {
-    "school": "Universidade de São Paulo",
-    "degree": "Bacharelado em Ciência da Computação",
-    "period": "2008 - 2012",
-    "icon": "🎓",
+    "school": "UNIVESP",
+    "degree": "B.Eng. in Computer Engineering",
+    "period": "2018 – 2023",
+    "icon": "🏛️",
     "status": "completed"
   },
   {
-    "school": "Coursera / Stanford",
-    "degree": "Machine Learning Specialization",
-    "period": "2020",
-    "icon": "🤖",
+    "school": "UNIP",
+    "degree": "Postgraduate Certificate in Software Engineering",
+    "period": "2015 – 2016",
+    "icon": "📜",
+    "status": "completed"
+  },
+  {
+    "school": "UNIP",
+    "degree": "BSc in Information Systems",
+    "period": "2010 – 2013",
+    "icon": "💻",
     "status": "completed"
   }
 ]
