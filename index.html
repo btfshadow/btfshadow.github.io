@@ -576,6 +576,64 @@
       </div>
     </section>
 
+    <!-- REQUEST QUEST FORM -->
+    <section class="gym-section" aria-labelledby="quest-form-title" style="margin-bottom: var(--spacing-xl);">
+      <div class="section-header">
+        <span class="terminal-prompt">></span>
+        <h2 id="quest-form-title">Request a Quest</h2>
+      </div>
+      <div class="pixel-border" style="background: var(--bg-card); padding: var(--spacing-lg); max-width: 600px;">
+        <p style="margin-bottom: var(--spacing-md); color: var(--text-muted);">
+          > Ready to start your next quest? Fill out the form below to request a quote for QA audits, AI testing workshops, or technical mentorship.
+        </p>
+        <form id="quest-form" onsubmit="handleQuestSubmit(event)" novalidate>
+          <div style="margin-bottom: var(--spacing-sm);">
+            <label for="quest-name" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Trainer Name *</label>
+            <input type="text" id="quest-name" name="name" required maxlength="100" 
+                   style="width: 100%; padding: 0.75rem; background: var(--bg); border: 2px solid var(--text-muted); color: var(--text); font-family: var(--font-body);"
+                   placeholder="Enter your name"/>
+          </div>
+          
+          <div style="margin-bottom: var(--spacing-sm);">
+            <label for="quest-email" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Email *</label>
+            <input type="email" id="quest-email" name="email" required maxlength="200"
+                   style="width: 100%; padding: 0.75rem; background: var(--bg); border: 2px solid var(--text-muted); color: var(--text); font-family: var(--font-body);"
+                   placeholder="your@email.com"/>
+          </div>
+          
+          <div style="margin-bottom: var(--spacing-sm);">
+            <label for="quest-type" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Quest Type *</label>
+            <select id="quest-type" name="type" required
+                    style="width: 100%; padding: 0.75rem; background: var(--bg); border: 2px solid var(--text-muted); color: var(--text); font-family: var(--font-body);">
+              <option value="">Select a quest type...</option>
+              <option value="qa-audit">QA Audit & Strategy</option>
+              <option value="ai-workshop">AI Testing Workshop</option>
+              <option value="mentorship">Technical Mentorship</option>
+              <option value="freelance">Freelance Partnership</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div style="margin-bottom: var(--spacing-sm);">
+            <label for="quest-message" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Quest Details *</label>
+            <textarea id="quest-message" name="message" required maxlength="1000" rows="5"
+                      style="width: 100%; padding: 0.75rem; background: var(--bg); border: 2px solid var(--text-muted); color: var(--text); font-family: var(--font-body); resize: vertical;"
+                      placeholder="Describe your quest objectives, timeline, and any specific requirements..."></textarea>
+            <div style="text-align: right; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
+              <span id="char-count">0</span>/1000 characters
+            </div>
+          </div>
+          
+          <button type="submit" 
+                  style="width: 100%; padding: 1rem; background: var(--purple); color: white; border: none; font-family: var(--font-title); font-size: 1.2rem; cursor: pointer; transition: all 0.2s;"
+                  onmouseover="this.style.background='var(--cherry)'" onmouseout="this.style.background='var(--purple)'">
+            🎮 Submit Quest Request
+          </button>
+        </form>
+        <div id="form-response" style="margin-top: var(--spacing-md); display: none;"></div>
+      </div>
+    </section>
+
   </div>
 
   <!-- MODAL FOR SKILLS -->
@@ -719,6 +777,15 @@
     // Render Trainer
     function renderTrainer(data) {
       const container = document.getElementById('trainer-container');
+      const contactLinks = data.contact ? `
+        <div class="trainer-meta" style="margin-top: 0.75rem;">
+          ${data.contact.email ? `<span><a href="mailto:${data.contact.email}" aria-label="Email">✉ Email</a></span>` : ''}
+          ${data.contact.linkedin ? `<span><a href="${data.contact.linkedin}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">💼 LinkedIn</a></span>` : ''}
+          ${data.contact.github ? `<span><a href="${data.contact.github}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">🐙 GitHub</a></span>` : ''}
+          ${data.contact.portfolio ? `<span><a href="${data.contact.portfolio}" target="_blank" rel="noopener noreferrer" aria-label="Portfolio">🌐 Portfolio</a></span>` : ''}
+        </div>
+      ` : '';
+      
       container.innerHTML = `
         <div class="trainer-avatar">${data.avatar || '👾'}</div>
         <div class="trainer-info">
@@ -728,6 +795,7 @@
             <span><strong>Type:</strong> ${data.type}</span>
             <span><strong>Region:</strong> ${data.region}</span>
           </div>
+          ${contactLinks}
           <p class="trainer-desc">> ${data.description || 'No data available.'}</p>
         </div>
       `;
@@ -838,14 +906,22 @@
 
       const isBlog = type === 'blog';
       
-      container.innerHTML = data.map(item => `
-        <article class="info-card ${isBlog ? 'blog-card' : ''} pixel-border">
-          <h3 class="info-title">${isBlog ? item.title : (item.name || item.title)}</h3>
-          <div class="info-sub">${item.issuer || item.provider || item.tags?.join(', ')}</div>
-          <div class="info-meta ${isBlog ? 'blog-date' : ''}">${item.year || item.period || item.date}</div>
-          <p class="info-desc">${item.excerpt || item.description || item.summary || ''}</p>
-        </article>
-      `).join('');
+      container.innerHTML = data.map(item => {
+        const links = item.links ? item.links : {};
+        const githubLink = links.github ? `<a href="${links.github}" target="_blank" rel="noopener noreferrer" class="info-meta" style="margin-right: 1rem;">🐙 GitHub</a>` : '';
+        const articleLink = links.article ? `<a href="${links.article}" target="_blank" rel="noopener noreferrer" class="info-meta">📄 Read Article</a>` : '';
+        const linksHtml = (githubLink || articleLink) ? `<div style="margin-top: 0.75rem;">${githubLink}${articleLink}</div>` : '';
+        
+        return `
+          <article class="info-card ${isBlog ? 'blog-card' : ''} pixel-border">
+            <h3 class="info-title">${isBlog ? item.title : (item.name || item.title)}</h3>
+            <div class="info-sub">${item.issuer || item.provider || item.tags?.join(', ')}</div>
+            <div class="info-meta ${isBlog ? 'blog-date' : ''}">${item.year || item.period || item.date}</div>
+            <p class="info-desc">${item.excerpt || item.description || item.summary || ''}</p>
+            ${linksHtml}
+          </article>
+        `;
+      }).join('');
     }
 
     /**
@@ -912,6 +988,90 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
     });
+
+    /**
+     * =========================================
+     * QUEST FORM HANDLER
+     * =========================================
+     */
+    
+    // Character counter for textarea
+    const messageTextarea = document.getElementById('quest-message');
+    const charCountSpan = document.getElementById('char-count');
+    
+    if (messageTextarea) {
+      messageTextarea.addEventListener('input', function() {
+        const currentLength = this.value.length;
+        charCountSpan.textContent = currentLength;
+        
+        // Visual feedback when approaching limit
+        if (currentLength > 900) {
+          charCountSpan.style.color = 'var(--cherry)';
+        } else if (currentLength > 700) {
+          charCountSpan.style.color = 'var(--yellow)';
+        } else {
+          charCountSpan.style.color = 'var(--text-muted)';
+        }
+      });
+    }
+    
+    // Form submission handler
+    window.handleQuestSubmit = function(event) {
+      event.preventDefault();
+      
+      const form = document.getElementById('quest-form');
+      const responseDiv = document.getElementById('form-response');
+      
+      // Get form values
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const type = form.type.value;
+      const message = form.message.value.trim();
+      
+      // Validation
+      if (!name || !email || !type || !message) {
+        responseDiv.style.display = 'block';
+        responseDiv.style.background = 'var(--cherry)';
+        responseDiv.style.color = '#fff';
+        responseDiv.style.padding = '1rem';
+        responseDiv.innerHTML = '❌ Error: All fields are required!';
+        return;
+      }
+      
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        responseDiv.style.display = 'block';
+        responseDiv.style.background = 'var(--cherry)';
+        responseDiv.style.color = '#fff';
+        responseDiv.innerHTML = '❌ Error: Please enter a valid email address!';
+        return;
+      }
+      
+      // Simulate form submission (in production, replace with actual API call)
+      console.log('📬 Quest Request Submitted:', { name, email, type, message });
+      
+      // Show success message
+      responseDiv.style.display = 'block';
+      responseDiv.style.background = 'var(--green)';
+      responseDiv.style.color = '#000';
+      responseDiv.style.padding = '1rem';
+      responseDiv.innerHTML = `
+        <strong>✅ Quest Received!</strong><br>
+        Thank you, ${name}! Your quest request has been logged. 
+        I'll review your details and respond via email within 2-3 business days.
+      `;
+      
+      // Reset form
+      form.reset();
+      charCountSpan.textContent = '0';
+      charCountSpan.style.color = 'var(--text-muted)';
+      
+      // Hide success message after 10 seconds
+      setTimeout(() => {
+        responseDiv.style.display = 'none';
+      }, 10000);
+    };
 
     /**
      * =========================================
