@@ -1,0 +1,92 @@
+[
+  {
+    "name": "AI-Augmented Testing",
+    "level": 10,
+    "state": "active",
+    "isMain": true,
+    "icon": "🤖",
+    "moveset": ["LLMs (Claude, Copilot)", "CrewAI Agents", "Prompt Engineering", "Ollama/LM Studio"]
+  },
+  {
+    "name": "Test Automation",
+    "level": 12,
+    "state": "active",
+    "isMain": true,
+    "icon": "⚡",
+    "moveset": ["Appium", "Selenium", "Cucumber", "RSpec"]
+  },
+  {
+    "name": "DevSecOps",
+    "level": 9,
+    "state": "active",
+    "isMain": true,
+    "icon": "🔒",
+    "moveset": ["SonarQube", "MegaLinter", "SDAT", "MobSF"]
+  },
+  {
+    "name": "CI/CD Optimization",
+    "level": 11,
+    "state": "active",
+    "isMain": true,
+    "icon": "🔄",
+    "moveset": ["Jenkins", "Pipeline Design", "Cost Reduction 50%", "Test Pyramid"]
+  },
+  {
+    "name": "Java",
+    "level": 8,
+    "state": "active",
+    "isMain": true,
+    "icon": "☕",
+    "moveset": ["Test Frameworks", "OOP", "Integration Tests"]
+  },
+  {
+    "name": "Ruby",
+    "level": 7,
+    "state": "studied",
+    "isMain": true,
+    "icon": "💎",
+    "moveset": ["Cucumber", "RSpec", "Calabash"]
+  },
+  {
+    "name": "Python",
+    "level": 6,
+    "state": "studied",
+    "isMain": false,
+    "icon": "🐍"
+  },
+  {
+    "name": "SQL",
+    "level": 8,
+    "state": "active",
+    "isMain": false,
+    "icon": "🗄️"
+  },
+  {
+    "name": "Docker",
+    "level": 5,
+    "state": "studied",
+    "isMain": false,
+    "icon": "🐳"
+  },
+  {
+    "name": "Git",
+    "level": 10,
+    "state": "active",
+    "isMain": false,
+    "icon": "📦"
+  },
+  {
+    "name": "Agile/Scrum",
+    "level": 11,
+    "state": "active",
+    "isMain": false,
+    "icon": "📋"
+  },
+  {
+    "name": "JMeter",
+    "level": 6,
+    "state": "studied",
+    "isMain": false,
+    "icon": "⏱️"
+  }
+]

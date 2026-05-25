@@ -1,0 +1,58 @@
+[
+  {
+    "company": "Pagar.me",
+    "role": "Staff QA Engineer",
+    "period": "Jan 2023 – Presente",
+    "summary": "Lidero a estratégia de qualidade reduzindo incidentes em produção em 40%. Pioneiro em testes aumentados por IA com LLMs e agentes CrewAI, reduzindo o tempo de design de testes em 35%. Otimizei pipelines CI/CD reduzindo custos de infraestrutura em 50%.",
+    "icon": "⚡",
+    "rarity": "lendário"
+  },
+  {
+    "company": "Pagar.me",
+    "role": "Tech Lead QA",
+    "period": "Out 2021 – Jan 2023",
+    "summary": "Liderei equipe de 7 QAs em 3 equipes de produto. Arquitetei farm de dispositivos para testes POS reduzindo validação manual em 60%. Integrei análise estática de segurança (SonarQube, MobSF) detectando 90% das vulnerabilidades críticas antes do merge.",
+    "icon": "🛡️",
+    "rarity": "elite"
+  },
+  {
+    "company": "Pagar.me",
+    "role": "Engenheiro de Testes",
+    "period": "Set 2020 – Dez 2022",
+    "summary": "Otimizei pipelines CI/CD e reestruturei a estratégia de automação de testes. Reduzi custos de infraestrutura em 50% enquanto acelerava loops de feedback e aumentava a confiabilidade dos testes.",
+    "icon": "🎯",
+    "rarity": "elite"
+  },
+  {
+    "company": "PagSeguro PagBank",
+    "role": "QA Engineer",
+    "period": "Set 2019 – Set 2020",
+    "summary": "Garanti qualidade para produtos de pagamento de alto volume em ambiente fintech regulamentado. Otimizei processos de QA alinhando testes manuais e automatizados com entrega Ágil.",
+    "icon": "💳",
+    "rarity": "elite"
+  },
+  {
+    "company": "Concrete Solutions",
+    "role": "Líder de Capítulo QA",
+    "period": "Abr 2017 – Set 2019",
+    "summary": "Liderança técnica de QA para projetos de mídia digital. Construí frameworks de automação usando Ruby, Cucumber, Appium integrados com Jenkins CI. Defendi práticas de Specification by Example.",
+    "icon": "🎬",
+    "rarity": "elite"
+  },
+  {
+    "company": "Stefanini (IBM Consulting)",
+    "role": "Analista de Testes Júnior",
+    "period": "Fev 2016 – Mar 2017",
+    "summary": "Executei testes funcionais e introduzi automação em ambiente bancário regulamentado. Operacionalizei ferramentas IBM Rational (RTC, RQM, RFT) para rastreabilidade de requisitos.",
+    "icon": "🏦",
+    "rarity": "raro"
+  },
+  {
+    "company": "Freelance",
+    "role": "Consultor Estratégico",
+    "period": "2018 – Presente",
+    "summary": "Auditorias de QA, workshops de testes com IA e mentoria técnica. Aberto a vagas globais remote-first ou relocação para Japão com patrocínio de visto.",
+    "icon": "🌟",
+    "rarity": "místico"
+  }
+]

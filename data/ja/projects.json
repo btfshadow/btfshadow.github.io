@@ -1,0 +1,32 @@
+[
+  {
+    "title": "拡張現実研究",
+    "description": "AR とコンピュータビジョンを使用した物体軌道予測の研究。UNIP 年次研究コンベンション（2013 年）で発表。",
+    "tags": ["コンピュータビジョン", "AR", "研究"],
+    "icon": "🔬",
+    "links": {
+      "github": null,
+      "article": null
+    }
+  },
+  {
+    "title": "モバイル制御車椅子プロトタイプ",
+    "description": "卒業制作：Bluetooth ベースの遠隔制御のための統合ハードウェア + ソフトウェアプロトタイプを構築。キャンパスのアウトリースイベントで展示。",
+    "tags": ["組込システム", "Bluetooth", "アクセシビリティ", "IoT"],
+    "icon": "♿",
+    "links": {
+      "github": null,
+      "article": null
+    }
+  },
+  {
+    "title": "DevDex ポートフォリオ",
+    "description": "レトロターミナルスタイルの Pokédex 風ポートフォリオ。動的 JSON データローディングを備えたピュア HTML/CSS/JS。",
+    "tags": ["HTML", "CSS", "JavaScript", "JSON"],
+    "icon": "🎮",
+    "links": {
+      "github": "https://github.com/sophiasimoes8/devdex",
+      "article": null
+    }
+  }
+]

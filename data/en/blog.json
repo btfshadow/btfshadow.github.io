@@ -1,0 +1,32 @@
+[
+  {
+    "title": "AI-Augmented Testing: The Future of QA",
+    "date": "2024-12-01",
+    "excerpt": "How LLMs, CrewAI agents, and prompt engineering are automating 70% of test scenarios while improving edge-case coverage.",
+    "icon": "🤖",
+    "links": {
+      "github": null,
+      "article": "https://dev.to/sophiasimoes8/ai-augmented-testing-future-qa"
+    }
+  },
+  {
+    "title": "Reducing CI/CD Costs by 50%",
+    "date": "2024-11-15",
+    "excerpt": "Strategies for optimizing test pyramid architecture and infrastructure costs without sacrificing quality or coverage.",
+    "icon": "💰",
+    "links": {
+      "github": null,
+      "article": "https://dev.to/sophiasimoes8/reducing-cicd-costs-50"
+    }
+  },
+  {
+    "title": "Mentoring Juniors to Leadership",
+    "date": "2024-10-20",
+    "excerpt": "Lessons learned from guiding 7+ QA engineers through their careers, including one promotion to Engineering Management.",
+    "icon": "🌱",
+    "links": {
+      "github": null,
+      "article": "https://dev.to/sophiasimoes8/mentoring-junior-leadership"
+    }
+  }
+]
