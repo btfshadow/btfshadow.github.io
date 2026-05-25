@@ -1,169 +1,187 @@
-# DevDex - Pokémon-Style Developer Portfolio
+# DevDex - Dynamic Pokémon-Style Portfolio
 
-A retro-themed, accessible developer portfolio component inspired by Gen 2/3 Pokédex screens with terminal aesthetics.
+Um portfólio de desenvolvedor com temática de Pokédex Gen 2/3, usando dados dinâmicos via JSON.
 
-## 🎮 Features
+## 📁 Estrutura do Projeto
 
-- **Trainer Profile Card**: Your professional info styled like a Pokédex entry
-- **Skills Pokédex**: Three visual states (Seen/Studied/Active) with dynamic rendering
-- **Captured Pokémon**: Top 6 main skills displayed as collectible cards with level bars
-- **Responsive Design**: Mobile-first, stacks vertically on small screens
-- **Accessible**: WCAG compliant, respects prefers-reduced-motion, proper ARIA labels
-- **No Dependencies**: Pure HTML/CSS/JS, no frameworks or build steps required
-
-## 🚀 Deployment
-
-### GitHub Pages
-
-1. Upload `pokedex.html` to your repository
-2. Rename it to `index.html` (or keep as `pokedex.html` and access via `/pokedex.html`)
-3. Enable GitHub Pages in repository settings
-4. Your site will be live at `https://yourusername.github.io/repo-name/`
-
-### Vercel
-
-1. Push your repository to GitHub/GitLab
-2. Import the project in Vercel
-3. Deploy automatically
-
-**Recommendation**: Both platforms work perfectly. Use **GitHub Pages** if you want to keep everything in one place. Use **Vercel** if you plan to add serverless functions or want faster global CDN.
-
-## 📝 Customization Guide
-
-### 1. Update Trainer Info
-
-Find this section in the HTML and update with your details:
-
-```html
-<h2 id="trainer-heading" class="trainer-name">Your Name</h2>
-<p class="trainer-title">Full Stack Developer</p>
-<div class="trainer-meta">
-    <span class="trainer-meta-item">Type: Frontend/Backend</span>
-    <span class="trainer-meta-item">Region: São Paulo, BR</span>
-</div>
-<p class="trainer-description">
-    Your professional summary here (2 lines max)
-</p>
+```
+/workspace
+├── index.html              # Arquivo principal
+├── data/                   # Dados dinâmicos (JSON)
+│   ├── trainer.json        # Perfil do treinador
+│   ├── skills.json         # Habilidades (skills)
+│   ├── experiences.json    # Experiências profissionais (Gym Badges)
+│   ├── education.json      # Formação acadêmica
+│   ├── courses.json        # Cursos
+│   ├── certifications.json # Certificações
+│   ├── projects.json       # Projetos pessoais
+│   └── blog.json           # Posts do blog
+└── README.md               # Este arquivo
 ```
 
-### 2. Add/Edit Skills
+## 🚀 Como Usar
 
-In the `<script>` section, find the `skillsData` array. Each skill has these properties:
+### 1. Editar Dados
 
-```javascript
+Basta modificar os arquivos JSON na pasta `data/`. Exemplo:
+
+**`data/trainer.json`:**
+```json
 {
-    id: 1,                    // Unique identifier
-    name: "JavaScript",       // Skill name
-    type: "Frontend",         // Category/type
-    level: 8,                 // Proficiency (1-15, where 1 year ≈ 1 level)
-    state: "active",          // 'seen', 'studied', or 'active'
-    isMain: true,             // Show in top 6 "Captured Pokémon" cards
-    icon: "🟨",               // Emoji icon
-    moveset: ["ES6+", "..."]  // Sub-skills/tools (3-4 items)
+  "name": "Seu Nome",
+  "title": "Seu Cargo",
+  "type": "Sua Especialidade",
+  "region": "Sua Localização",
+  "avatar": "👨‍💻",
+  "description": "Sua descrição profissional"
 }
 ```
 
-#### Skill States Explained:
+**`data/skills.json`:**
+```json
+[
+  {
+    "name": "JavaScript",
+    "level": 12,              // 1-15 (anos de experiência ≈ nível)
+    "state": "active",        // active | studied | seen
+    "isMain": true,           // Aparece nos cards principais?
+    "icon": "⚡",
+    "moveset": ["ES6+", "React", "Node"]  // Sub-skills
+  }
+]
+```
 
-- **`seen`**: You've heard of it (appears dimmed in the list)
-- **`studied`**: You've taken a course/trained (bold text with blue underline)
-- **`active`**: You use it daily (shows Pokéball icon before name)
+### 2. Schema de Validação
 
-### 3. Adjust Skill Level
+O sistema valida automaticamente cada arquivo JSON. Campos obrigatórios:
 
-Change the `level` property (1-15 scale):
-- Level 1-3: Beginner
-- Level 4-7: Intermediate  
-- Level 8-12: Advanced
-- Level 13-15: Expert
+| Arquivo | Campos Obrigatórios |
+|---------|---------------------|
+| `trainer.json` | `name`, `title`, `type`, `region`, `avatar` |
+| `skills.json` | `name`, `level`, `state`, `isMain` |
+| `experiences.json` | `company`, `role`, `period`, `summary` |
+| `education.json` | `school`, `degree`, `period` |
+| `courses.json` | `title`, `provider`, `year` |
+| `certifications.json` | `name`, `issuer`, `year` |
+| `projects.json` | `title`, `description`, `tags` |
+| `blog.json` | `title`, `date`, `excerpt` |
 
-The progress bar updates automatically.
+### 3. Fallback Automático
 
-### 4. Change Main Skills
+Se um arquivo JSON:
+- Não existir
+- Estiver mal formatado
+- Falhar na validação do schema
 
-Set `isMain: true` for up to 6 skills you want featured in the "Captured Pokémon" section. The rest will appear in the complete skills list below.
+O sistema usa **dados de fallback** hardcoded no JavaScript, garantindo que o site nunca quebre.
 
-### 5. Customize Colors
+## 🎮 Estados das Skills
 
-Edit CSS variables in the `:root` section:
+- **`active`**: Uso diário → Borda verde + glow + Pokéball
+- **`studied`**: Estudado/Curso → Borda azul + negrito
+- **`seen`**: Conhece superficialmente → Opacidade reduzida + grayscale
+
+## 🏆 Gym Badges (Experiências)
+
+Raridades disponíveis:
+- `legendary` → Amarelo/dourado
+- `elite` → Roxo
+- `rare` → Azul
+- `common` → Cinza
+
+## 🌐 Deploy no GitHub Pages
+
+1. **Renomeie** (opcional): `index.html` já está pronto
+2. **Edite** os JSONs na pasta `data/`
+3. **Push** para seu repositório GitHub
+4. **Ative** GitHub Pages:
+   - Settings → Pages → Source: `main branch` → Save
+5. **Acesse**: `https://seu-usuario.github.io/seu-repo`
+
+### ✅ Compatibilidade
+
+- **GitHub Pages**: 100% compatível (site estático)
+- **Vercel**: Também funciona, mas não necessário para este caso
+- **Netlify**: Funciona perfeitamente
+
+## 🎨 Personalização
+
+### Cores (CSS Variables)
+
+No `<style>` do `index.html`, edite `:root`:
 
 ```css
 :root {
-    --bg: #0a0a0f;           /* Background */
-    --bg-card: #111827;      /* Card background */
-    --purple: #7c3aed;       /* Primary accent */
-    --cherry: #dc2626;       /* Secondary accent */
-    --yellow: #fbbf24;       /* Highlights */
-    --blue: #3b82f6;         /* Links/info */
-    --green: #10b981;        /* Terminal/success */
-    --text: #f3f4f6;         /* Main text */
-    --text-muted: #9ca3af;   /* Muted text */
+  --bg: #0a0a0f;          /* Fundo principal */
+  --bg-card: #111827;     /* Fundo dos cards */
+  --purple: #7c3aed;      /* Cor primária */
+  --cherry: #dc2626;      /* Detalhes vermelhos */
+  --yellow: #fbbf24;      /* Dourado/títulos */
+  --blue: #3b82f6;        /* Links/destaques */
+  --green: #10b981;       /* Skills ativas */
 }
 ```
 
-## ♿ Accessibility Features
-
-- ✅ Semantic HTML structure
-- ✅ ARIA labels and roles
-- ✅ Keyboard navigation support
-- ✅ Respects `prefers-reduced-motion`
-- ✅ Color contrast ≥ 4.5:1
-- ✅ Screen reader friendly
-
-## 🎨 Design System
-
 ### Fonts
-- **VT323**: Titles, UI labels, terminal prompts
-- **Fira Code**: Body text, descriptions
 
-### Visual Elements
-- Pixel borders with box-shadow technique
-- Subtle scanline overlay (non-intrusive)
-- Terminal prompt prefixes (`> trainer.info`)
-- Hover effects only (no auto-animations)
-- Responsive grid layout
+Já incluídas via Google Fonts:
+- **VT323**: Títulos e UI (estilo pixel)
+- **Fira Code**: Corpo do texto (monospace)
 
-## 📱 Responsive Breakpoints
+## ♿ Acessibilidade
 
-- **Mobile**: < 640px (single column, centered content)
-- **Tablet**: 640px - 768px (transitional)
-- **Desktop**: > 768px (two-column Pokédex layout)
+- ✅ Contraste ≥ 4.5:1
+- ✅ ARIA labels em todos os elementos interativos
+- ✅ Navegação por teclado (Tab, Enter, Escape)
+- ✅ `prefers-reduced-motion` respeitado
+- ✅ HTML semântico
 
-## 🔧 Technical Details
+## 📱 Responsividade
 
-- **File Size**: ~30KB (minified would be ~15KB)
-- **Performance**: No external dependencies except Google Fonts
-- **Browser Support**: All modern browsers (Chrome, Firefox, Safari, Edge)
-- **SEO**: Meta description included, semantic HTML
+| Breakpoint | Layout |
+|------------|--------|
+| > 1024px | 4 colunas (Gym Badges) |
+| 768-1024px | 2 colunas |
+| < 768px | 1 coluna (mobile) |
+| < 480px | PC Box com 2 colunas |
 
-## 📄 File Structure
+## 🔧 Debug
 
+Abra o Console do navegador (F12) para ver:
+- ✅ `"✅ DevDex initialized successfully"` → Tudo OK
+- ⚠️ `"⚠️ Could not load data/..."` → JSON não encontrado (usando fallback)
+- ❌ `"❌ ... failed validation"` → Schema inválido (usando fallback)
+
+## 📝 Adicionar Nova Skill
+
+1. Abra `data/skills.json`
+2. Adicione um novo objeto:
+```json
+{
+  "name": "Nova Skill",
+  "level": 5,
+  "state": "studied",
+  "isMain": false,
+  "icon": "🆕",
+  "moveset": ["Sub-skill 1", "Sub-skill 2"]
+}
 ```
-/workspace/
-├── pokedex.html      # Main component (rename to index.html for deployment)
-└── README.md         # This file
+3. Salve e recarregue a página!
+
+## 📝 Adicionar Novo Post no Blog
+
+1. Abra `data/blog.json`
+2. Adicione no início do array:
+```json
+{
+  "title": "Título do Post",
+  "date": "2024-01-20",
+  "excerpt": "Resumo do post...",
+  "icon": "📝"
+}
 ```
-
-## 🎯 Quick Start
-
-1. Open `pokedex.html` in a code editor
-2. Update the trainer profile section with your info
-3. Modify the `skillsData` array with your skills
-4. Save and open in browser to preview
-5. Deploy to GitHub Pages or Vercel
-
-## 💡 Tips
-
-- Use emojis for skill icons (keeps file size small)
-- Keep moveset items short (1-2 words each)
-- Limit main skills to 6 for best visual impact
-- Test on mobile devices before deploying
-- Update GitHub link in footer before going live
-
-## 📄 License
-
-Free to use and modify for personal and commercial projects.
+3. Salve e recarregue!
 
 ---
 
-**Built with ❤️ and ☕** | Compatible with GitHub Pages & Vercel
+**Criado com ❤️ e nostalgia Pokémon**
