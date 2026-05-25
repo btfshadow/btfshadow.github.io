@@ -617,7 +617,7 @@
     </section>
 
     <!-- COURSES -->
-    <section class="gym-section" aria-labelledby="courses-title">
+    <section class="gym-section" id="courses-section" aria-labelledby="courses-title">
       <div class="section-header">
         <span class="terminal-prompt">></span>
         <h2 id="courses-title">Training Courses</h2>
@@ -628,7 +628,7 @@
     </section>
 
     <!-- CERTIFICATIONS -->
-    <section class="gym-section" aria-labelledby="certs-title">
+    <section class="gym-section" id="certs-section" aria-labelledby="certs-title">
       <div class="section-header">
         <span class="terminal-prompt">></span>
         <h2 id="certs-title">Certifications</h2>
@@ -639,7 +639,7 @@
     </section>
 
     <!-- PROJECTS -->
-    <section class="gym-section" aria-labelledby="projects-title">
+    <section class="gym-section" id="projects-section" aria-labelledby="projects-title">
       <div class="section-header">
         <span class="terminal-prompt">></span>
         <h2 id="projects-title" data-i18n="ui.sideProjects">Side Projects</h2>
@@ -650,7 +650,7 @@
     </section>
 
     <!-- BLOG -->
-    <section class="gym-section" aria-labelledby="blog-title">
+    <section class="gym-section" id="blog-section" aria-labelledby="blog-title">
       <div class="section-header">
         <span class="terminal-prompt">></span>
         <h2 id="blog-title" data-i18n="ui.logEntries">Log Entries</h2>
@@ -861,6 +861,17 @@
     // Render Trainer
     function renderTrainer(data) {
       const container = document.getElementById('trainer-container');
+      const section = document.querySelector('section[aria-labelledby="trainer-title"]');
+      
+      if (!data || !data.name) {
+        if (section) section.style.display = 'none';
+        container.innerHTML = '<p style="color:var(--text-muted)">No trainer data available.</p>';
+        return;
+      }
+      
+      // Show section if it was previously hidden
+      if (section) section.style.display = 'block';
+      
       const contactLinks = data.contact ? `
         <div class="trainer-meta" style="margin-top: 0.75rem;">
           ${data.contact.email ? `<span><a href="mailto:${data.contact.email}" aria-label="Email">✉ Email</a></span>` : ''}
@@ -888,12 +899,17 @@
     // Render Main Skills
     function renderMainSkills(skills) {
       const container = document.getElementById('main-skills-container');
+      const section = document.getElementById('skills-section');
       const mainSkills = skills.filter(s => s.isMain).slice(0, 6);
       
       if (mainSkills.length === 0) {
+        if (section) section.style.display = 'none';
         container.innerHTML = '<p style="color:var(--text-muted)">No main skills captured yet.</p>';
         return;
       }
+      
+      // Show section if it was previously hidden
+      if (section) section.style.display = 'block';
 
       container.innerHTML = mainSkills.map(skill => `
         <article class="skill-card pixel-border">
@@ -922,6 +938,16 @@
     // Render PC Box (All Skills)
     function renderPCBox(skills) {
       const container = document.getElementById('pc-box-container');
+      const section = document.getElementById('pc-box-section');
+      
+      if (!skills || skills.length === 0) {
+        if (section) section.style.display = 'none';
+        container.innerHTML = '<p style="color:var(--text-muted)">No skills in PC box.</p>';
+        return;
+      }
+      
+      // Show section if it was previously hidden
+      if (section) section.style.display = 'block';
       
       container.innerHTML = skills.map((skill, index) => `
         <div class="pc-card ${skill.state} pixel-border" 
@@ -943,6 +969,16 @@
     // Render Gym Badges (Experiences)
     function renderExperiences(exps) {
       const container = document.getElementById('gym-container');
+      const section = document.getElementById('gym-section');
+      
+      if (!exps || exps.length === 0) {
+        if (section) section.style.display = 'none';
+        container.innerHTML = '<p style="color:var(--text-muted)">No gym badges earned yet.</p>';
+        return;
+      }
+      
+      // Show section if it was previously hidden
+      if (section) section.style.display = 'block';
       container.innerHTML = exps.map(exp => `
         <div class="gym-badge pixel-border">
           <span class="badge-rarity rarity-${exp.rarity || 'common'}">${exp.rarity || 'Common'}</span>
@@ -958,10 +994,16 @@
     // Main Quests (Education) Renderer
     function renderEducation(data) {
       const container = document.getElementById('education-container');
+      const section = document.querySelector('section[aria-labelledby="edu-title"]');
+      
       if (!data || data.length === 0) {
+        if (section) section.style.display = 'none';
         container.innerHTML = `<p style="color:var(--text-muted)">No main quests found.</p>`;
         return;
       }
+      
+      // Show section if it was previously hidden
+      if (section) section.style.display = 'block';
 
       container.innerHTML = data.map(edu => {
         const isCompleted = edu.status === 'completed' || edu.completed === true;
@@ -981,11 +1023,23 @@
     }
 
     // Generic List Renderer (Courses, Certs, Projects, Blog)
-    function renderGenericList(data, containerId, type) {
+    function renderGenericList(data, containerId, type, sectionId = null) {
       const container = document.getElementById(containerId);
+      const section = sectionId ? document.getElementById(sectionId) : null;
+      
       if (!data || data.length === 0) {
-        container.innerHTML = `<p style="color:var(--text-muted)">No ${type} records found.</p>`;
+        // Hide the entire section if data is empty
+        if (section) {
+          section.style.display = 'none';
+        } else {
+          container.innerHTML = `<p style="color:var(--text-muted)">No ${type} records found.</p>`;
+        }
         return;
+      }
+      
+      // Show section if it was previously hidden
+      if (section) {
+        section.style.display = 'block';
       }
 
       const isBlog = type === 'blog';
@@ -1263,16 +1317,16 @@
         fetchData('blog', 'blog', true)
       ]);
 
-      // Render sections
+      // Render sections with section IDs for hide/show logic
       renderTrainer(trainer);
       renderMainSkills(skills);
       renderPCBox(skills);
       renderExperiences(experiences);
       renderEducation(education);
-      renderGenericList(courses, 'courses-container', 'courses');
-      renderGenericList(certifications, 'certs-container', 'certifications');
-      renderGenericList(projects, 'projects-container', 'projects');
-      renderGenericList(blog, 'blog-container', 'blog');
+      renderGenericList(courses, 'courses-container', 'courses', 'courses-section');
+      renderGenericList(certifications, 'certs-container', 'certifications', 'certs-section');
+      renderGenericList(projects, 'projects-container', 'projects', 'projects-section');
+      renderGenericList(blog, 'blog-container', 'blog', 'blog-section');
       
       console.log("✅ DevDex initialized successfully with dynamic data.");
     }
