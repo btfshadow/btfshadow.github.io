@@ -1,0 +1,149 @@
+{
+  "trainer": {
+    "name": "Sophia Simões",
+    "title": "Staff QA Engineer & Developer",
+    "type": "Automation / AI / DevSecOps",
+    "region": "São Paulo, Brazil",
+    "description": "Especialista em qualidade de software com foco em automação escalável e integração de IA. Transformo café em código limpo e bugs em features.",
+    "avatar": ""
+  },
+  "mainSkills": [
+    {
+      "id": "test-auto",
+      "name": "Test Automation",
+      "type": "QA Engineering",
+      "icon": "🤖",
+      "level": 10,
+      "state": "active",
+      "moveset": ["Appium", "Selenium", "Cucumber", "Jenkins"],
+      "description": "Criação de frameworks robustos de E2E e Mobile."
+    },
+    {
+      "id": "ai-llm",
+      "name": "AI/LLMs",
+      "type": "AI Engineering",
+      "icon": "🧠",
+      "level": 8,
+      "state": "active",
+      "moveset": ["Ollama", "CrewAI", "Prompt Eng.", "n8n"],
+      "description": "Implementação de agentes inteligentes e RAG."
+    },
+    {
+      "id": "devsecops",
+      "name": "DevSecOps",
+      "type": "DevOps",
+      "icon": "🔐",
+      "level": 7,
+      "state": "active",
+      "moveset": ["SonarQube", "MobSF", "SDAT", "Shift-Left"],
+      "description": "Pipelines seguras e infraestrutura como código."
+    },
+    {
+      "id": "python",
+      "name": "Python",
+      "type": "Backend/AI",
+      "icon": "🐍",
+      "level": 6,
+      "state": "active",
+      "moveset": ["Scripting", "Automation", "FastAPI", "Data Analysis"],
+      "description": "Linguagem principal para automação e IA."
+    },
+    {
+      "id": "ruby",
+      "name": "Ruby",
+      "type": "Backend",
+      "icon": "💎",
+      "level": 8,
+      "state": "active",
+      "moveset": ["RSpec", "Capybara", "Rails", "Gems"],
+      "description": "Desenvolvimento web ágil e testes BDD."
+    },
+    {
+      "id": "embedded",
+      "name": "Embedded Systems",
+      "type": "Hardware",
+      "icon": "🔌",
+      "level": 5,
+      "state": "studied",
+      "moveset": ["Bluetooth", "IoT", "Arduino", "Prototyping"],
+      "description": "Programação de baixo nível e IoT."
+    }
+  ],
+  "allSkills": [
+    { "id": "java", "name": "Java", "type": "Backend", "icon": "☕", "level": 6, "state": "active", "moveset": ["Spring Boot", "JUnit", "Maven", "Gradle"], "description": "Legado e sistemas corporativos." },
+    { "id": "docker", "name": "Docker", "type": "DevOps", "icon": "🐳", "level": 6, "state": "active", "moveset": ["Containers", "Docker Compose", "Images", "Networking"], "description": "Containerização de aplicações." },
+    { "id": "sql", "name": "SQL", "type": "Database", "icon": "📊", "level": 7, "state": "active", "moveset": ["PostgreSQL", "MySQL", "Query Optimization", "Indexes"], "description": "Modelagem e consulta de dados." },
+    { "id": "js", "name": "JavaScript", "type": "Frontend", "icon": "🟨", "level": 5, "state": "studied", "moveset": ["ES6+", "Node.js", "DOM", "Async/Await"], "description": "Scripting e automação web." },
+    { "id": "git", "name": "Git", "type": "Tools", "icon": "📦", "level": 8, "state": "active", "moveset": ["Branching", "Rebase", "Hooks", "CI/CD"], "description": "Controle de versão avançado." },
+    { "id": "agile", "name": "Agile/Scrum", "type": "Methodology", "icon": "📋", "level": 9, "state": "active", "moveset": ["Sprint Planning", "Retrospectives", "User Stories", "Kanban"], "description": "Gestão de projetos ágeis." },
+    { "id": "cv", "name": "Computer Vision", "type": "AI/Research", "icon": "👁️", "level": 3, "state": "studied", "moveset": ["OpenCV", "Object Tracking", "AR", "Research"], "description": "Processamento de imagens básico." },
+    { "id": "k8s", "name": "Kubernetes", "type": "DevOps", "icon": "☸️", "level": 2, "state": "seen", "moveset": ["Pods", "Services", "Deployments"], "description": "Orquestração de containers." },
+    { "id": "aws", "name": "AWS", "type": "Cloud", "icon": "☁️", "level": 4, "state": "studied", "moveset": ["EC2", "S3", "Lambda", "RDS"], "description": "Serviços cloud essenciais." }
+  ],
+  "gymBadges": [
+    {
+      "company": "Pagar.me",
+      "role": "Staff QA Engineer",
+      "period": "2021 - Presente",
+      "type": "Legendary",
+      "icon": "⚡",
+      "summary": "Liderança técnica de QA, arquitetura de automação e mentoria."
+    },
+    {
+      "company": "Pagar.me",
+      "role": "Tech Lead",
+      "period": "2019 - 2021",
+      "type": "Elite",
+      "icon": "🛡️",
+      "summary": "Gestão de squad, implementação de DevSecOps e cultura de qualidade."
+    },
+    {
+      "company": "Concrete Solutions",
+      "role": "Senior QA",
+      "period": "2017 - 2019",
+      "type": "Elite",
+      "icon": "🎯",
+      "summary": "Automação mobile e web para grandes clientes varejistas."
+    },
+    {
+      "company": "ThoughtWorks",
+      "role": "QA Consultant",
+      "period": "2015 - 2017",
+      "type": "Elite",
+      "icon": "🚀",
+      "summary": "Consultoria ágil, TDD/BDD e transformação digital."
+    },
+    {
+      "company": "Accenture",
+      "role": "Analyst",
+      "period": "2013 - 2015",
+      "type": "Rare",
+      "icon": "💎",
+      "summary": "Testes manuais e início da jornada em automação."
+    },
+    {
+      "company": "IBM",
+      "role": "Intern",
+      "period": "2012 - 2013",
+      "type": "Rare",
+      "icon": "🔷",
+      "summary": "Suporte e testes em sistemas mainframe."
+    },
+    {
+      "company": "Stefanini",
+      "role": "Junior QA",
+      "period": "2011 - 2012",
+      "type": "Common",
+      "icon": "⚙️",
+      "summary": "Execução de casos de teste e report de bugs."
+    },
+    {
+      "company": "Freelance",
+      "role": "Dev Fullstack",
+      "period": "2010 - 2011",
+      "type": "Mystic",
+      "icon": "🌟",
+      "summary": "Projetos variados web e manutenção de sistemas."
+    }
+  ]
+}

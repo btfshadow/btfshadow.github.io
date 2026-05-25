@@ -839,11 +839,22 @@
       <!-- Dynamically rendered via JS -->
     </div>
 
-    <!-- All Skills List -->
+    <!-- All Skills List - PC Box Style -->
     <div class="all-skills">
-      <h3 class="section-header" style="font-family:var(--font-title);font-size:1.2rem;color:var(--yellow);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:2px dashed var(--border);">&gt; all.skills</h3>
-      <div id="all-skills" class="skills-list" aria-label="Complete skills list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.75rem;">
+      <h3 class="section-header" style="font-family:var(--font-title);font-size:1.2rem;color:var(--yellow);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:2px dashed var(--border);">&gt; pc.box.skills</h3>
+      <p style="font-family:var(--font-body);font-size:0.85rem;color:var(--text-muted);margin-bottom:1rem;">Click on any skill to view details</p>
+      <div id="all-skills" class="skills-pc-grid" aria-label="Complete skills list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0.75rem;">
         <!-- Dynamically rendered via JS -->
+      </div>
+    </div>
+    
+    <!-- Skill Detail Modal (PC Box Expansion) -->
+    <div id="skill-modal" class="skill-modal" role="dialog" aria-modal="true" aria-labelledby="modal-skill-name" hidden>
+      <div class="skill-modal-content pixel-border">
+        <button class="skill-modal-close" aria-label="Close modal" onclick="closeSkillModal()">&times;</button>
+        <div id="modal-skill-content">
+          <!-- Content injected via JS -->
+        </div>
       </div>
     </div>
   </section>
@@ -1240,163 +1251,141 @@
      * 4. Change main skills:
      *    - Set 'isMain: true' for skills you want in the "Captured Pokémon" section
      *    - Only 6 main skills will be shown in the top section
+     * 
+     * ⚠️ NOTE: Data is now loaded from skills.json file!
+     * Edit skills.json in the root directory to update your portfolio.
+     * The hardcoded array below is only a fallback.
      */
     
-    const skillsData = [
-      // === MAIN SKILLS (Captured Pokémon) ===
-      {
-        id: 1,
-        name: "Test Automation",
-        type: "QA Engineering",
-        level: 10,
-        state: "active",
-        isMain: true,
-        icon: "🤖",
-        moveset: ["Appium", "Selenium", "Cucumber", "Jenkins"]
-      },
-      {
-        id: 2,
-        name: "AI/LLMs",
-        type: "AI Engineering",
-        level: 8,
-        state: "active",
-        isMain: true,
-        icon: "🧠",
-        moveset: ["Ollama", "CrewAI", "Prompt Eng.", "n8n"]
-      },
-      {
-        id: 3,
-        name: "DevSecOps",
-        type: "DevOps",
-        level: 7,
-        state: "active",
-        isMain: true,
-        icon: "🔐",
-        moveset: ["SonarQube", "MobSF", "SDAT", "Shift-Left"]
-      },
-      {
-        id: 4,
-        name: "Python",
-        type: "Backend/AI",
-        level: 6,
-        state: "active",
-        isMain: true,
-        icon: "🐍",
-        moveset: ["Scripting", "Automation", "FastAPI", "Data Analysis"]
-      },
-      {
-        id: 5,
-        name: "Ruby",
-        type: "Backend",
-        level: 8,
-        state: "active",
-        isMain: true,
-        icon: "💎",
-        moveset: ["RSpec", "Capybara", "Rails", "Gems"]
-      },
-      {
-        id: 6,
-        name: "Embedded Systems",
-        type: "Hardware",
-        level: 5,
-        state: "studied",
-        isMain: true,
-        icon: "🔌",
-        moveset: ["Bluetooth", "IoT", "Arduino", "Prototyping"]
-      },
+    // Data will be loaded from skills.json via loadPortfolioData()
+    let skillsData = [];
+    let trainerData = {};
+    let gymBadgesData = [];
 
-      // === SECONDARY SKILLS ===
-      {
-        id: 7,
-        name: "Java",
-        type: "Backend",
-        level: 6,
-        state: "active",
-        isMain: false,
-        icon: "☕",
-        moveset: ["Spring Boot", "JUnit", "Maven", "Gradle"]
-      },
-      {
-        id: 8,
-        name: "Docker",
-        type: "DevOps",
-        level: 6,
-        state: "active",
-        isMain: false,
-        icon: "🐳",
-        moveset: ["Containers", "Docker Compose", "Images", "Networking"]
-      },
-      {
-        id: 9,
-        name: "SQL",
-        type: "Database",
-        level: 7,
-        state: "active",
-        isMain: false,
-        icon: "📊",
-        moveset: ["PostgreSQL", "MySQL", "Query Optimization", "Indexes"]
-      },
-      {
-        id: 10,
-        name: "JavaScript",
-        type: "Frontend",
-        level: 5,
-        state: "studied",
-        isMain: false,
-        icon: "🟨",
-        moveset: ["ES6+", "Node.js", "DOM", "Async/Await"]
-      },
-      {
-        id: 11,
-        name: "Git",
-        type: "Tools",
-        level: 8,
-        state: "active",
-        isMain: false,
-        icon: "📦",
-        moveset: ["Branching", "Rebase", "Hooks", "CI/CD"]
-      },
-      {
-        id: 12,
-        name: "Agile/Scrum",
-        type: "Methodology",
-        level: 9,
-        state: "active",
-        isMain: false,
-        icon: "📋",
-        moveset: ["Sprint Planning", "Retrospectives", "User Stories", "Kanban"]
-      },
-      {
-        id: 13,
-        name: "Computer Vision",
-        type: "AI/Research",
-        level: 3,
-        state: "studied",
-        isMain: false,
-        icon: "👁️",
-        moveset: ["OpenCV", "Object Tracking", "AR", "Research"]
-      },
-      {
-        id: 14,
-        name: "Kubernetes",
-        type: "DevOps",
-        level: 2,
-        state: "seen",
-        isMain: false,
-        icon: "☸️",
-        moveset: ["Pods", "Services", "Deployments"]
-      },
-      {
-        id: 15,
-        name: "AWS",
-        type: "Cloud",
-        level: 4,
-        state: "studied",
-        isMain: false,
-        icon: "☁️",
-        moveset: ["EC2", "S3", "Lambda", "RDS"]
+    /**
+     * Load data from skills.json file
+     * This enables dynamic content updates without changing HTML
+     */
+    async function loadPortfolioData() {
+      try {
+        const response = await fetch('skills.json');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Store data in global variables
+        skillsData = [...data.mainSkills, ...data.allSkills];
+        trainerData = data.trainer;
+        gymBadgesData = data.gymBadges;
+        
+        console.log('✅ Portfolio data loaded successfully:', data);
+        
+        // Update Trainer Profile if element exists
+        if (trainerData) {
+          updateTrainerProfile(trainerData);
+        }
+        
+        // Update Gym Badges if element exists
+        if (gymBadgesData && gymBadgesData.length > 0) {
+          renderGymBadges(gymBadgesData);
+        }
+        
+        // Initialize skills rendering
+        renderCapturedSkills();
+        renderAllSkills();
+        
+      } catch (error) {
+        console.error('❌ Error loading skills.json:', error);
+        console.warn('⚠️ Make sure you are running this on a local server (e.g., python -m http.server) or deployed to GitHub Pages/Vercel.');
+        console.warn('⚠️ Loading fallback data...');
+        
+        // Fallback data for local file:// protocol
+        loadFallbackData();
       }
+    }
+
+    /**
+     * Fallback data when fetch fails (file:// protocol)
+     */
+    function loadFallbackData() {
+      skillsData = [
+        { id: 1, name: "Test Automation", type: "QA Engineering", level: 10, state: "active", isMain: true, icon: "🤖", moveset: ["Appium", "Selenium", "Cucumber", "Jenkins"], description: "E2E and Mobile automation frameworks." },
+        { id: 2, name: "AI/LLMs", type: "AI Engineering", level: 8, state: "active", isMain: true, icon: "🧠", moveset: ["Ollama", "CrewAI", "Prompt Eng.", "n8n"], description: "Intelligent agents and RAG implementation." },
+        { id: 3, name: "DevSecOps", type: "DevOps", level: 7, state: "active", isMain: true, icon: "🔐", moveset: ["SonarQube", "MobSF", "SDAT", "Shift-Left"], description: "Secure pipelines and IaC." },
+        { id: 4, name: "Python", type: "Backend/AI", level: 6, state: "active", isMain: true, icon: "🐍", moveset: ["Scripting", "Automation", "FastAPI", "Data Analysis"], description: "Main language for automation and AI." },
+        { id: 5, name: "Ruby", type: "Backend", level: 8, state: "active", isMain: true, icon: "💎", moveset: ["RSpec", "Capybara", "Rails", "Gems"], description: "Agile web development and BDD." },
+        { id: 6, name: "Embedded Systems", type: "Hardware", level: 5, state: "studied", isMain: true, icon: "🔌", moveset: ["Bluetooth", "IoT", "Arduino", "Prototyping"], description: "Low-level programming and IoT." },
+        { id: 7, name: "Java", type: "Backend", level: 6, state: "active", isMain: false, icon: "☕", moveset: ["Spring Boot", "JUnit", "Maven", "Gradle"], description: "Legacy and enterprise systems." },
+        { id: 8, name: "Docker", type: "DevOps", level: 6, state: "active", isMain: false, icon: "🐳", moveset: ["Containers", "Docker Compose", "Images", "Networking"], description: "Application containerization." },
+        { id: 9, name: "SQL", type: "Database", level: 7, state: "active", isMain: false, icon: "📊", moveset: ["PostgreSQL", "MySQL", "Query Optimization", "Indexes"], description: "Data modeling and querying." },
+        { id: 10, name: "JavaScript", type: "Frontend", level: 5, state: "studied", isMain: false, icon: "🟨", moveset: ["ES6+", "Node.js", "DOM", "Async/Await"], description: "Web scripting and automation." },
+        { id: 11, name: "Git", type: "Tools", level: 8, state: "active", isMain: false, icon: "📦", moveset: ["Branching", "Rebase", "Hooks", "CI/CD"], description: "Advanced version control." },
+        { id: 12, name: "Agile/Scrum", type: "Methodology", level: 9, state: "active", isMain: false, icon: "📋", moveset: ["Sprint Planning", "Retrospectives", "User Stories", "Kanban"], description: "Agile project management." },
+        { id: 13, name: "Computer Vision", type: "AI/Research", level: 3, state: "studied", isMain: false, icon: "👁️", moveset: ["OpenCV", "Object Tracking", "AR", "Research"], description: "Basic image processing." },
+        { id: 14, name: "Kubernetes", type: "DevOps", level: 2, state: "seen", isMain: false, icon: "☸️", moveset: ["Pods", "Services", "Deployments"], description: "Container orchestration basics." },
+        { id: 15, name: "AWS", type: "Cloud", level: 4, state: "studied", isMain: false, icon: "☁️", moveset: ["EC2", "S3", "Lambda", "RDS"], description: "Essential cloud services." }
+      ];
+      
+      renderCapturedSkills();
+      renderAllSkills();
+    }
+
+    /**
+     * Update Trainer Profile section with JSON data
+     */
+    function updateTrainerProfile(data) {
+      const nameEl = document.querySelector('.trainer-info h2');
+      const titleEl = document.querySelector('.trainer-title');
+      const typeEl = document.querySelector('.trainer-type');
+      const regionEl = document.querySelector('.trainer-region');
+      const descEl = document.querySelector('.trainer-description p');
+      const avatarEl = document.querySelector('.trainer-avatar img');
+
+      if (nameEl) nameEl.textContent = data.name || 'Unknown Trainer';
+      if (titleEl) titleEl.textContent = data.title || 'Developer';
+      if (typeEl) typeEl.textContent = `Type: ${data.type || 'General'}`;
+      if (regionEl) regionEl.textContent = `Region: ${data.region || 'Unknown'}`;
+      if (descEl) descEl.textContent = data.description || 'No description available.';
+      if (avatarEl && data.avatar) avatarEl.src = data.avatar;
+    }
+
+    /**
+     * Render Gym Badges from JSON data
+     */
+    function renderGymBadges(badges) {
+      const container = document.getElementById('gym-badges-grid');
+      if (!container) return;
+
+      const typeColors = {
+        Legendary: 'var(--yellow)',
+        Elite: 'var(--purple)',
+        Rare: 'var(--blue)',
+        Common: 'var(--text-muted)',
+        Mystic: 'var(--cherry)'
+      };
+
+      container.innerHTML = badges.map(badge => `
+        <article class="gym-badge" style="border-top-color: ${typeColors[badge.type] || 'var(--purple)'}">
+          <div class="badge-icon">${badge.icon}</div>
+          <h3 class="badge-company">${badge.company}</h3>
+          <p class="badge-role">${badge.role}</p>
+          <p class="badge-period">${badge.period}</p>
+          <p class="badge-summary">${badge.summary}</p>
+          <span class="badge-type" style="color: ${typeColors[badge.type] || 'var(--purple)'}">${badge.type}</span>
+        </article>
+      `).join('');
+    }
+
+    // Old hardcoded data kept as reference (not used when JSON loads successfully)
+    /*
+    const skillsDataHardcoded = [
+      { id: 1, name: "Test Automation", type: "QA Engineering", level: 10, state: "active", isMain: true, icon: "🤖", moveset: ["Appium", "Selenium", "Cucumber", "Jenkins"] }
+      // ... more skills
     ];
+    */
 
     /**
      * Calculate level percentage for progress bar
@@ -1460,7 +1449,7 @@
     }
 
     /**
-     * Render all skills list with state indicators
+     * Render all skills list with PC Box style (clickable cards)
      */
     function renderAllSkills() {
       const container = document.getElementById('all-skills');
@@ -1472,33 +1461,124 @@
       container.innerHTML = sortedSkills.map(skill => {
         let stateClass = '';
         let stateStyle = '';
+        let stateLabel = '';
         
         if (skill.state === 'seen') {
-          stateClass = 'skill-seen';
-          stateStyle = 'opacity: 0.5; color: var(--text-muted);';
+          stateClass = 'skill-pc-seen';
+          stateLabel = 'Seen';
         } else if (skill.state === 'studied') {
-          stateClass = 'skill-studied';
-          stateStyle = 'font-weight: 600; color: var(--blue); border-bottom: 2px solid var(--blue);';
+          stateClass = 'skill-pc-studied';
+          stateLabel = 'Studied';
         } else if (skill.state === 'active') {
-          stateClass = 'skill-active';
-          stateStyle = 'position: relative; padding-left: 1.5rem;';
+          stateClass = 'skill-pc-active';
+          stateLabel = 'Active';
         }
 
         return `
-          <div class="skill-entry ${stateClass}" 
-               style="${stateStyle}"
-               role="listitem"
-               aria-label="${skill.name} - ${skill.state}">
-            ${skill.state === 'active' ? '<span class="pokeball-indicator" aria-hidden="true"></span>' : ''}
-            ${skill.name}
-          </div>
+          <article class="skill-pc-card ${stateClass}" 
+                   tabindex="0"
+                   role="button"
+                   aria-label="${skill.name} - ${stateLabel}. Click to view details"
+                   onclick="openSkillModal('${skill.name}')"
+                   onkeydown="if(event.key==='Enter'||event.key===' ')openSkillModal('${skill.name}')">
+            <div class="skill-pc-icon">${skill.icon}</div>
+            <h4 class="skill-pc-name">${skill.name}</h4>
+            <div class="skill-pc-state ${stateClass}-dot"></div>
+          </article>
         `;
       }).join('');
     }
 
-    // Initialize skills rendering
-    renderCapturedSkills();
-    renderAllSkills();
+    /**
+     * Open skill detail modal (PC Box expansion)
+     */
+    function openSkillModal(skillName) {
+      const skill = skillsData.find(s => s.name === skillName);
+      if (!skill) return;
+
+      const modal = document.getElementById('skill-modal');
+      const content = document.getElementById('modal-skill-content');
+      
+      const levelPercent = calculateLevelPercentage(skill.level);
+      const stateLabels = { active: 'Active', studied: 'Studied', seen: 'Seen' };
+      
+      content.innerHTML = `
+        <div class="skill-modal-header">
+          <span class="skill-modal-icon">${skill.icon}</span>
+          <div>
+            <h3 id="modal-skill-name" class="skill-modal-title">${skill.name}</h3>
+            <p class="skill-modal-type">${skill.type}</p>
+          </div>
+        </div>
+        
+        <div class="skill-modal-stats">
+          <div class="skill-modal-level">
+            <div class="level-label">
+              <span>Level</span>
+              <span>Lv.${skill.level}/15</span>
+            </div>
+            <div class="level-bar" role="progressbar" 
+                 aria-valuenow="${skill.level}" 
+                 aria-valuemin="0" 
+                 aria-valuemax="15"
+                 aria-label="${skill.name} proficiency level">
+              <div class="level-fill" style="width: ${levelPercent}%"></div>
+            </div>
+          </div>
+          
+          <div class="skill-modal-status">
+            <span>Status:</span>
+            <span class="skill-status-badge ${skill.state}">${stateLabels[skill.state]}</span>
+          </div>
+        </div>
+        
+        <div class="skill-modal-moveset">
+          <p class="moveset-label">Moveset:</p>
+          <div class="moveset-list">
+            ${skill.moveset.map(move => `<span class="move-tag">${move}</span>`).join('')}
+          </div>
+        </div>
+        
+        <div class="skill-modal-description">
+          <p class="moveset-label">Description:</p>
+          <p style="font-family:var(--font-body);font-size:0.9rem;color:var(--text-muted);line-height:1.5;">
+            ${skill.description || `${skill.name} - ${skill.type} specialist with ${skill.level} years of experience.`}
+          </p>
+        </div>
+      `;
+      
+      modal.hidden = false;
+      modal.focus();
+      document.body.style.overflow = 'hidden';
+    }
+
+    /**
+     * Close skill detail modal
+     */
+    function closeSkillModal() {
+      const modal = document.getElementById('skill-modal');
+      modal.hidden = true;
+      document.body.style.overflow = '';
+    }
+
+    // Close modal on outside click
+    document.addEventListener('click', function(e) {
+      const modal = document.getElementById('skill-modal');
+      if (e.target === modal) {
+        closeSkillModal();
+      }
+    });
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(e) {
+      const modal = document.getElementById('skill-modal');
+      if (e.key === 'Escape' && !modal.hidden) {
+        closeSkillModal();
+      }
+    });
+
+    // Initialize by loading data from skills.json
+    loadPortfolioData();
 
     /**
      * ========================================
@@ -1610,7 +1690,7 @@
         font-size: 0.75rem;
       }
       
-      /* Skill Entry States */
+      /* Skill Entry States - OLD (kept for compatibility) */
       .skill-entry {
         padding: 0.5rem;
         border-radius: var(--border-radius);
@@ -1654,19 +1734,236 @@
         border: 2px solid var(--text);
         border-radius: 50%;
       }
-      
+
+      /* PC Box Skills Grid - New Styles */
+      .skill-pc-card {
+        background: linear-gradient(180deg, rgba(17, 24, 39, 0.9) 0%, rgba(31, 41, 55, 0.6) 100%);
+        border: 2px solid var(--border);
+        border-radius: 6px;
+        padding: var(--spacing-md);
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        position: relative;
+        min-height: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .skill-pc-card:hover,
+      .skill-pc-card:focus {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+        border-color: var(--purple);
+        outline: none;
+      }
+
+      .skill-pc-icon {
+        font-size: 2rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .skill-pc-name {
+        font-family: var(--font-title);
+        font-size: 0.95rem;
+        color: var(--text);
+        margin: 0;
+        line-height: 1.2;
+      }
+
+      .skill-pc-state {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-top: 0.25rem;
+      }
+
+      .skill-pc-seen-dot {
+        background: var(--text-muted);
+        opacity: 0.5;
+      }
+
+      .skill-pc-studied-dot {
+        background: var(--blue);
+      }
+
+      .skill-pc-active-dot {
+        background: var(--green);
+        box-shadow: 0 0 8px var(--green);
+      }
+
+      .skill-pc-seen {
+        opacity: 0.6;
+        border-color: var(--text-muted);
+      }
+
+      .skill-pc-studied {
+        border-color: var(--blue);
+        background: linear-gradient(180deg, rgba(59, 130, 246, 0.1) 0%, rgba(31, 41, 55, 0.6) 100%);
+      }
+
+      .skill-pc-active {
+        border-color: var(--green);
+        background: linear-gradient(180deg, rgba(16, 185, 129, 0.1) 0%, rgba(31, 41, 55, 0.6) 100%);
+      }
+
+      /* Skill Modal (PC Box Expansion) */
+      .skill-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(10, 10, 15, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        backdrop-filter: blur(4px);
+      }
+
+      .skill-modal[hidden] {
+        display: none;
+      }
+
+      .skill-modal-content {
+        background: var(--bg-card);
+        border: 3px solid var(--purple);
+        border-radius: 8px;
+        padding: var(--spacing-xl);
+        max-width: 500px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        box-shadow: 0 0 30px rgba(124, 58, 237, 0.4);
+      }
+
+      .skill-modal-close {
+        position: absolute;
+        top: var(--spacing-sm);
+        right: var(--spacing-sm);
+        background: transparent;
+        border: none;
+        color: var(--text-muted);
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.25rem;
+        line-height: 1;
+        transition: color 0.2s ease;
+      }
+
+      .skill-modal-close:hover,
+      .skill-modal-close:focus {
+        color: var(--cherry);
+        outline: none;
+      }
+
+      .skill-modal-header {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+        padding-bottom: var(--spacing-md);
+        border-bottom: 2px dashed var(--purple);
+      }
+
+      .skill-modal-icon {
+        font-size: 3rem;
+        flex-shrink: 0;
+      }
+
+      .skill-modal-title {
+        font-family: var(--font-title);
+        font-size: 1.5rem;
+        color: var(--purple);
+        margin: 0;
+      }
+
+      .skill-modal-type {
+        font-family: var(--font-body);
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin: 0;
+      }
+
+      .skill-modal-stats {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+        align-items: center;
+      }
+
+      .skill-modal-level {
+        grid-column: 1 / -1;
+      }
+
+      .skill-modal-status {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        font-family: var(--font-body);
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+
+      .skill-status-badge {
+        padding: 0.2rem 0.6rem;
+        border-radius: 3px;
+        font-family: var(--font-title);
+        font-size: 0.8rem;
+        border: 1px solid;
+      }
+
+      .skill-status-badge.active {
+        background: rgba(16, 185, 129, 0.2);
+        border-color: var(--green);
+        color: var(--green);
+      }
+
+      .skill-status-badge.studied {
+        background: rgba(59, 130, 246, 0.2);
+        border-color: var(--blue);
+        color: var(--blue);
+      }
+
+      .skill-status-badge.seen {
+        background: rgba(156, 163, 175, 0.2);
+        border-color: var(--text-muted);
+        color: var(--text-muted);
+      }
+
+      .skill-modal-moveset,
+      .skill-modal-description {
+        margin-bottom: var(--spacing-lg);
+      }
+
       /* Responsive adjustments */
       @media (max-width: 640px) {
         .captured-skills {
           grid-template-columns: 1fr;
         }
         
-        .skills-list {
+        .skills-pc-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .skill-modal-stats {
           grid-template-columns: 1fr;
         }
         
         .skills-legend {
           justify-content: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .skills-pc-grid {
+          grid-template-columns: 1fr;
         }
       }
     `;
