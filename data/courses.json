@@ -1,26 +1,20 @@
 [
   {
-    "title": "Advanced React Patterns",
-    "provider": "Frontend Masters",
-    "year": "2023",
-    "icon": "📚"
+    "title": "Prompt Engineering for Developers",
+    "provider": "DeepLearning.AI",
+    "year": "2024",
+    "icon": "🤖"
   },
   {
-    "title": "TypeScript Complete Guide",
-    "provider": "Udemy",
-    "year": "2022",
-    "icon": "📘"
+    "title": "AI Agents & CrewAI",
+    "provider": "Self-directed study",
+    "year": "2024–Present",
+    "icon": "🧠"
   },
   {
-    "title": "Node.js Advanced Concepts",
-    "provider": "Pluralsight",
-    "year": "2021",
-    "icon": "🟢"
-  },
-  {
-    "title": "AWS Solutions Architect",
-    "provider": "A Cloud Guru",
-    "year": "2020",
-    "icon": "☁️"
+    "title": "ISTQB Foundation Level",
+    "provider": "ISTQB",
+    "year": "In progress (Expected 2026)",
+    "icon": "📋"
   }
 ]

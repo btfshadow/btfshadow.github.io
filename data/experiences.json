@@ -2,65 +2,57 @@
   {
     "company": "Pagar.me",
     "role": "Staff QA Engineer",
-    "period": "2021 - Presente",
-    "summary": "Liderança técnica em automação de testes e qualidade. Implementação de pipelines CI/CD e arquitetura de testes escalável.",
+    "period": "Jan 2023 – Present",
+    "summary": "Lead quality strategy reducing production incidents by 40%. Pioneered AI-augmented testing with LLMs and CrewAI agents, cutting test design time by 35%. Optimized CI/CD pipelines reducing infrastructure costs by 50%.",
     "icon": "⚡",
     "rarity": "legendary"
   },
   {
     "company": "Pagar.me",
     "role": "Tech Lead QA",
-    "period": "2019 - 2021",
-    "summary": "Gestão de time de QA, definição de estratégias de teste e mentoria de desenvolvedores juniores.",
+    "period": "Oct 2021 – Jan 2023",
+    "summary": "Led squad of 7 QAs across 3 product teams. Architected device farm for POS testing reducing manual validation by 60%. Integrated static security analysis (SonarQube, MobSF) catching 90% of critical vulnerabilities pre-merge.",
     "icon": "🛡️",
     "rarity": "elite"
   },
   {
-    "company": "Concrete Solutions",
-    "role": "Senior Developer",
-    "period": "2017 - 2019",
-    "summary": "Desenvolvimento full stack para clientes enterprise. Foco em React, Node.js e arquitetura de microsserviços.",
+    "company": "Pagar.me",
+    "role": "Test Engineer",
+    "period": "Sep 2020 – Dec 2022",
+    "summary": "Optimized CI/CD pipelines and restructured test automation strategy. Reduced infrastructure costs by 50% while accelerating feedback loops and increasing test reliability.",
     "icon": "🎯",
     "rarity": "elite"
   },
   {
-    "company": "ThoughtWorks",
-    "role": "Software Developer",
-    "period": "2015 - 2017",
-    "summary": "Desenvolvimento ágil com práticas de TDD, pair programming e entrega contínua em projetos internacionais.",
-    "icon": "🚀",
+    "company": "PagSeguro PagBank",
+    "role": "QA Engineer",
+    "period": "Sep 2019 – Sep 2020",
+    "summary": "Ensured quality for high-volume payment products in regulated fintech environment. Streamlined QA processes aligning manual and automated testing with Agile delivery.",
+    "icon": "💳",
     "rarity": "elite"
   },
   {
-    "company": "Accenture",
-    "role": "Full Stack Developer",
-    "period": "2013 - 2015",
-    "summary": "Desenvolvimento de aplicações web corporativas usando Java, Spring e Angular.",
-    "icon": "💎",
-    "rarity": "rare"
+    "company": "Concrete Solutions",
+    "role": "QA Chapter Lead",
+    "period": "Apr 2017 – Sep 2019",
+    "summary": "Technical QA leadership for digital media projects. Built automation frameworks using Ruby, Cucumber, Appium integrated with Jenkins CI. Championed Specification by Example practices.",
+    "icon": "🎬",
+    "rarity": "elite"
   },
   {
-    "company": "IBM",
-    "role": "Junior Developer",
-    "period": "2011 - 2013",
-    "summary": "Manutenção de sistemas legados e desenvolvimento de novas funcionalidades em Java e SQL.",
-    "icon": "🔷",
+    "company": "Stefanini (IBM Consulting)",
+    "role": "Junior Test Analyst",
+    "period": "Feb 2016 – Mar 2017",
+    "summary": "Executed functional testing and introduced automation in regulated banking environment. Operationalized IBM Rational tools (RTC, RQM, RFT) for requirements traceability.",
+    "icon": "🏦",
     "rarity": "rare"
-  },
-  {
-    "company": "Stefanini",
-    "role": "Trainee Developer",
-    "period": "2010 - 2011",
-    "summary": "Primeira experiência profissional. Suporte técnico e desenvolvimento de scripts de automação.",
-    "icon": "⚙️",
-    "rarity": "common"
   },
   {
     "company": "Freelance",
-    "role": "Consultant",
-    "period": "2018 - Presente",
-    "summary": "Projetos pontuais de consultoria em qualidade de software e arquitetura frontend.",
+    "role": "Strategic Consultant",
+    "period": "2018 – Present",
+    "summary": "QA audits, AI testing workshops, and technical mentorship. Open to remote-first global roles or Japan relocation with visa sponsorship.",
     "icon": "🌟",
-    "rarity": "rare"
+    "rarity": "mystic"
   }
 ]

@@ -1,20 +1,20 @@
 [
   {
+    "title": "Augmented Reality Research",
+    "description": "Researched object trajectory prediction using AR and computer vision. Presented at UNIP Annual Research Convention (2013).",
+    "tags": ["Computer Vision", "AR", "Research"],
+    "icon": "🔬"
+  },
+  {
+    "title": "Mobile-Controlled Wheelchair Prototype",
+    "description": "Capstone project: Built integrated hardware+software prototype for Bluetooth-based remote control. Showcased at campus outreach event.",
+    "tags": ["Embedded Systems", "Bluetooth", "Accessibility", "IoT"],
+    "icon": "♿"
+  },
+  {
     "title": "DevDex Portfolio",
-    "description": "Portfolio estilo Pokédex com design retrô e terminal. Construído com HTML/CSS/JS puro.",
-    "tags": ["HTML", "CSS", "JavaScript"],
+    "description": "Pokédex-style portfolio with retro terminal aesthetic. Pure HTML/CSS/JS with dynamic JSON data loading.",
+    "tags": ["HTML", "CSS", "JavaScript", "JSON"],
     "icon": "🎮"
-  },
-  {
-    "title": "AI Chat Assistant",
-    "description": "Assistente de chat baseado em LLMs usando CrewAI e Ollama para automação de tarefas.",
-    "tags": ["Python", "AI", "LLM"],
-    "icon": "🤖"
-  },
-  {
-    "title": "Test Framework Pro",
-    "description": "Framework de testes automatizados com suporte a múltiplas linguagens e relatórios customizados.",
-    "tags": ["TypeScript", "Jest", "Playwright"],
-    "icon": "✅"
   }
 ]
