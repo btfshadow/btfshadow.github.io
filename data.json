@@ -1,0 +1,337 @@
+{
+  "trainer": {
+    "name": "Sophia Simões",
+    "title": "Staff QA Engineer",
+    "type": "AI-Augmented Testing",
+    "region": "São Paulo, Brazil",
+    "description": "QA leader specializing in AI-augmented testing, cost-optimized CI/CD, and DevSecOps. Reduced production incidents by 40% while cutting infrastructure costs in half.",
+    "avatar": "👩‍💻"
+  },
+  "mainSkills": [
+    {
+      "name": "Test Automation",
+      "type": "QA Core",
+      "icon": "⚙️",
+      "level": 12,
+      "state": "active",
+      "moveset": ["Appium", "Selenium", "Cucumber", "Ruby/Java"]
+    },
+    {
+      "name": "AI/LLMs",
+      "type": "Emerging Tech",
+      "icon": "🤖",
+      "level": 8,
+      "state": "active",
+      "moveset": ["Ollama", "CrewAI", "Prompt Eng.", "n8n"]
+    },
+    {
+      "name": "DevSecOps",
+      "type": "Infrastructure",
+      "icon": "🔐",
+      "level": 10,
+      "state": "active",
+      "moveset": ["Jenkins", "Docker", "SonarQube", "MobSF"]
+    },
+    {
+      "name": "Python",
+      "type": "Language",
+      "icon": "🐍",
+      "level": 9,
+      "state": "active",
+      "moveset": ["Scripting", "Pytest", "Data Analysis", "APIs"]
+    },
+    {
+      "name": "Ruby",
+      "type": "Language",
+      "icon": "💎",
+      "level": 11,
+      "state": "active",
+      "moveset": ["RSpec", "Capybara", "Rails", "CLI Tools"]
+    },
+    {
+      "name": "Embedded Systems",
+      "type": "Hardware",
+      "icon": "📱",
+      "level": 7,
+      "state": "studied",
+      "moveset": ["Bluetooth", "IoT", "Device Farm", "Firmware"]
+    }
+  ],
+  "allSkills": [
+    {
+      "name": "Java",
+      "type": "Language",
+      "icon": "☕",
+      "level": 8,
+      "state": "studied",
+      "moveset": ["Selenium", "JUnit", "Maven", "Spring Boot"]
+    },
+    {
+      "name": "Docker",
+      "type": "DevOps",
+      "icon": "🐳",
+      "level": 9,
+      "state": "active",
+      "moveset": ["Containerization", "Docker Compose", "Multi-stage", "Networking"]
+    },
+    {
+      "name": "SQL",
+      "type": "Database",
+      "icon": "🗄️",
+      "level": 10,
+      "state": "active",
+      "moveset": ["PostgreSQL", "MySQL", "Query Optimization", "Data Validation"]
+    },
+    {
+      "name": "JavaScript",
+      "type": "Language",
+      "icon": "📜",
+      "level": 6,
+      "state": "studied",
+      "moveset": ["Node.js", "React Basics", "Testing Library", "ES6+"]
+    },
+    {
+      "name": "Git",
+      "type": "Version Control",
+      "icon": "📦",
+      "level": 11,
+      "state": "active",
+      "moveset": ["GitHub", "GitLab", "Branching Strategies", "CI/CD"]
+    },
+    {
+      "name": "Agile/Scrum",
+      "type": "Methodology",
+      "icon": "🔄",
+      "level": 12,
+      "state": "active",
+      "moveset": ["Sprint Planning", "Retrospectives", "User Stories", "Kanban"]
+    },
+    {
+      "name": "Computer Vision",
+      "type": "AI Specialty",
+      "icon": "👁️",
+      "level": 5,
+      "state": "seen",
+      "moveset": ["OpenCV", "Object Detection", "AR Research", "Trajectory Prediction"]
+    },
+    {
+      "name": "Kubernetes",
+      "type": "Orchestration",
+      "icon": "☸️",
+      "level": 4,
+      "state": "studied",
+      "moveset": ["Pods", "Deployments", "Services", "Helm Charts"]
+    },
+    {
+      "name": "AWS",
+      "type": "Cloud",
+      "icon": "☁️",
+      "level": 6,
+      "state": "studied",
+      "moveset": ["EC2", "S3", "Lambda", "CloudWatch"]
+    }
+  ],
+  "experiences": [
+    {
+      "company": "Pagar.me",
+      "role": "Staff QA Engineer",
+      "period": "Jan 2023 – Present",
+      "icon": "⚡",
+      "summary": "Lead quality strategy for payments unit. Reduced production incidents by 40%. Pioneered AI-augmented testing with LLMs + CrewAI agents.",
+      "type": "legendary"
+    },
+    {
+      "company": "Pagar.me",
+      "role": "Tech Lead QA",
+      "period": "Oct 2021 – Jan 2023",
+      "icon": "🛡️",
+      "summary": "Led squad of 7 QAs across 3 product teams. Architected device farm for POS testing (60% manual effort reduction). Integrated SonarQube + MobSF into CI.",
+      "type": "elite"
+    },
+    {
+      "company": "Concrete Solutions",
+      "role": "QA Chapter Lead",
+      "period": "Apr 2017 – Sep 2019",
+      "icon": "🎯",
+      "summary": "Technical QA leadership for enterprise digital media. Built automation frameworks with Ruby, Cucumber, Appium, Jenkins CI. Championed Specification by Example.",
+      "type": "elite"
+    },
+    {
+      "company": "ThoughtWorks",
+      "role": "Senior QA Consultant",
+      "period": "Aug 2015 – Mar 2017",
+      "icon": "🚀",
+      "summary": "Delivered QA strategies for Fortune 500 clients. Implemented BDD practices with Cucumber + SpecFlow. Mentored teams on TDD and continuous testing.",
+      "type": "elite"
+    },
+    {
+      "company": "Accenture",
+      "role": "QA Analyst",
+      "period": "Jan 2013 – Jul 2015",
+      "icon": "💎",
+      "summary": "Executed manual and automated testing for banking clients. Developed test scripts in Java + Selenium. Participated in agile transformation initiatives.",
+      "type": "rare"
+    },
+    {
+      "company": "IBM",
+      "role": "Junior QA Tester",
+      "period": "Mar 2011 – Dec 2012",
+      "icon": "🔷",
+      "summary": "Performed functional and regression testing for enterprise software. Created test cases using HP Quality Center. Learned fundamentals of SDLC.",
+      "type": "rare"
+    },
+    {
+      "company": "Stefanini",
+      "role": "QA Intern",
+      "period": "Jun 2010 – Feb 2011",
+      "icon": "⚙️",
+      "summary": "Supported QA team with test execution and bug reporting. Gained exposure to ISTQB methodologies. First steps in software testing career.",
+      "type": "common"
+    },
+    {
+      "company": "Freelance",
+      "role": "QA Consultant",
+      "period": "2018 – Present",
+      "icon": "🌟",
+      "summary": "Side projects for startups. Test automation setup, CI/CD pipeline consulting, and AI-powered testing workshops. Keeping skills sharp.",
+      "type": "mystic"
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.Eng. Computer Engineering",
+      "institution": "UNIVESP",
+      "period": "2018 – 2023",
+      "focus": "Software quality, embedded systems, test automation"
+    },
+    {
+      "degree": "Postgrad. Software Engineering",
+      "institution": "UNIP",
+      "period": "2015 – 2016",
+      "focus": "QA processes, Agile, TestLink, Bizagi/Enterprise Architect"
+    }
+  ],
+  "courses": [
+    {
+      "title": "Advanced Test Automation with Ruby",
+      "provider": "Udemy",
+      "year": "2020",
+      "hours": 40,
+      "topics": ["RSpec", "Capybara", "Page Objects", "CI Integration"]
+    },
+    {
+      "title": "DevSecOps Fundamentals",
+      "provider": "Pluralsight",
+      "year": "2022",
+      "hours": 24,
+      "topics": ["Shift-Left Security", "SAST/DAST", "Container Security", "Compliance"]
+    },
+    {
+      "title": "AI for Everyone",
+      "provider": "Coursera (Andrew Ng)",
+      "year": "2023",
+      "hours": 16,
+      "topics": ["ML Basics", "AI Strategy", "Ethics", "Use Cases"]
+    },
+    {
+      "title": "CrewAI & Multi-Agent Systems",
+      "provider": "Self-paced",
+      "year": "2024",
+      "hours": 30,
+      "topics": ["Agent Orchestration", "Task Delegation", "LLM Integration", "Workflows"]
+    }
+  ],
+  "certifications": [
+    {
+      "name": "ISTQB Advanced Level - Test Automation Engineer",
+      "issuer": "ISTQB",
+      "year": "2019",
+      "credentialId": "CTFL-TAE-2019-045821"
+    },
+    {
+      "name": "Certified Kubernetes Administrator (CKA)",
+      "issuer": "CNCF",
+      "year": "2023",
+      "credentialId": "CKA-2023-089456"
+    },
+    {
+      "name": "AWS Certified Solutions Architect - Associate",
+      "issuer": "Amazon Web Services",
+      "year": "2022",
+      "credentialId": "AWS-SAA-2022-123789"
+    },
+    {
+      "name": "Professional Scrum Master I (PSM I)",
+      "issuer": "Scrum.org",
+      "year": "2018",
+      "credentialId": "PSM-I-2018-567432"
+    }
+  ],
+  "projects": [
+    {
+      "title": "AI Test Agents with CrewAI",
+      "description": "Autonomous agents that generate, execute, and review test cases using local LLMs (Ollama) + CrewAI orchestration.",
+      "tech": ["Python", "CrewAI", "Ollama", "n8n"],
+      "links": { github: "#", caseStudy: "#" },
+      "featured": true
+    },
+    {
+      "title": "Cost-Optimized CI/CD",
+      "description": "Refactored test pyramid + parallel execution strategy that reduced infrastructure costs by 50% while improving reliability.",
+      "tech": ["Jenkins", "Docker", "Ruby", "Java"],
+      "links": { architecture: "#" },
+      "featured": false
+    },
+    {
+      "title": "POS Device Farm",
+      "description": "Custom device farm for payment terminal testing, reducing manual validation effort by 60% and accelerating firmware releases.",
+      "tech": ["Appium", "Python", "Embedded", "Bluetooth"],
+      "links": { demo: "#" },
+      "featured": false
+    },
+    {
+      "title": "DevSecOps Gates",
+      "description": "Integrated static analysis (SonarQube, MobSF, SDAT) into CI pipelines, catching 90% of critical vulnerabilities pre-merge.",
+      "tech": ["SonarQube", "MobSF", "SDAT", "Shift-Left"],
+      "links": { guide: "#" },
+      "featured": false
+    },
+    {
+      "title": "AR Research (Academic)",
+      "description": "Early research on object trajectory prediction using Augmented Reality + computer vision (UNIP, 2013).",
+      "tech": ["Computer Vision", "AR", "Research"],
+      "links": { paper: "#" },
+      "featured": false
+    },
+    {
+      "title": "Wheelchair Prototype",
+      "description": "Hardware+software prototype for Bluetooth-based wheelchair control, combining embedded programming + accessible UX.",
+      "tech": ["Embedded", "Bluetooth", "UX", "Prototyping"],
+      "links": { photos: "#" },
+      "featured": false
+    }
+  ],
+  "blogPosts": [
+    {
+      "title": "How I Use Local LLMs to Cut QA Costs by 50%",
+      "date": "December 2025",
+      "readTime": "8 min read",
+      "excerpt": "Exploring practical patterns for integrating Ollama + CrewAI into test pipelines — with real metrics from fintech environments...",
+      "link": "#"
+    },
+    {
+      "title": "Building a Device Farm for POS Testing: Lessons Learned",
+      "date": "November 2025",
+      "readTime": "6 min read",
+      "excerpt": "Hardware constraints, Bluetooth quirks, and automation strategies for payment terminal validation at scale...",
+      "link": "#"
+    },
+    {
+      "title": "Prompt Engineering for QA: A Practical Harness",
+      "date": "October 2025",
+      "readTime": "10 min read",
+      "excerpt": "Designing reusable prompt templates for test case generation, edge-case discovery, and root cause analysis...",
+      "link": "#"
+    }
+  ]
+}
