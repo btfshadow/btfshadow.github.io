@@ -1,0 +1,47 @@
+{
+  "lang": "pt",
+  "name": "Português",
+  "flag": "🇧🇷",
+  "proficiency": "Nativo",
+  "proficiencyLevel": 100,
+  "ui": {
+    "trainerInfo": "> info.treinador",
+    "capturedSkills": "> skills.capturadas",
+    "pcBox": "> pc.box_completo",
+    "gymBadges": "> ginásios.conquistados",
+    "mainQuests": "> missões.principais",
+    "sideProjects": "> projetos.colaterais",
+    "logEntries": "> registros.diário",
+    "requestQuest": "> solicitar.quest",
+    "viewDetails": "Ver Detalhes",
+    "github": "GitHub",
+    "readArticle": "Ler Artigo",
+    "level": "Nv.",
+    "moveset": "Moveset",
+    "status": {
+      "active": "Ativo",
+      "studied": "Estudado",
+      "seen": "Visto",
+      "completed": "Concluído",
+      "inProgress": "Em Progresso"
+    },
+    "form": {
+      "title": "Solicitar Missão (Orçamento)",
+      "name": "Nome do Treinador",
+      "email": "Email de Contato",
+      "type": "Tipo de Missão",
+      "types": {
+        "audit": "Auditoria de QA",
+        "ai": "Consultoria IA",
+        "dev": "Desenvolvimento Fullstack",
+        "other": "Outro"
+      },
+      "message": "Detalhes da Missão",
+      "submit": "Enviar Missão",
+      "sending": "Enviando...",
+      "success": "Missão recebida! Responderei em breve.",
+      "error": "Falha na transmissão. Tente novamente."
+    },
+    "footer": "DevDex © 2024. Todos os direitos reservados."
+  }
+}
