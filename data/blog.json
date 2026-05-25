@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Por que usar design retrô em portfólios?",
+    "date": "2024-01-15",
+    "excerpt": "Explorando como a nostalgia dos anos 90/2000 pode tornar seu portfólio mais memorável e único.",
+    "icon": "📝"
+  },
+  {
+    "title": "Automação de Testes com IA",
+    "date": "2024-01-08",
+    "excerpt": "Como LLMs e agentes de IA estão revolucionando a forma como escrevemos e executamos testes automatizados.",
+    "icon": "🤖"
+  },
+  {
+    "title": "TypeScript: Dicas Avançadas",
+    "date": "2023-12-20",
+    "excerpt": "Utility types, generics condicionais e padrões avançados para elevar seu código TypeScript.",
+    "icon": "📘"
+  }
+]

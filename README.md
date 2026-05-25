@@ -60,7 +60,7 @@ O sistema valida automaticamente cada arquivo JSON. Campos obrigatórios:
 | `trainer.json` | `name`, `title`, `type`, `region`, `avatar` |
 | `skills.json` | `name`, `level`, `state`, `isMain` |
 | `experiences.json` | `company`, `role`, `period`, `summary` |
-| `education.json` | `school`, `degree`, `period` |
+| `education.json` | `school`, `degree`, `period`, `status` (completed/incomplete) |
 | `courses.json` | `title`, `provider`, `year` |
 | `certifications.json` | `name`, `issuer`, `year` |
 | `projects.json` | `title`, `description`, `tags` |
@@ -88,6 +88,30 @@ Raridades disponíveis:
 - `elite` → Roxo
 - `rare` → Azul
 - `common` → Cinza
+
+## 🎓 Main Quests (Educação)
+
+Formato dos dados de educação (estilo prédios/ginásios):
+
+```json
+{
+  "school": "Nome da Instituição",
+  "degree": "Nome do Curso/Formação",
+  "period": "2018 - 2022",
+  "icon": "🏛️",
+  "status": "completed"  // ou "incomplete"
+}
+```
+
+**Status:**
+- `completed` → Badge verde com "✓ Completed"
+- `incomplete` → Badge vermelho com "○ In Progress"
+
+**Layout:**
+- Desktop: 4 colunas
+- Tablet: 2 colunas
+- Mobile: 1 coluna
+- Hover: Eleva o card + glow roxo
 
 ## 🌐 Deploy no GitHub Pages
 
