@@ -3,20 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Sophia Simões - Staff QA Engineer Portfolio | AI-Augmented Testing | DevSecOps"/>
-  <title>Sophia Simões | QA Engineer • AI • Terminal RPG Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=VT323&display=swap" rel="stylesheet"/>
+  <title>DevDex | Trainer Profile</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=VT323&display=swap" rel="stylesheet">
+
   <style>
-    /* ========================================
-       CSS VARIABLES & RESET
-       ======================================== */
+    /* 
+     * =========================================
+     * DESIGN SYSTEM & VARIABLES
+     * =========================================
+     */
     :root {
       /* Colors */
       --bg: #0a0a0f;
       --bg-card: #111827;
-      --bg-card-hover: #1f2937;
+      --bg-panel: #1f2937;
       --purple: #7c3aed;
       --cherry: #dc2626;
       --yellow: #fbbf24;
@@ -24,1950 +28,837 @@
       --green: #10b981;
       --text: #f3f4f6;
       --text-muted: #9ca3af;
-      --border: #374151;
+      
+      /* Spacing */
+      --spacing-xs: 0.5rem;
+      --spacing-sm: 1rem;
+      --spacing-md: 1.5rem;
+      --spacing-lg: 2rem;
+      --spacing-xl: 3rem;
+
+      /* Borders */
+      --border-pixel: 4px solid var(--text);
+      --border-thin: 2px solid var(--text-muted);
       
       /* Fonts */
       --font-title: 'VT323', monospace;
       --font-body: 'Fira Code', monospace;
-      
-      /* Spacing */
-      --spacing-xs: 0.25rem;
-      --spacing-sm: 0.5rem;
-      --spacing-md: 1rem;
-      --spacing-lg: 1.5rem;
-      --spacing-xl: 2rem;
-      
-      /* Borders */
-      --border-radius: 4px;
-      --border-width: 2px;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      font-size: 16px;
-      scroll-behavior: smooth;
-    }
-
+    /* 
+     * =========================================
+     * RESET & BASE STYLES
+     * =========================================
+     */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
     body {
       background-color: var(--bg);
       color: var(--text);
       font-family: var(--font-body);
       line-height: 1.6;
-      min-height: 100vh;
       overflow-x: hidden;
       position: relative;
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.05) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(220, 38, 38, 0.05) 0%, transparent 20%);
     }
 
-    /* ========================================
-       ACCESSIBILITY
-       ======================================== */
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-
-    /* ========================================
-       SCANLINE OVERLAY
-       ======================================== */
-    .scanlines {
+    /* Scanline Overlay */
+    body::after {
+      content: "";
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+      background-size: 100% 4px;
       pointer-events: none;
-      z-index: 1000;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.1),
-        rgba(0, 0, 0, 0.1) 1px,
-        transparent 1px,
-        transparent 2px
-      );
-      opacity: 0.2;
+      z-index: 9999;
+      opacity: 0.6;
     }
 
-    /* ========================================
-       PIXEL BORDER UTILITIES
-       ======================================== */
-    .pixel-border {
-      position: relative;
-      border: var(--border-width) solid var(--border);
-      box-shadow: 
-        -2px 0 0 0 var(--border),
-        2px 0 0 0 var(--border),
-        0 -2px 0 0 var(--border),
-        0 2px 0 0 var(--border);
-      border-radius: var(--border-radius);
-    }
-    
-    .pixel-border::before {
-      content: "";
-      position: absolute;
-      top: -3px; left: -3px; right: -3px; bottom: -3px;
-      border: 2px solid var(--cherry);
-      border-radius: 6px;
-      pointer-events: none;
-      opacity: 0.5;
-    }
+    h1, h2, h3, h4 { font-family: var(--font-title); text-transform: uppercase; letter-spacing: 2px; }
+    a { color: var(--blue); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--yellow); }
+    ul { list-style: none; }
 
-    .dashed-border {
-      border: 2px dashed var(--border);
-    }
-
-    /* ========================================
-       HEADER / TERMINAL BAR
-       ======================================== */
-    header {
-      background: var(--bg-card);
-      border-bottom: var(--border-width) solid var(--purple);
-      padding: var(--spacing-md) var(--spacing-lg);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: var(--spacing-md);
-    }
-
-    .terminal-prompt {
-      color: var(--green);
-      font-weight: 500;
-      font-family: var(--font-title);
-      font-size: 1.1rem;
-    }
-
-    .terminal-prompt span { color: var(--purple); }
-
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: var(--spacing-sm);
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: var(--text);
-      text-decoration: none;
-      padding: 0.4rem 0.9rem;
-      border: 2px solid transparent;
-      border-radius: var(--border-radius);
-      transition: all 0.2s ease;
-      font-family: var(--font-title);
-      font-size: 1.1rem;
-      position: relative;
-    }
-
-    nav a:hover, nav a.active {
-      border-color: var(--yellow);
-      background: rgba(251, 191, 36, 0.1);
-      color: var(--yellow);
-    }
-
-    nav a::before { 
-      content: "▶ "; 
-      color: var(--purple);
-      font-size: 0.9rem;
-    }
-
-    /* ========================================
-       HERO SECTION - POKEMON RPG STYLE
-       ======================================== */
-    .hero {
-      padding: calc(var(--spacing-xl) * 2) var(--spacing-lg);
-      text-align: center;
-      background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg) 100%);
-      border-bottom: 2px dashed var(--purple);
-      position: relative;
-    }
-
-    .hero-avatar {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto var(--spacing-lg);
-      background: linear-gradient(135deg, var(--purple), var(--cherry));
-      border: 3px solid var(--yellow);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-title);
-      font-size: 2rem;
-      color: white;
-      box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
-    }
-
-    .hero h1 {
-      font-family: var(--font-title);
-      font-size: 2rem;
-      margin-bottom: var(--spacing-sm);
-      color: var(--purple);
-      text-shadow: 2px 2px 0 var(--cherry);
-      letter-spacing: 1px;
-    }
-
-    .hero-subtitle {
-      font-family: var(--font-body);
-      color: var(--text-muted);
-      margin-bottom: var(--spacing-lg);
-      font-size: 1.1rem;
-    }
-
-    /* RPG Stats Bar */
-    .rpg-stats {
-      display: flex;
-      justify-content: center;
-      gap: var(--spacing-xl);
-      margin: var(--spacing-lg) 0;
-      flex-wrap: wrap;
-    }
-
-    .stat-bar {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-xs);
-      font-family: var(--font-title);
-      font-size: 1rem;
-    }
-
-    .stat-bar span { color: var(--text-muted); }
-    
-    .bar-fill {
-      width: 100px;
-      height: 12px;
-      background: var(--bg-card-hover);
-      border: 2px solid var(--purple);
-      border-radius: 2px;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .bar-fill.hp { background: linear-gradient(90deg, var(--cherry), #ef4444); }
-    .bar-fill.exp { background: linear-gradient(90deg, var(--blue), #a855f7); }
-
-    .hero-tags {
-      display: flex;
-      justify-content: center;
-      gap: var(--spacing-xs);
-      flex-wrap: wrap;
-      margin: var(--spacing-lg) 0;
-    }
-
-    .tag {
-      background: rgba(124, 58, 237, 0.2);
-      border: 2px solid var(--purple);
-      padding: 0.3rem 0.8rem;
-      border-radius: var(--border-radius);
-      font-family: var(--font-title);
-      font-size: 0.9rem;
-      color: var(--purple);
-    }
-
-    .tag.rare {
-      border-color: var(--yellow);
-      color: var(--yellow);
-      background: rgba(251, 191, 36, 0.15);
-    }
-
-    .cta-buttons {
-      display: flex;
-      justify-content: center;
-      gap: var(--spacing-md);
-      flex-wrap: wrap;
-      margin-top: var(--spacing-md);
-    }
-
-    .btn {
-      padding: 0.8rem 1.5rem;
-      border: none;
-      border-radius: var(--border-radius);
-      font-family: var(--font-title);
-      font-size: 1.1rem;
-      font-weight: normal;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-decoration: none;
-      display: inline-block;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn::after {
-      content: "";
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.3s ease;
-    }
-    .btn:hover::after { left: 100%; }
-
-    .btn-primary {
-      background: var(--purple);
-      color: white;
-      border: 2px solid #a855f7;
-    }
-    .btn-primary:hover {
-      background: #a855f7;
-      box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      border: 2px solid var(--cherry);
-      color: #ef4444;
-    }
-    .btn-secondary:hover {
-      background: rgba(220, 38, 38, 0.1);
-      color: var(--cherry);
-    }
-
-    /* ========================================
-       SECTIONS
-       ======================================== */
-    section {
-      padding: calc(var(--spacing-xl) + var(--spacing-md)) var(--spacing-lg);
+    .container {
       max-width: 1200px;
       margin: 0 auto;
+      padding: var(--spacing-lg);
     }
 
-    .section-title {
-      font-family: var(--font-title);
-      font-size: 1.8rem;
-      color: #ef4444;
-      margin-bottom: var(--spacing-xl);
+    /* Pixel Border Utility */
+    .pixel-border {
+      position: relative;
+      border: 2px solid var(--text-muted);
+      box-shadow: 
+        -4px 0 0 0 var(--text-muted),
+        4px 0 0 0 var(--text-muted),
+        0 -4px 0 0 var(--text-muted),
+        0 4px 0 0 var(--text-muted);
+      margin: 4px;
+    }
+
+    /* Section Headers */
+    .section-header {
       display: flex;
       align-items: center;
-      gap: var(--spacing-xs);
-      text-shadow: 1px 1px 0 var(--purple);
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-lg);
+      border-bottom: 2px solid var(--purple);
+      padding-bottom: var(--spacing-xs);
     }
+    .section-header h2 { font-size: 2.5rem; color: var(--purple); }
+    .terminal-prompt { color: var(--green); font-weight: bold; }
 
-    .section-title::before {
-      content: "◆";
-      color: var(--yellow);
-    }
-
-    /* Pokemon-Style Card */
-    .project-card {
+    /* 
+     * =========================================
+     * TRAINER PROFILE (Gen 2/3 Style)
+     * =========================================
+     */
+    .trainer-section { margin-bottom: var(--spacing-xl); }
+    
+    .trainer-card {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: var(--spacing-md);
       background: var(--bg-card);
-      border: var(--border-width) solid var(--purple);
-      border-radius: 8px;
-      padding: var(--spacing-lg);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      padding: var(--spacing-md);
+      align-items: start;
+    }
+
+    .trainer-avatar {
+      width: 80px;
+      height: 80px;
+      background: var(--bg-panel);
+      border: 2px solid var(--text);
+      image-rendering: pixelated;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+
+    .trainer-info h1 { font-size: 2.5rem; color: var(--yellow); margin-bottom: 0.25rem; }
+    .trainer-meta { display: flex; gap: var(--spacing-md); flex-wrap: wrap; margin-bottom: var(--spacing-sm); font-size: 0.9rem; color: var(--text-muted); }
+    .trainer-meta span { display: flex; align-items: center; gap: 0.25rem; }
+    .trainer-desc { font-size: 1.1rem; border-left: 3px solid var(--cherry); padding-left: var(--spacing-sm); color: var(--text); }
+
+    /* 
+     * =========================================
+     * SKILLS POKEDEX (Main Captured)
+     * =========================================
+     */
+    .skills-section { margin-bottom: var(--spacing-xl); }
+    
+    .main-skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-md);
+    }
+
+    .skill-card {
+      background: var(--bg-card);
+      padding: var(--spacing-md);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 15px var(--purple);
+    }
+
+    .skill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-sm); }
+    .skill-name { font-family: var(--font-title); font-size: 1.5rem; color: var(--text); display: flex; align-items: center; gap: 0.5rem; }
+    .skill-icon { font-size: 1.5rem; }
+    
+    /* Pokéball Indicator for Active Skills */
+    .skill-active-indicator {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, white 20%, var(--cherry) 21%, var(--cherry) 45%, white 46%, white 55%, var(--bg) 56%);
+      border: 1px solid var(--text-muted);
+      display: inline-block;
+    }
+
+    .level-bar-container {
+      background: var(--bg);
+      height: 12px;
+      border: 2px solid var(--text-muted);
+      margin: var(--spacing-sm) 0;
       position: relative;
     }
+    
+    .level-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue), var(--purple));
+      width: 0%; /* Dynamic */
+      transition: width 1s ease-out;
+    }
 
-    .project-card::before {
-      content: "";
+    .level-text {
       position: absolute;
-      top: 4px; left: 4px; right: 4px; bottom: 4px;
-      border: 1px solid var(--cherry);
-      border-radius: 6px;
-      pointer-events: none;
-      opacity: 0.3;
-    }
-
-    .project-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(124, 58, 237, 0.2);
-      border-color: var(--yellow);
-    }
-
-    .project-card h3 {
-      color: var(--purple);
-      margin-bottom: var(--spacing-xs);
-      font-size: 1.2rem;
-      font-family: var(--font-title);
-    }
-
-    .project-card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: var(--spacing-md);
-    }
-
-    .project-tech {
-      display: flex;
-      gap: var(--spacing-xs);
-      flex-wrap: wrap;
-      margin-bottom: var(--spacing-md);
-    }
-
-    .project-tech span {
-      background: rgba(220, 38, 38, 0.15);
-      color: #ef4444;
-      border: 1px solid var(--cherry);
-      padding: 0.2rem 0.6rem;
-      border-radius: 3px;
-      font-family: var(--font-title);
+      top: -20px; right: 0;
       font-size: 0.8rem;
-    }
-
-    .project-links a {
-      color: var(--green);
-      text-decoration: none;
-      font-family: var(--font-title);
-      font-size: 0.95rem;
-      margin-right: var(--spacing-md);
-    }
-    .project-links a:hover { 
       color: var(--yellow);
-      text-decoration: underline;
-    }
-
-    /* Featured Badge - Pokemon Style */
-    .badge-featured {
-      display: inline-block;
-      background: linear-gradient(135deg, var(--yellow), #f59e0b);
-      color: #000;
-      padding: 0.2rem 0.7rem;
-      font-family: var(--font-title);
-      font-size: 0.85rem;
-      border-radius: 3px;
-      margin-bottom: 0.8rem;
-      border: 2px solid #000;
       font-weight: bold;
     }
 
-    /* CV Section */
-    .cv-container {
+    .moveset-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: var(--spacing-sm);
+    }
+
+    .move-tag {
+      background: var(--bg-panel);
+      padding: 0.25rem 0.5rem;
+      font-size: 0.8rem;
+      border: 1px solid var(--text-muted);
+      border-radius: 2px;
+    }
+
+    /* 
+     * =========================================
+     * PC BOX (All Skills Interactive)
+     * =========================================
+     */
+    .pc-box-section { margin-bottom: var(--spacing-xl); }
+    
+    .pc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: var(--spacing-sm);
+    }
+
+    .pc-card {
       background: var(--bg-card);
-      border: var(--border-width) solid var(--purple);
-      border-radius: 8px;
-      padding: var(--spacing-xl);
+      border: 2px solid var(--text-muted);
+      padding: var(--spacing-sm);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
     }
 
-    .cv-section { margin-bottom: var(--spacing-xl); }
+    .pc-card:hover {
+      border-color: var(--blue);
+      background: var(--bg-panel);
+      transform: translateY(-2px);
+    }
 
-    .cv-section h4 {
-      color: var(--purple);
-      margin-bottom: var(--spacing-md);
-      padding-bottom: var(--spacing-xs);
-      border-bottom: 2px dashed var(--purple);
+    .pc-card.seen { opacity: 0.5; filter: grayscale(0.8); }
+    .pc-card.studied { border-bottom: 3px solid var(--blue); }
+    .pc-card.active { border: 2px solid var(--green); box-shadow: 0 0 8px var(--green); }
+
+    .pc-icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+    .pc-name { font-family: var(--font-title); font-size: 1.1rem; }
+    
+    .status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      margin: 4px auto 0;
+      display: block;
+    }
+    .status-active { background: var(--green); }
+    .status-studied { background: var(--blue); }
+    .status-seen { background: var(--text-muted); }
+
+    /* Skill Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      backdrop-filter: blur(4px);
+    }
+    
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal-content {
+      background: var(--bg-card);
+      border: 4px solid var(--purple);
+      padding: var(--spacing-lg);
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+      transform: scale(0.9);
+      transition: transform 0.3s;
+      box-shadow: 0 0 30px var(--purple);
+    }
+
+    .modal-overlay.open .modal-content { transform: scale(1); }
+
+    .modal-close {
+      position: absolute;
+      top: 10px; right: 15px;
+      font-size: 2rem;
+      cursor: pointer;
+      color: var(--text-muted);
       font-family: var(--font-title);
-      font-size: 1.3rem;
     }
+    .modal-close:hover { color: var(--cherry); }
 
-    /* Gym Badges - Experience Grid */
-    .gym-badges-grid {
+    /* 
+     * =========================================
+     * GYM BADGES (Experiences)
+     * =========================================
+     */
+    .gym-section { margin-bottom: var(--spacing-xl); }
+    
+    .gym-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: var(--spacing-md);
-      margin-top: var(--spacing-lg);
-    }
-
-    @media (max-width: 1024px) {
-      .gym-badges-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .gym-badges-grid {
-        grid-template-columns: 1fr;
-      }
     }
 
     .gym-badge {
-      background: linear-gradient(180deg, rgba(17, 24, 39, 0.8) 0%, rgba(31, 41, 55, 0.5) 100%);
-      border: 2px solid var(--purple);
-      border-radius: 8px;
+      background: var(--bg-card);
       padding: var(--spacing-md);
       text-align: center;
-      transition: all 0.2s ease;
+      border-top: 4px solid var(--purple);
+      transition: transform 0.2s;
       position: relative;
-      overflow: hidden;
-      min-height: 180px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
     }
 
-    .gym-badge::before {
-      content: "";
+    .gym-badge:hover { transform: translateY(-4px); box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3); }
+
+    .gym-icon { font-size: 3rem; margin-bottom: var(--spacing-xs); display: block; }
+    .gym-company { font-family: var(--font-title); font-size: 1.4rem; color: var(--yellow); }
+    .gym-role { font-size: 0.9rem; color: var(--blue); margin-bottom: 0.5rem; font-weight: 600; }
+    .gym-period { font-size: 0.8rem; color: var(--text-muted); margin-bottom: var(--spacing-sm); font-style: italic; }
+    .gym-summary { font-size: 0.85rem; text-align: left; line-height: 1.4; }
+
+    .badge-rarity {
       position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--cherry), var(--yellow), var(--blue));
+      top: 5px; right: 5px;
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+      text-transform: uppercase;
     }
+    .rarity-legendary { background: var(--yellow); color: #000; }
+    .rarity-elite { background: var(--purple); color: #fff; }
+    .rarity-rare { background: var(--blue); color: #fff; }
+    .rarity-common { background: var(--text-muted); color: #000; }
 
-    .gym-badge:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
-      border-color: var(--yellow);
-    }
-
-    .gym-badge-icon {
-      width: 48px;
-      height: 48px;
-      margin: 0 auto var(--spacing-sm);
-      background: linear-gradient(135deg, var(--purple), var(--cherry));
-      border: 2px solid var(--yellow);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-title);
-      font-size: 1.5rem;
-      color: white;
-      box-shadow: 0 0 10px rgba(124, 58, 237, 0.4);
-    }
-
-    .gym-badge-company {
-      font-family: var(--font-title);
-      font-size: 1rem;
-      color: var(--text);
-      margin-bottom: var(--spacing-xs);
-      line-height: 1.2;
-    }
-
-    .gym-badge-role {
-      font-family: var(--font-body);
-      font-size: 0.8rem;
-      color: var(--purple);
-      margin-bottom: var(--spacing-xs);
-    }
-
-    .gym-badge-period {
-      font-family: var(--font-body);
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-bottom: var(--spacing-sm);
-    }
-
-    .gym-badge-summary {
-      font-family: var(--font-body);
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-      text-align: left;
-      flex-grow: 1;
-    }
-
-    .gym-badge-type {
-      display: inline-block;
-      background: rgba(124, 58, 237, 0.2);
-      border: 1px solid var(--purple);
-      padding: 0.15rem 0.5rem;
-      border-radius: 3px;
-      font-family: var(--font-title);
-      font-size: 0.65rem;
-      color: var(--purple);
-      margin-top: var(--spacing-xs);
-    }
-
-    .gym-badge-type.legendary {
-      background: rgba(251, 191, 36, 0.2);
-      border-color: var(--yellow);
-      color: var(--yellow);
-    }
-
-    .cv-item {
-      margin-bottom: var(--spacing-lg);
-      padding: var(--spacing-md);
-      padding-left: calc(var(--spacing-md) + 0.5rem);
-      border-left: 3px solid var(--cherry);
-      background: rgba(17, 24, 39, 0.5);
-      border-radius: 0 4px 4px 0;
-    }
-
-    .cv-item h5 { 
-      color: var(--text); 
-      margin-bottom: 0.3rem;
-      font-family: var(--font-title);
-      font-size: 1.1rem;
-    }
-    .cv-item .meta { 
-      color: var(--text-muted); 
-      font-size: 0.9rem; 
-      margin-bottom: 0.5rem;
-      font-family: var(--font-body);
-    }
-    .cv-item ul { 
-      padding-left: var(--spacing-lg); 
-      color: var(--text-muted); 
-      font-size: 0.95rem;
-    }
-    .cv-item li { margin-bottom: 0.3rem; }
-
-    /* Blog Section */
-    .blog-posts { display: flex; flex-direction: column; gap: var(--spacing-lg); }
-
-    .blog-post {
-      background: var(--bg-card);
-      border-left: 4px solid var(--purple);
-      padding: var(--spacing-lg);
-      border-radius: 0 8px 8px 0;
-      border: 2px solid var(--purple);
-    }
-
-    .blog-post h3 {
-      color: #ef4444;
-      margin-bottom: var(--spacing-xs);
-      font-family: var(--font-title);
-      font-size: 1.2rem;
-    }
-
-    .blog-post .date {
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      margin-bottom: var(--spacing-md);
-      display: block;
-      font-family: var(--font-body);
-    }
-
-    .blog-post a {
-      color: var(--green);
-      text-decoration: none;
-      font-family: var(--font-title);
-    }
-    .blog-post a:hover { 
-      color: var(--yellow);
-      text-decoration: underline;
-    }
-
-    /* Contact Section */
-    .contact-grid {
+    /* 
+     * =========================================
+     * OTHER LISTS (Courses, Certs, Education, Blog)
+     * =========================================
+     */
+    .list-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: var(--spacing-xl);
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--spacing-md);
     }
 
-    .contact-info {
+    .info-card {
       background: var(--bg-card);
-      border: var(--border-width) solid var(--purple);
-      border-radius: 8px;
-      padding: var(--spacing-lg);
+      padding: var(--spacing-md);
+      border-left: 4px solid var(--blue);
+      transition: transform 0.2s;
+    }
+    .info-card:hover { transform: translateX(4px); }
+
+    .info-title { font-family: var(--font-title); font-size: 1.3rem; color: var(--text); margin-bottom: 0.5rem; }
+    .info-sub { font-size: 0.9rem; color: var(--blue); margin-bottom: 0.5rem; }
+    .info-meta { font-size: 0.8rem; color: var(--text-muted); margin-bottom: var(--spacing-sm); }
+    .info-desc { font-size: 0.9rem; }
+
+    /* Blog Specific */
+    .blog-card { border-left-color: var(--cherry); }
+    .blog-date { color: var(--cherry); font-weight: bold; }
+
+    /* 
+     * =========================================
+     * RESPONSIVE MEDIA QUERIES
+     * =========================================
+     */
+    @media (max-width: 1024px) {
+      .gym-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
-    .contact-info p {
-      margin-bottom: var(--spacing-md);
-      color: var(--text-muted);
-    }
-
-    .contact-info a {
-      color: var(--purple);
-      text-decoration: none;
-    }
-    .contact-info a:hover { 
-      color: var(--yellow);
-      text-decoration: underline;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-      width: 100%;
-      padding: 0.8rem;
-      margin-bottom: var(--spacing-md);
-      background: var(--bg-card);
-      border: 2px solid var(--purple);
-      border-radius: var(--border-radius);
-      color: var(--text);
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      transition: border-color 0.2s ease;
-    }
-
-    .contact-form input:focus,
-    .contact-form textarea:focus {
-      outline: none;
-      border-color: var(--yellow);
-      box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
-    }
-
-    .contact-form textarea { min-height: 120px; resize: vertical; }
-
-    /* Footer */
-    footer {
-      background: var(--bg-card);
-      border-top: 2px solid var(--purple);
-      padding: var(--spacing-xl);
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      font-family: var(--font-body);
-    }
-
-    footer a { color: var(--purple); text-decoration: none; }
-    footer a:hover { color: var(--yellow); text-decoration: underline; }
-
-    /* Pixel Divider */
-    .pixel-divider {
-      height: 6px;
-      background: repeating-linear-gradient(
-        90deg,
-        var(--purple) 0px,
-        var(--purple) 8px,
-        var(--cherry) 8px,
-        var(--cherry) 16px,
-        var(--yellow) 16px,
-        var(--yellow) 24px
-      );
-      margin: var(--spacing-xl) 0;
-      border-radius: 2px;
-      border: 2px solid var(--bg);
-    }
-
-    /* Retro Console Prompt */
-    .console-prompt {
-      font-family: var(--font-title);
-      color: var(--green);
-      margin-bottom: var(--spacing-xs);
-    }
-
-    /* Mobile Responsive */
     @media (max-width: 768px) {
-      header { flex-direction: column; align-items: flex-start; }
-      nav ul { gap: 0.5rem; }
-      nav a { font-size: 1rem; padding: 0.3rem 0.7rem; }
-      .hero h1 { font-size: 1.5rem; }
-      .hero-avatar { width: 60px; height: 60px; font-size: 1.5rem; }
-      .section-title { font-size: 1.4rem; }
-      .rpg-stats { gap: var(--spacing-md); }
-      .bar-fill { width: 70px; }
+      .trainer-card { grid-template-columns: 1fr; text-align: center; }
+      .trainer-avatar { margin: 0 auto; }
+      .trainer-desc { border-left: none; border-top: 3px solid var(--cherry); padding-top: var(--spacing-sm); padding-left: 0; }
+      .trainer-meta { justify-content: center; }
+      .gym-grid { grid-template-columns: 1fr; }
+      .section-header h2 { font-size: 2rem; }
     }
 
-    /* Subtle hover effects only - no blinking */
-    .hover-glow:hover {
-      box-shadow: 0 0 12px rgba(124, 58, 237, 0.3);
+    @media (max-width: 480px) {
+      .pc-grid { grid-template-columns: repeat(2, 1fr); }
+      .container { padding: var(--spacing-sm); }
+    }
+
+    /* Accessibility: Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+      body::after { display: none; }
     }
   </style>
 </head>
 <body>
-  <!-- Scanline overlay for retro effect -->
-  <div class="scanlines" aria-hidden="true"></div>
 
-  <!-- Header / Terminal Bar -->
-  <header>
-    <div class="terminal-prompt">
-      > sophia@qa-terminal:<span>~</span>$
-    </div>
-    <nav>
-      <ul>
-        <li><a href="#home" class="active">./home</a></li>
-        <li><a href="#projects">./projects</a></li>
-        <li><a href="#cv">./cv</a></li>
-        <li><a href="#blog">./blog</a></li>
-        <li><a href="#contact">./contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- Hero Section - Pokemon RPG Style -->
-  <section id="home" class="hero">
-    <div class="hero-avatar">👾</div>
-    <h1>SOPHIA SIMÕES GONÇALVES</h1>
-    <p class="hero-subtitle">Staff QA Engineer • AI-Augmented Testing • DevSecOps</p>
+  <div class="container">
     
-    <!-- RPG Stats Bar -->
-    <div class="rpg-stats">
-      <div class="stat-bar">
-        <span style="color:#ef4444">HP:</span>
-        <div class="bar-fill hp" style="width:85%"></div>
+    <!-- TRAINER PROFILE -->
+    <section class="trainer-section" aria-labelledby="trainer-title">
+      <div class="section-header">
+        <span class="terminal-prompt">></span>
+        <h2 id="trainer-title">Trainer Info</h2>
       </div>
-      <div class="stat-bar">
-        <span style="color:var(--blue)">EXP:</span>
-        <div class="bar-fill exp" style="width:70%"></div>
+      <div class="trainer-card pixel-border" id="trainer-container">
+        <!-- Injected via JS -->
+        <div style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Loading Trainer Data...</div>
+      </div>
+    </section>
+
+    <!-- MAIN SKILLS (Captured) -->
+    <section class="skills-section" aria-labelledby="skills-title">
+      <div class="section-header">
+        <span class="terminal-prompt">></span>
+        <h2 id="skills-title">Captured Skills</h2>
+      </div>
+      <div class="main-skills-grid" id="main-skills-container">
+        <!-- Injected via JS -->
+      </div>
+    </section>
+
+    <!-- PC BOX (All Skills) -->
+    <section class="pc-box-section" aria-labelledby="pc-title">
+      <div class="section-header">
+        <span class="terminal-prompt">></span>
+        <h2 id="pc-title">PC Box Storage</h2>
+      </div>
+      <div class="pc-grid" id="pc-box-container">
+        <!-- Injected via JS -->
+      </div>
+    </section>
+
+    <!-- GYM BADGES (Experiences) -->
+    <section class="gym-section" aria-labelledby="gym-title">
+      <div class="section-header">
+        <span class="terminal-prompt">></span>
+        <h2 id="gym-title">Gym Badges</h2>
+      </div>
+      <div class="gym-grid" id="gym-container">
+        <!-- Injected via JS -->
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="gym-section" aria-labelledby="edu-title">
+      <div class="section-header">
+        <span class="terminal-prompt">></span>
+        <h2 id="edu-title">Education</h2>
+      </div>
+      <div class="list-grid" id="education-container">
+        <!-- Injected via JS -->
+      </div>
+    </section>
+
+    <!-- COURSES -->
+    <section class="gym-section" aria-labelledby="courses-title">
+      <div class="section-header">
+        <span class="terminal-prompt">></span>
+        <h2 id="courses-title">Training Courses</h2>
+      </div>
+      <div class="list-grid" id="courses-container">
+        <!-- Injected via JS -->
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section class="gym-section" aria-labelledby="certs-title">
+      <div class="section-header">
+        <span class="terminal-prompt">></span>
+        <h2 id="certs-title">Certifications</h2>
+      </div>
+      <div class="list-grid" id="certs-container">
+        <!-- Injected via JS -->
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="gym-section" aria-labelledby="projects-title">
+      <div class="section-header">
+        <span class="terminal-prompt">></span>
+        <h2 id="projects-title">Side Projects</h2>
+      </div>
+      <div class="list-grid" id="projects-container">
+        <!-- Injected via JS -->
+      </div>
+    </section>
+
+    <!-- BLOG -->
+    <section class="gym-section" aria-labelledby="blog-title">
+      <div class="section-header">
+        <span class="terminal-prompt">></span>
+        <h2 id="blog-title">Log Entries</h2>
+      </div>
+      <div class="list-grid" id="blog-container">
+        <!-- Injected via JS -->
+      </div>
+    </section>
+
+  </div>
+
+  <!-- MODAL FOR SKILLS -->
+  <div class="modal-overlay" id="skill-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close-btn" aria-label="Close modal">&times;</button>
+      <div id="modal-body">
+        <!-- Dynamic Content -->
       </div>
     </div>
-
-    <div class="hero-tags">
-      <span class="tag rare">🤖 AI/LLMs</span>
-      <span class="tag">🔧 Automation</span>
-      <span class="tag">📊 DevSecOps</span>
-      <span class="tag">👥 Mentorship</span>
-      <span class="tag">🎮 Electronics/3D</span>
-    </div>
-
-    <div class="cta-buttons">
-      <a href="#cv" class="btn btn-primary">▶ view_cv.sh</a>
-      <a href="#contact" class="btn btn-secondary">▶ contact --freelance</a>
-    </div>
-  </section>
-
-  <div class="pixel-divider"></div>
-
-  <!-- Skills Pokédex Section -->
-  <section id="skills">
-    <h2 class="section-title">◆ ./skills.dex</h2>
-    
-    <!-- Skills Legend -->
-    <div class="skills-legend" role="list" aria-label="Skills status legend" style="display:flex;gap:1rem;margin-bottom:1.5rem;font-size:0.85rem;flex-wrap:wrap;">
-      <div class="legend-item" role="listitem" style="display:flex;align-items:center;gap:0.25rem;color:var(--text-muted);">
-        <span class="legend-dot seen" aria-hidden="true" style="width:12px;height:12px;border-radius:50%;background-color:var(--text-muted);opacity:0.5;"></span>
-        <span>Seen</span>
-      </div>
-      <div class="legend-item" role="listitem" style="display:flex;align-items:center;gap:0.25rem;color:var(--text-muted);">
-        <span class="legend-dot studied" aria-hidden="true" style="width:12px;height:12px;border-radius:50%;background-color:var(--blue);"></span>
-        <span>Studied</span>
-      </div>
-      <div class="legend-item" role="listitem" style="display:flex;align-items:center;gap:0.25rem;color:var(--text-muted);">
-        <span class="legend-dot active" aria-hidden="true" style="width:12px;height:12px;border-radius:50%;background-color:var(--green);position:relative;"></span>
-        <span>Active</span>
-      </div>
-    </div>
-
-    <!-- Captured Skills (Main Skills) -->
-    <div id="captured-skills" class="captured-skills" aria-label="Main skills showcase" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-bottom:2rem;">
-      <!-- Dynamically rendered via JS -->
-    </div>
-
-    <!-- All Skills List - PC Box Style -->
-    <div class="all-skills">
-      <h3 class="section-header" style="font-family:var(--font-title);font-size:1.2rem;color:var(--yellow);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:2px dashed var(--border);">&gt; pc.box.skills</h3>
-      <p style="font-family:var(--font-body);font-size:0.85rem;color:var(--text-muted);margin-bottom:1rem;">Click on any skill to view details</p>
-      <div id="all-skills" class="skills-pc-grid" aria-label="Complete skills list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0.75rem;">
-        <!-- Dynamically rendered via JS -->
-      </div>
-    </div>
-    
-    <!-- Skill Detail Modal (PC Box Expansion) -->
-    <div id="skill-modal" class="skill-modal" role="dialog" aria-modal="true" aria-labelledby="modal-skill-name" hidden>
-      <div class="skill-modal-content pixel-border">
-        <button class="skill-modal-close" aria-label="Close modal" onclick="closeSkillModal()">&times;</button>
-        <div id="modal-skill-content">
-          <!-- Content injected via JS -->
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="pixel-divider"></div>
-
-  <!-- Projects Section -->
-  <section id="projects">
-    <h2 class="section-title">◆ ./projects</h2>
-    <div class="projects-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;">
-      
-      <!-- Project 1 - Featured -->
-      <div class="project-card pixel-border hover-glow">
-        <span class="badge-featured">★ FEATURED</span>
-        <h3>🤖 AI Test Agents with CrewAI</h3>
-        <p>Autonomous agents that generate, execute, and review test cases using local LLMs (Ollama) + CrewAI orchestration.</p>
-        <div class="project-tech">
-          <span>Python</span><span>CrewAI</span><span>Ollama</span><span>n8n</span>
-        </div>
-        <div class="project-links">
-          <a href="#" target="_blank">[GitHub]</a>
-          <a href="#" target="_blank">[Case Study]</a>
-        </div>
-      </div>
-
-      <!-- Project 2 -->
-      <div class="project-card pixel-border hover-glow">
-        <h3>⚙️ Cost-Optimized CI/CD</h3>
-        <p>Refactored test pyramid + parallel execution strategy that reduced infrastructure costs by 50% while improving reliability.</p>
-        <div class="project-tech">
-          <span>Jenkins</span><span>Docker</span><span>Ruby</span><span>Java</span>
-        </div>
-        <div class="project-links">
-          <a href="#" target="_blank">[Architecture]</a>
-        </div>
-      </div>
-
-      <!-- Project 3 -->
-      <div class="project-card pixel-border hover-glow">
-        <h3>📱 POS Device Farm</h3>
-        <p>Custom device farm for payment terminal testing, reducing manual validation effort by 60% and accelerating firmware releases.</p>
-        <div class="project-tech">
-          <span>Appium</span><span>Python</span><span>Embedded</span><span>Bluetooth</span>
-        </div>
-        <div class="project-links">
-          <a href="#" target="_blank">[Demo]</a>
-        </div>
-      </div>
-
-      <!-- Project 4 -->
-      <div class="project-card pixel-border hover-glow">
-        <h3>🔐 DevSecOps Gates</h3>
-        <p>Integrated static analysis (SonarQube, MobSF, SDAT) into CI pipelines, catching 90% of critical vulnerabilities pre-merge.</p>
-        <div class="project-tech">
-          <span>SonarQube</span><span>MobSF</span><span>SDAT</span><span>Shift-Left</span>
-        </div>
-        <div class="project-links">
-          <a href="#" target="_blank">[Guide]</a>
-        </div>
-      </div>
-
-      <!-- Project 5 -->
-      <div class="project-card pixel-border hover-glow">
-        <h3>🔬 AR Research (Academic)</h3>
-        <p>Early research on object trajectory prediction using Augmented Reality + computer vision (UNIP, 2013).</p>
-        <div class="project-tech">
-          <span>Computer Vision</span><span>AR</span><span>Research</span>
-        </div>
-        <div class="project-links">
-          <a href="#" target="_blank">[Paper]</a>
-        </div>
-      </div>
-
-      <!-- Project 6 -->
-      <div class="project-card pixel-border hover-glow">
-        <h3>♿ Wheelchair Prototype</h3>
-        <p>Hardware+software prototype for Bluetooth-based wheelchair control, combining embedded programming + accessible UX.</p>
-        <div class="project-tech">
-          <span>Embedded</span><span>Bluetooth</span><span>UX</span><span>Prototyping</span>
-        </div>
-        <div class="project-links">
-          <a href="#" target="_blank">[Photos]</a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <div class="pixel-divider"></div>
-
-  <!-- CV Section -->
-  <section id="cv">
-    <h2 class="section-title">◆ ./cv</h2>
-    <div class="cv-container pixel-border">
-      
-      <div class="cv-section">
-        <h4>🎯 Professional Summary</h4>
-        <p>Staff QA Engineer with 10+ years building quality strategies for high-scale fintechs. Specialized in AI-augmented testing, DevSecOps, and cost-optimized pipelines. Reduced testing infrastructure costs by up to 50% and deployed AI agents to automate ~70% of test scenarios.</p>
-      </div>
-
-      <div class="cv-section">
-        <h4>💼 Experience — Gym Badges</h4>
-        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: var(--spacing-md);">
-          ▶ Collect all gym badges to unlock the Elite Four achievement!
-        </p>
-        
-        <div class="gym-badges-grid">
-          <!-- Badge 1: Pagar.me (Current) -->
-          <div class="gym-badge">
-            <div>
-              <div class="gym-badge-icon">⚡</div>
-              <div class="gym-badge-company">Pagar.me</div>
-              <div class="gym-badge-role">Staff QA Engineer</div>
-              <div class="gym-badge-period">Jan 2023 – Present</div>
-            </div>
-            <div class="gym-badge-summary">
-              Lead quality strategy for payments unit. Reduced production incidents by 40%. Pioneered AI-augmented testing with LLMs + CrewAI agents.
-            </div>
-            <span class="gym-badge-type legendary">★ LEGENDARY</span>
-          </div>
-
-          <!-- Badge 2: Pagar.me (Tech Lead) -->
-          <div class="gym-badge">
-            <div>
-              <div class="gym-badge-icon">🛡️</div>
-              <div class="gym-badge-company">Pagar.me</div>
-              <div class="gym-badge-role">Tech Lead QA</div>
-              <div class="gym-badge-period">Oct 2021 – Jan 2023</div>
-            </div>
-            <div class="gym-badge-summary">
-              Led squad of 7 QAs across 3 product teams. Architected device farm for POS testing (60% manual effort reduction). Integrated SonarQube + MobSF into CI.
-            </div>
-            <span class="gym-badge-type">ELITE</span>
-          </div>
-
-          <!-- Badge 3: Concrete Solutions -->
-          <div class="gym-badge">
-            <div>
-              <div class="gym-badge-icon">🎯</div>
-              <div class="gym-badge-company">Concrete Solutions</div>
-              <div class="gym-badge-role">QA Chapter Lead</div>
-              <div class="gym-badge-period">Apr 2017 – Sep 2019</div>
-            </div>
-            <div class="gym-badge-summary">
-              Technical QA leadership for enterprise digital media. Built automation frameworks with Ruby, Cucumber, Appium, Jenkins CI. Championed Specification by Example.
-            </div>
-            <span class="gym-badge-type">ELITE</span>
-          </div>
-
-          <!-- Badge 4: ThoughtWorks -->
-          <div class="gym-badge">
-            <div>
-              <div class="gym-badge-icon">🚀</div>
-              <div class="gym-badge-company">ThoughtWorks</div>
-              <div class="gym-badge-role">Senior QA Consultant</div>
-              <div class="gym-badge-period">Aug 2015 – Mar 2017</div>
-            </div>
-            <div class="gym-badge-summary">
-              Delivered QA strategies for Fortune 500 clients. Implemented BDD practices with Cucumber + SpecFlow. Mentored teams on TDD and continuous testing.
-            </div>
-            <span class="gym-badge-type">ELITE</span>
-          </div>
-
-          <!-- Badge 5: Accenture -->
-          <div class="gym-badge">
-            <div>
-              <div class="gym-badge-icon">💎</div>
-              <div class="gym-badge-company">Accenture</div>
-              <div class="gym-badge-role">QA Analyst</div>
-              <div class="gym-badge-period">Jan 2013 – Jul 2015</div>
-            </div>
-            <div class="gym-badge-summary">
-              Executed manual and automated testing for banking clients. Developed test scripts in Java + Selenium. Participated in agile transformation initiatives.
-            </div>
-            <span class="gym-badge-type">RARE</span>
-          </div>
-
-          <!-- Badge 6: IBM -->
-          <div class="gym-badge">
-            <div>
-              <div class="gym-badge-icon">🔷</div>
-              <div class="gym-badge-company">IBM</div>
-              <div class="gym-badge-role">Junior QA Tester</div>
-              <div class="gym-badge-period">Mar 2011 – Dec 2012</div>
-            </div>
-            <div class="gym-badge-summary">
-              Performed functional and regression testing for enterprise software. Created test cases using HP Quality Center. Learned fundamentals of SDLC.
-            </div>
-            <span class="gym-badge-type">RARE</span>
-          </div>
-
-          <!-- Badge 7: Stefanini -->
-          <div class="gym-badge">
-            <div>
-              <div class="gym-badge-icon">⚙️</div>
-              <div class="gym-badge-company">Stefanini</div>
-              <div class="gym-badge-role">QA Intern</div>
-              <div class="gym-badge-period">Jun 2010 – Feb 2011</div>
-            </div>
-            <div class="gym-badge-summary">
-              Supported QA team with test execution and bug reporting. Gained exposure to ISTQB methodologies. First steps in software testing career.
-            </div>
-            <span class="gym-badge-type">COMMON</span>
-          </div>
-
-          <!-- Badge 8: Freelance -->
-          <div class="gym-badge">
-            <div>
-              <div class="gym-badge-icon">🌟</div>
-              <div class="gym-badge-company">Freelance</div>
-              <div class="gym-badge-role">QA Consultant</div>
-              <div class="gym-badge-period">2018 – Present</div>
-            </div>
-            <div class="gym-badge-summary">
-              Side projects for startups. Test automation setup, CI/CD pipeline consulting, and AI-powered testing workshops. Keeping skills sharp.
-            </div>
-            <span class="gym-badge-type">MYSTIC</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="cv-section">
-        <h4>🎓 Education</h4>
-        <div class="cv-item">
-          <h5>B.Eng. Computer Engineering — UNIVESP</h5>
-          <div class="meta">2018 – 2023</div>
-          <p>Focus: Software quality, embedded systems, test automation</p>
-        </div>
-        <div class="cv-item">
-          <h5>Postgrad. Software Engineering — UNIP</h5>
-          <div class="meta">2015 – 2016</div>
-          <p>Focus: QA processes, Agile, TestLink, Bizagi/Enterprise Architect</p>
-        </div>
-      </div>
-
-      <div class="cv-section">
-        <h4>🔧 Core Skills</h4>
-        <p><strong>AI & Testing:</strong> LLMs (Ollama, Claude), Prompt Engineering, CrewAI, n8n, Test Generation</p>
-        <p><strong>Languages:</strong> Java, Ruby, SQL, Python (scripting)</p>
-        <p><strong>Tools:</strong> Appium, Selenium, Cucumber, Jenkins, SonarQube, MobSF, Docker</p>
-        <p><strong>Strategy:</strong> Test Pyramid, Shift-Left, Risk-Based Testing, DevSecOps, Cost Optimization</p>
-        <p><strong>Languages:</strong> Portuguese (Native), English (Intermediate — Technical Interviews)</p>
-      </div>
-
-      <div style="text-align: center; margin-top: 2rem;">
-        <a href="SophiaSimoes_CV_PrincipalQA_Global.pdf" download class="btn btn-primary">
-          ▶ download_cv.pdf
-        </a>
-      </div>
-
-    </div>
-  </section>
-
-  <div class="pixel-divider"></div>
-
-  <!-- Blog Section -->
-  <section id="blog">
-    <h2 class="section-title">◆ ./blog</h2>
-    <div class="blog-posts">
-      
-      <article class="blog-post">
-        <h3>How I Use Local LLMs to Cut QA Costs by 50%</h3>
-        <span class="date">📅 December 2025 • 8 min read</span>
-        <p>Exploring practical patterns for integrating Ollama + CrewAI into test pipelines — with real metrics from fintech environments...</p>
-        <a href="#">[Read Full Post →]</a>
-      </article>
-
-      <article class="blog-post">
-        <h3>Building a Device Farm for POS Testing: Lessons Learned</h3>
-        <span class="date">📅 November 2025 • 6 min read</span>
-        <p>Hardware constraints, Bluetooth quirks, and automation strategies for payment terminal validation at scale...</p>
-        <a href="#">[Read Full Post →]</a>
-      </article>
-
-      <article class="blog-post">
-        <h3>Prompt Engineering for QA: A Practical Harness</h3>
-        <span class="date">📅 October 2025 • 10 min read</span>
-        <p>Designing reusable prompt templates for test case generation, edge-case discovery, and root cause analysis...</p>
-        <a href="#">[Read Full Post →]</a>
-      </article>
-
-    </div>
-  </section>
-
-  <div class="pixel-divider"></div>
-
-  <!-- Contact Section -->
-  <section id="contact">
-    <h2 class="section-title">◆ ./contact</h2>
-    <div class="contact-grid">
-      
-      <div class="contact-info pixel-border">
-        <p class="console-prompt">> whois sophia</p>
-        <p>📍 São Paulo, Brazil (Open to Remote-First Global / Japan Relocation)</p>
-        <p>✉ <a href="mailto:sophia.simoesg@gmail.com">sophia.simoesg@gmail.com</a></p>
-        <p>🔗 <a href="https://linkedin.com/in/sophiasimoes8" target="_blank">linkedin.com/in/sophiasimoes8</a></p>
-        <p>🐙 <a href="https://github.com/sophiasimoes" target="_blank">github.com/sophiasimoes</a></p>
-        
-        <div style="margin-top: 1.5rem; padding-top:1rem; border-top:1px dashed var(--purple-main);">
-          <p class="console-prompt">> freelance_services</p>
-          <ul style="padding-left: 1.5rem; color: var(--text-secondary); font-size:0.95rem;">
-            <li>QA Strategy Audit (4-6 weeks)</li>
-            <li>AI-Testing Workshop for Engineering Teams</li>
-            <li>Technical Mentorship for Senior QAs</li>
-            <li>On-Demand Consulting (hourly)</li>
-          </ul>
-        </div>
-      </div>
-
-      <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        <input type="text" name="name" placeholder="> your_name" required/>
-        <input type="email" name="email" placeholder="> your_email" required/>
-        <input type="text" name="subject" placeholder="> subject (e.g., freelance_quote)" required/>
-        <textarea name="message" placeholder="> message_ --type='your_inquiry'" required></textarea>
-        <button type="submit" class="btn btn-primary">▶ send_message.sh</button>
-      </form>
-
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p>
-      > echo "Built with ❤️ + ☕ by Sophia Simões"<br/>
-      > last_update: <span id="lastUpdate"></span><br/>
-      > status: <span style="color: var(--terminal-green);">● online</span>
-    </p>
-    <p style="margin-top: 1rem; font-family: 'VT323', monospace; font-size: 1rem;">
-      <a href="#home">[./home]</a> • 
-      <a href="#projects">[./projects]</a> • 
-      <a href="#cv">[./cv]</a> • 
-      <a href="#blog">[./blog]</a> • 
-      <a href="#contact">[./contact]</a>
-    </p>
-  </footer>
+  </div>
 
   <script>
-    // Dynamic Last Update Date
-    document.getElementById('lastUpdate').textContent = new Date().toLocaleDateString('en-US', {
-      year: 'numeric', month: 'short', day: 'numeric'
-    });
-
-    // Smooth Scroll for Navigation
-    document.querySelectorAll('nav a, .cta-buttons a').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        if (targetSection) {
-          targetSection.scrollIntoView({ behavior: 'smooth' });
-          document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-          this.classList.add('active');
-        }
-      });
-    });
-
-    // Form Submission Feedback
-    const form = document.querySelector('.contact-form');
-    if (form) {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('> message_sent.log ✓\n> Thank you! I will respond within 2 business days.');
-        form.reset();
-      });
-    }
-
-    // Console Easter Egg
-    console.log('%c> welcome to sophia@qa-terminal', 'color: #7c3aed; font-weight: bold; font-family: monospace; font-size: 14px;');
-    console.log('%c> type: help', 'color: #9ca3af; font-family: monospace;');
-    console.log('%c> available: [projects] [cv] [blog] [contact]', 'color: #dc2626; font-family: monospace;');
-
     /**
-     * ========================================
-     * SKILLS DATA - POKÉDEX STYLE
-     * Customize your skills here!
-     * ========================================
-     * 
-     * HOW TO CUSTOMIZE:
-     * 
-     * 1. Add a new skill:
-     *    - Copy any existing skill object
-     *    - Modify the properties (name, type, level, state, moveset, icon)
-     *    - Add it to the skills array
-     * 
-     * 2. Adjust skill level:
-     *    - Change the 'level' property (1 year ≈ 1 level, max 15)
-     *    - The progress bar will update automatically
-     * 
-     * 3. Change skill state:
-     *    - 'seen': You've heard of it (opacity 0.5)
-     *    - 'studied': You've taken a course/trained (bold with blue border)
-     *    - 'active': You use it daily (shows Pokéball icon)
-     * 
-     * 4. Change main skills:
-     *    - Set 'isMain: true' for skills you want in the "Captured Pokémon" section
-     *    - Only 6 main skills will be shown in the top section
-     * 
-     * ⚠️ NOTE: Data is now loaded from skills.json file!
-     * Edit skills.json in the root directory to update your portfolio.
-     * The hardcoded array below is only a fallback.
+     * =========================================
+     * DATA SCHEMAS & VALIDATION PIPELINE
+     * =========================================
      */
     
-    // Data will be loaded from skills.json via loadPortfolioData()
-    let skillsData = [];
-    let trainerData = {};
-    let gymBadgesData = [];
+    // Define o contrato esperado para cada arquivo
+    const SCHEMAS = {
+      trainer: { required: ['name', 'title', 'type', 'region', 'avatar'], types: { name: 'string', title: 'string' } },
+      skill: { required: ['name', 'level', 'state', 'isMain'], types: { name: 'string', level: 'number', state: 'string' } },
+      experience: { required: ['company', 'role', 'period', 'summary'], types: { company: 'string', role: 'string' } },
+      education: { required: ['school', 'degree', 'period'], types: { school: 'string', degree: 'string' } },
+      course: { required: ['title', 'provider', 'year'], types: { title: 'string', provider: 'string' } },
+      certification: { required: ['name', 'issuer', 'year'], types: { name: 'string', issuer: 'string' } },
+      project: { required: ['title', 'description', 'tags'], types: { title: 'string', description: 'string' } },
+      blog: { required: ['title', 'date', 'excerpt'], types: { title: 'string', date: 'string' } }
+    };
 
-    /**
-     * Load data from skills.json file
-     * This enables dynamic content updates without changing HTML
-     */
-    async function loadPortfolioData() {
+    // Função de Validação
+    function validateData(data, schemaName, index = '') {
+      const schema = SCHEMAS[schemaName];
+      if (!schema) return true; // Sem schema definido, passa direto
+
+      const errors = [];
+      
+      // Checar campos obrigatórios
+      schema.required.forEach(field => {
+        if (data[field] === undefined || data[field] === null) {
+          errors.push(`Missing field: '${field}'`);
+        }
+      });
+
+      // Checar tipos básicos
+      Object.entries(schema.types).forEach(([field, type]) => {
+        if (data[field] !== undefined && typeof data[field] !== type) {
+          errors.push(`Invalid type for '${field}': expected ${type}, got ${typeof data[field]}`);
+        }
+      });
+
+      if (errors.length > 0) {
+        console.warn(`⚠️ Validation failed for ${schemaName} ${index}:`, errors);
+        return false;
+      }
+      return true;
+    }
+
+    // Pipeline de Fetch com Validação e Fallback
+    async function fetchData(file, schemaName, isArray = false) {
       try {
-        const response = await fetch('skills.json');
+        const response = await fetch(`data/${file}.json`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
         
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+        const json = await response.json();
+        
+        if (isArray && Array.isArray(json)) {
+          // Validar cada item do array
+          const validData = json.filter((item, idx) => 
+            validateData(item, schemaName, `[${idx}]`)
+          );
+          
+          if (validData.length === 0 && json.length > 0) {
+            console.error(`❌ All items in ${file}.json failed validation. Using fallback.`);
+            return getFallbackData(file);
+          }
+          return validData;
+        } else if (!isArray) {
+          // Validar objeto único
+          if (validateData(json, schemaName)) {
+            return json;
+          } else {
+            console.error(`❌ ${file}.json failed validation. Using fallback.`);
+            return getFallbackData(file);
+          }
         }
-        
-        const data = await response.json();
-        
-        // Store data in global variables
-        skillsData = [...data.mainSkills, ...data.allSkills];
-        trainerData = data.trainer;
-        gymBadgesData = data.gymBadges;
-        
-        console.log('✅ Portfolio data loaded successfully:', data);
-        
-        // Update Trainer Profile if element exists
-        if (trainerData) {
-          updateTrainerProfile(trainerData);
-        }
-        
-        // Update Gym Badges if element exists
-        if (gymBadgesData && gymBadgesData.length > 0) {
-          renderGymBadges(gymBadgesData);
-        }
-        
-        // Initialize skills rendering
-        renderCapturedSkills();
-        renderAllSkills();
-        
+        return json;
       } catch (error) {
-        console.error('❌ Error loading skills.json:', error);
-        console.warn('⚠️ Make sure you are running this on a local server (e.g., python -m http.server) or deployed to GitHub Pages/Vercel.');
-        console.warn('⚠️ Loading fallback data...');
-        
-        // Fallback data for local file:// protocol
-        loadFallbackData();
+        console.warn(`⚠️ Could not load data/${file}.json (${error.message}). Using fallback data.`);
+        return getFallbackData(file);
       }
     }
 
     /**
-     * Fallback data when fetch fails (file:// protocol)
+     * =========================================
+     * FALLBACK DATA (HARDCODED SAFETY NET)
+     * =========================================
      */
-    function loadFallbackData() {
-      skillsData = [
-        { id: 1, name: "Test Automation", type: "QA Engineering", level: 10, state: "active", isMain: true, icon: "🤖", moveset: ["Appium", "Selenium", "Cucumber", "Jenkins"], description: "E2E and Mobile automation frameworks." },
-        { id: 2, name: "AI/LLMs", type: "AI Engineering", level: 8, state: "active", isMain: true, icon: "🧠", moveset: ["Ollama", "CrewAI", "Prompt Eng.", "n8n"], description: "Intelligent agents and RAG implementation." },
-        { id: 3, name: "DevSecOps", type: "DevOps", level: 7, state: "active", isMain: true, icon: "🔐", moveset: ["SonarQube", "MobSF", "SDAT", "Shift-Left"], description: "Secure pipelines and IaC." },
-        { id: 4, name: "Python", type: "Backend/AI", level: 6, state: "active", isMain: true, icon: "🐍", moveset: ["Scripting", "Automation", "FastAPI", "Data Analysis"], description: "Main language for automation and AI." },
-        { id: 5, name: "Ruby", type: "Backend", level: 8, state: "active", isMain: true, icon: "💎", moveset: ["RSpec", "Capybara", "Rails", "Gems"], description: "Agile web development and BDD." },
-        { id: 6, name: "Embedded Systems", type: "Hardware", level: 5, state: "studied", isMain: true, icon: "🔌", moveset: ["Bluetooth", "IoT", "Arduino", "Prototyping"], description: "Low-level programming and IoT." },
-        { id: 7, name: "Java", type: "Backend", level: 6, state: "active", isMain: false, icon: "☕", moveset: ["Spring Boot", "JUnit", "Maven", "Gradle"], description: "Legacy and enterprise systems." },
-        { id: 8, name: "Docker", type: "DevOps", level: 6, state: "active", isMain: false, icon: "🐳", moveset: ["Containers", "Docker Compose", "Images", "Networking"], description: "Application containerization." },
-        { id: 9, name: "SQL", type: "Database", level: 7, state: "active", isMain: false, icon: "📊", moveset: ["PostgreSQL", "MySQL", "Query Optimization", "Indexes"], description: "Data modeling and querying." },
-        { id: 10, name: "JavaScript", type: "Frontend", level: 5, state: "studied", isMain: false, icon: "🟨", moveset: ["ES6+", "Node.js", "DOM", "Async/Await"], description: "Web scripting and automation." },
-        { id: 11, name: "Git", type: "Tools", level: 8, state: "active", isMain: false, icon: "📦", moveset: ["Branching", "Rebase", "Hooks", "CI/CD"], description: "Advanced version control." },
-        { id: 12, name: "Agile/Scrum", type: "Methodology", level: 9, state: "active", isMain: false, icon: "📋", moveset: ["Sprint Planning", "Retrospectives", "User Stories", "Kanban"], description: "Agile project management." },
-        { id: 13, name: "Computer Vision", type: "AI/Research", level: 3, state: "studied", isMain: false, icon: "👁️", moveset: ["OpenCV", "Object Tracking", "AR", "Research"], description: "Basic image processing." },
-        { id: 14, name: "Kubernetes", type: "DevOps", level: 2, state: "seen", isMain: false, icon: "☸️", moveset: ["Pods", "Services", "Deployments"], description: "Container orchestration basics." },
-        { id: 15, name: "AWS", type: "Cloud", level: 4, state: "studied", isMain: false, icon: "☁️", moveset: ["EC2", "S3", "Lambda", "RDS"], description: "Essential cloud services." }
-      ];
+    function getFallbackData(file) {
+      console.log(`🛡️ Loading fallback for ${file}`);
+      switch(file) {
+        case 'trainer':
+          return { name: "Dev Trainer", title: "Full Stack Master", type: "Specialist", region: "Web Valley", avatar: "👨‍💻", description: "A seasoned developer dedicated to building accessible, retro-themed web interfaces." };
+        case 'skills':
+          return [
+            { name: "JavaScript", level: 12, state: "active", isMain: true, icon: "⚡", moveset: ["ES6+", "Async/Await", "DOM"] },
+            { name: "React", level: 10, state: "active", isMain: true, icon: "⚛️", moveset: ["Hooks", "Redux", "Next.js"] },
+            { name: "Node.js", level: 9, state: "studied", isMain: true, icon: "🟢", moveset: ["Express", "API Design", "Streams"] },
+            { name: "CSS", level: 14, state: "active", isMain: true, icon: "🎨", moveset: ["Grid", "Flexbox", "Animations"] },
+            { name: "Git", level: 11, state: "active", isMain: false, icon: "📦" },
+            { name: "Python", level: 7, state: "studied", isMain: false, icon: "🐍" },
+            { name: "SQL", level: 8, state: "seen", isMain: false, icon: "🗄️" }
+          ];
+        case 'experiences':
+          return [
+            { company: "Tech Corp", role: "Senior Dev", period: "2020-Present", summary: "Led frontend architecture migration.", icon: "🏢", rarity: "legendary" },
+            { company: "StartUp Inc", role: "Full Stack", period: "2018-2020", summary: "Built MVP from scratch.", icon: "🚀", rarity: "elite" }
+          ];
+        case 'education':
+          return [{ school: "Uni of Tech", degree: "B.Sc. Computer Science", period: "2014-2018", icon: "🎓" }];
+        case 'courses':
+          return [{ title: "Advanced React", provider: "Online School", year: "2021", icon: "📚" }];
+        case 'certifications':
+          return [{ name: "AWS Certified", issuer: "Amazon", year: "2022", icon: "☁️" }];
+        case 'projects':
+          return [{ title: "Retro Dex", description: "Pokémon style portfolio.", tags: ["HTML", "CSS"], icon: "🎮" }];
+        case 'blog':
+          return [{ title: "Why Retro?", date: "2023-10-01", excerpt: "Exploring nostalgia in UI.", icon: "📝" }];
+        default:
+          return [];
+      }
+    }
+
+    /**
+     * =========================================
+     * RENDER FUNCTIONS
+     * =========================================
+     */
+
+    // Render Trainer
+    function renderTrainer(data) {
+      const container = document.getElementById('trainer-container');
+      container.innerHTML = `
+        <div class="trainer-avatar">${data.avatar || '👾'}</div>
+        <div class="trainer-info">
+          <h1>${data.name}</h1>
+          <div class="trainer-meta">
+            <span><strong>Title:</strong> ${data.title}</span>
+            <span><strong>Type:</strong> ${data.type}</span>
+            <span><strong>Region:</strong> ${data.region}</span>
+          </div>
+          <p class="trainer-desc">> ${data.description || 'No data available.'}</p>
+        </div>
+      `;
+    }
+
+    // Render Main Skills
+    function renderMainSkills(skills) {
+      const container = document.getElementById('main-skills-container');
+      const mainSkills = skills.filter(s => s.isMain).slice(0, 6);
       
-      renderCapturedSkills();
-      renderAllSkills();
-    }
-
-    /**
-     * Update Trainer Profile section with JSON data
-     */
-    function updateTrainerProfile(data) {
-      const nameEl = document.querySelector('.trainer-info h2');
-      const titleEl = document.querySelector('.trainer-title');
-      const typeEl = document.querySelector('.trainer-type');
-      const regionEl = document.querySelector('.trainer-region');
-      const descEl = document.querySelector('.trainer-description p');
-      const avatarEl = document.querySelector('.trainer-avatar img');
-
-      if (nameEl) nameEl.textContent = data.name || 'Unknown Trainer';
-      if (titleEl) titleEl.textContent = data.title || 'Developer';
-      if (typeEl) typeEl.textContent = `Type: ${data.type || 'General'}`;
-      if (regionEl) regionEl.textContent = `Region: ${data.region || 'Unknown'}`;
-      if (descEl) descEl.textContent = data.description || 'No description available.';
-      if (avatarEl && data.avatar) avatarEl.src = data.avatar;
-    }
-
-    /**
-     * Render Gym Badges from JSON data
-     */
-    function renderGymBadges(badges) {
-      const container = document.getElementById('gym-badges-grid');
-      if (!container) return;
-
-      const typeColors = {
-        Legendary: 'var(--yellow)',
-        Elite: 'var(--purple)',
-        Rare: 'var(--blue)',
-        Common: 'var(--text-muted)',
-        Mystic: 'var(--cherry)'
-      };
-
-      container.innerHTML = badges.map(badge => `
-        <article class="gym-badge" style="border-top-color: ${typeColors[badge.type] || 'var(--purple)'}">
-          <div class="badge-icon">${badge.icon}</div>
-          <h3 class="badge-company">${badge.company}</h3>
-          <p class="badge-role">${badge.role}</p>
-          <p class="badge-period">${badge.period}</p>
-          <p class="badge-summary">${badge.summary}</p>
-          <span class="badge-type" style="color: ${typeColors[badge.type] || 'var(--purple)'}">${badge.type}</span>
-        </article>
-      `).join('');
-    }
-
-    // Old hardcoded data kept as reference (not used when JSON loads successfully)
-    /*
-    const skillsDataHardcoded = [
-      { id: 1, name: "Test Automation", type: "QA Engineering", level: 10, state: "active", isMain: true, icon: "🤖", moveset: ["Appium", "Selenium", "Cucumber", "Jenkins"] }
-      // ... more skills
-    ];
-    */
-
-    /**
-     * Calculate level percentage for progress bar
-     * @param {number} level - Current skill level (1-15)
-     * @returns {number} - Percentage value (0-100)
-     */
-    function calculateLevelPercentage(level) {
-      const maxLevel = 15;
-      return Math.min((level / maxLevel) * 100, 100);
-    }
-
-    /**
-     * Render captured skills (main skills showcase)
-     */
-    function renderCapturedSkills() {
-      const container = document.getElementById('captured-skills');
-      if (!container) return;
-
-      const mainSkills = skillsData.filter(skill => skill.isMain).slice(0, 6);
-
       if (mainSkills.length === 0) {
-        container.innerHTML = '<p style="color: var(--text-muted); text-align: center;">No main skills configured</p>';
+        container.innerHTML = '<p style="color:var(--text-muted)">No main skills captured yet.</p>';
         return;
       }
 
       container.innerHTML = mainSkills.map(skill => `
-        <article class="skill-card" 
-                 tabindex="0" 
-                 role="button"
-                 aria-label="${skill.name} - Level ${skill.level} ${skill.type} specialist">
-          <div class="skill-card-header">
-            <div class="skill-icon" aria-hidden="true">${skill.icon}</div>
-            <div>
-              <h3 class="skill-name">${skill.name}</h3>
-              <p class="skill-type">${skill.type}</p>
+        <article class="skill-card pixel-border">
+          <div class="skill-header">
+            <div class="skill-name">
+              <span class="skill-icon">${skill.icon || '⭐'}</span>
+              ${skill.name}
             </div>
+            ${skill.state === 'active' ? '<div class="skill-active-indicator" title="Active Skill"></div>' : ''}
           </div>
           
-          <div class="level-container">
-            <div class="level-label">
-              <span>Level</span>
-              <span>Lv.${skill.level}/15</span>
-            </div>
-            <div class="level-bar" role="progressbar" 
-                 aria-valuenow="${skill.level}" 
-                 aria-valuemin="0" 
-                 aria-valuemax="15"
-                 aria-label="${skill.name} proficiency level">
-              <div class="level-fill" style="width: ${calculateLevelPercentage(skill.level)}%"></div>
-            </div>
+          <div class="level-bar-container">
+            <div class="level-text">Lv.${Math.min(skill.level, 15)}</div>
+            <div class="level-bar-fill" style="width: ${(Math.min(skill.level, 15) / 15) * 100}%"></div>
           </div>
           
-          <div class="moveset">
-            <p class="moveset-label">Moveset:</p>
+          ${skill.moveset && skill.moveset.length > 0 ? `
             <div class="moveset-list">
               ${skill.moveset.map(move => `<span class="move-tag">${move}</span>`).join('')}
             </div>
-          </div>
+          ` : ''}
+        </article>
+      `).join('');
+    }
+
+    // Render PC Box (All Skills)
+    function renderPCBox(skills) {
+      const container = document.getElementById('pc-box-container');
+      
+      container.innerHTML = skills.map((skill, index) => `
+        <div class="pc-card ${skill.state} pixel-border" 
+             tabindex="0" 
+             role="button" 
+             aria-label="View details for ${skill.name}"
+             onclick="openSkillModal(${index})"
+             onkeydown="if(event.key === 'Enter') openSkillModal(${index})">
+          <span class="pc-icon">${skill.icon || '❓'}</span>
+          <div class="pc-name">${skill.name}</div>
+          <span class="status-dot status-${skill.state}"></span>
+        </div>
+      `).join('');
+      
+      // Store skills globally for modal access
+      window.allSkills = skills;
+    }
+
+    // Render Gym Badges (Experiences)
+    function renderExperiences(exps) {
+      const container = document.getElementById('gym-container');
+      container.innerHTML = exps.map(exp => `
+        <div class="gym-badge pixel-border">
+          <span class="badge-rarity rarity-${exp.rarity || 'common'}">${exp.rarity || 'Common'}</span>
+          <span class="gym-icon">${exp.icon || '🏢'}</span>
+          <h3 class="gym-company">${exp.company}</h3>
+          <div class="gym-role">${exp.role}</div>
+          <div class="gym-period">${exp.period}</div>
+          <p class="gym-summary">${exp.summary}</p>
+        </div>
+      `).join('');
+    }
+
+    // Generic List Renderer (Education, Courses, Certs, Projects)
+    function renderGenericList(data, containerId, type) {
+      const container = document.getElementById(containerId);
+      if (!data || data.length === 0) {
+        container.innerHTML = `<p style="color:var(--text-muted)">No ${type} records found.</p>`;
+        return;
+      }
+
+      const isBlog = type === 'blog';
+      
+      container.innerHTML = data.map(item => `
+        <article class="info-card ${isBlog ? 'blog-card' : ''} pixel-border">
+          <h3 class="info-title">${isBlog ? item.title : (item.name || item.title || item.school)}</h3>
+          <div class="info-sub">${item.issuer || item.provider || item.degree || item.tags?.join(', ')}</div>
+          <div class="info-meta ${isBlog ? 'blog-date' : ''}">${item.year || item.period || item.date}</div>
+          <p class="info-desc">${item.excerpt || item.description || item.summary || ''}</p>
         </article>
       `).join('');
     }
 
     /**
-     * Render all skills list with PC Box style (clickable cards)
+     * =========================================
+     * MODAL LOGIC
+     * =========================================
      */
-    function renderAllSkills() {
-      const container = document.getElementById('all-skills');
-      if (!container) return;
+    const modal = document.getElementById('skill-modal');
+    const modalBody = document.getElementById('modal-body');
+    const closeBtn = document.getElementById('modal-close-btn');
 
-      const statePriority = { active: 0, studied: 1, seen: 2 };
-      const sortedSkills = [...skillsData].sort((a, b) => statePriority[a.state] - statePriority[b.state]);
-
-      container.innerHTML = sortedSkills.map(skill => {
-        let stateClass = '';
-        let stateStyle = '';
-        let stateLabel = '';
-        
-        if (skill.state === 'seen') {
-          stateClass = 'skill-pc-seen';
-          stateLabel = 'Seen';
-        } else if (skill.state === 'studied') {
-          stateClass = 'skill-pc-studied';
-          stateLabel = 'Studied';
-        } else if (skill.state === 'active') {
-          stateClass = 'skill-pc-active';
-          stateLabel = 'Active';
-        }
-
-        return `
-          <article class="skill-pc-card ${stateClass}" 
-                   tabindex="0"
-                   role="button"
-                   aria-label="${skill.name} - ${stateLabel}. Click to view details"
-                   onclick="openSkillModal('${skill.name}')"
-                   onkeydown="if(event.key==='Enter'||event.key===' ')openSkillModal('${skill.name}')">
-            <div class="skill-pc-icon">${skill.icon}</div>
-            <h4 class="skill-pc-name">${skill.name}</h4>
-            <div class="skill-pc-state ${stateClass}-dot"></div>
-          </article>
-        `;
-      }).join('');
-    }
-
-    /**
-     * Open skill detail modal (PC Box expansion)
-     */
-    function openSkillModal(skillName) {
-      const skill = skillsData.find(s => s.name === skillName);
+    window.openSkillModal = function(index) {
+      const skill = window.allSkills[index];
       if (!skill) return;
 
-      const modal = document.getElementById('skill-modal');
-      const content = document.getElementById('modal-skill-content');
-      
-      const levelPercent = calculateLevelPercentage(skill.level);
-      const stateLabels = { active: 'Active', studied: 'Studied', seen: 'Seen' };
-      
-      content.innerHTML = `
-        <div class="skill-modal-header">
-          <span class="skill-modal-icon">${skill.icon}</span>
+      const levelPercent = (Math.min(skill.level, 15) / 15) * 100;
+      const statusColor = skill.state === 'active' ? 'var(--green)' : (skill.state === 'studied' ? 'var(--blue)' : 'var(--text-muted)');
+
+      modalBody.innerHTML = `
+        <div style="text-align:center; margin-bottom: 1rem;">
+          <span style="font-size: 4rem; display:block;">${skill.icon || '❓'}</span>
+          <h2 style="color: var(--yellow); font-size: 2rem;">${skill.name}</h2>
+          <span style="background: ${statusColor}; color: #000; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; text-transform: uppercase;">${skill.state}</span>
+        </div>
+        
+        <div style="margin: 1rem 0;">
+          <div style="display:flex; justify-content:space-between; margin-bottom: 0.5rem;">
+            <span>Proficiency Level</span>
+            <span style="color: var(--yellow);">Lv.${Math.min(skill.level, 15)}/15</span>
+          </div>
+          <div class="level-bar-container" style="height: 20px; border: 3px solid var(--text);">
+            <div class="level-bar-fill" style="width: ${levelPercent}%; background: linear-gradient(90deg, var(--green), var(--yellow));"></div>
+          </div>
+        </div>
+
+        ${skill.moveset ? `
           <div>
-            <h3 id="modal-skill-name" class="skill-modal-title">${skill.name}</h3>
-            <p class="skill-modal-type">${skill.type}</p>
-          </div>
-        </div>
-        
-        <div class="skill-modal-stats">
-          <div class="skill-modal-level">
-            <div class="level-label">
-              <span>Level</span>
-              <span>Lv.${skill.level}/15</span>
-            </div>
-            <div class="level-bar" role="progressbar" 
-                 aria-valuenow="${skill.level}" 
-                 aria-valuemin="0" 
-                 aria-valuemax="15"
-                 aria-label="${skill.name} proficiency level">
-              <div class="level-fill" style="width: ${levelPercent}%"></div>
+            <h4 style="color: var(--purple); margin-bottom: 0.5rem;">Moveset:</h4>
+            <div class="moveset-list">
+              ${skill.moveset.map(m => `<span class="move-tag" style="font-size: 1rem; padding: 0.5rem;">${m}</span>`).join('')}
             </div>
           </div>
-          
-          <div class="skill-modal-status">
-            <span>Status:</span>
-            <span class="skill-status-badge ${skill.state}">${stateLabels[skill.state]}</span>
-          </div>
-        </div>
+        ` : ''}
         
-        <div class="skill-modal-moveset">
-          <p class="moveset-label">Moveset:</p>
-          <div class="moveset-list">
-            ${skill.moveset.map(move => `<span class="move-tag">${move}</span>`).join('')}
+        ${skill.description ? `
+          <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed var(--text-muted);">
+            <p>${skill.description}</p>
           </div>
-        </div>
-        
-        <div class="skill-modal-description">
-          <p class="moveset-label">Description:</p>
-          <p style="font-family:var(--font-body);font-size:0.9rem;color:var(--text-muted);line-height:1.5;">
-            ${skill.description || `${skill.name} - ${skill.type} specialist with ${skill.level} years of experience.`}
-          </p>
-        </div>
+        ` : ''}
       `;
-      
-      modal.hidden = false;
-      modal.focus();
-      document.body.style.overflow = 'hidden';
+
+      modal.classList.add('open');
+      closeBtn.focus();
+    };
+
+    function closeModal() {
+      modal.classList.remove('open');
     }
 
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    });
+
     /**
-     * Close skill detail modal
+     * =========================================
+     * INITIALIZATION
+     * =========================================
      */
-    function closeSkillModal() {
-      const modal = document.getElementById('skill-modal');
-      modal.hidden = true;
-      document.body.style.overflow = '';
+    async function initPortfolio() {
+      // Load all data in parallel
+      const [trainer, skills, experiences, education, courses, certifications, projects, blog] = await Promise.all([
+        fetchData('trainer', 'trainer', false),
+        fetchData('skills', 'skill', true),
+        fetchData('experiences', 'experience', true),
+        fetchData('education', 'education', true),
+        fetchData('courses', 'course', true),
+        fetchData('certifications', 'certification', true),
+        fetchData('projects', 'project', true),
+        fetchData('blog', 'blog', true)
+      ]);
+
+      // Render sections
+      renderTrainer(trainer);
+      renderMainSkills(skills);
+      renderPCBox(skills);
+      renderExperiences(experiences);
+      renderGenericList(education, 'education-container', 'education');
+      renderGenericList(courses, 'courses-container', 'courses');
+      renderGenericList(certifications, 'certs-container', 'certifications');
+      renderGenericList(projects, 'projects-container', 'projects');
+      renderGenericList(blog, 'blog-container', 'blog');
+      
+      console.log("✅ DevDex initialized successfully with dynamic data.");
     }
 
-    // Close modal on outside click
-    document.addEventListener('click', function(e) {
-      const modal = document.getElementById('skill-modal');
-      if (e.target === modal) {
-        closeSkillModal();
-      }
-    });
+    // Start
+    document.addEventListener('DOMContentLoaded', initPortfolio);
 
-    // Close modal on Escape key
-    document.addEventListener('keydown', function(e) {
-      const modal = document.getElementById('skill-modal');
-      if (e.key === 'Escape' && !modal.hidden) {
-        closeSkillModal();
-      }
-    });
-
-    // Initialize by loading data from skills.json
-    loadPortfolioData();
-
-    /**
-     * ========================================
-     * CSS FOR SKILLS SECTION
-     * Injected dynamically for Pokédex styling
-     * ========================================
-     */
-    const skillStyles = document.createElement('style');
-    skillStyles.textContent = `
-      /* Skill Card Styles */
-      .skill-card {
-        background-color: var(--bg-card-hover);
-        border: 2px solid var(--border);
-        border-radius: var(--border-radius);
-        padding: var(--spacing-md);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        cursor: pointer;
-      }
-      
-      .skill-card:hover,
-      .skill-card:focus {
-        transform: scale(1.02);
-        box-shadow: 0 0 15px rgba(124, 58, 237, 0.3);
-        border-color: var(--purple);
-        outline: none;
-      }
-      
-      .skill-card-header {
-        display: flex;
-        align-items: center;
-        gap: var(--spacing-sm);
-        margin-bottom: var(--spacing-sm);
-      }
-      
-      .skill-icon {
-        font-size: 2rem;
-        flex-shrink: 0;
-      }
-      
-      .skill-name {
-        font-family: var(--font-title);
-        font-size: 1.2rem;
-        color: var(--text);
-        margin: 0;
-      }
-      
-      .skill-type {
-        font-family: var(--font-body);
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        margin: 0;
-      }
-      
-      /* Level Bar */
-      .level-container {
-        margin-bottom: var(--spacing-sm);
-      }
-      
-      .level-label {
-        display: flex;
-        justify-content: space-between;
-        font-family: var(--font-title);
-        font-size: 0.9rem;
-        color: var(--text-muted);
-        margin-bottom: 0.25rem;
-      }
-      
-      .level-bar {
-        width: 100%;
-        height: 16px;
-        background: var(--bg-card);
-        border: 2px solid var(--border);
-        border-radius: 2px;
-        overflow: hidden;
-        position: relative;
-      }
-      
-      .level-fill {
-        height: 100%;
-        background: linear-gradient(90deg, var(--purple), var(--blue));
-        transition: width 0.3s ease;
-      }
-      
-      /* Moveset */
-      .moveset {
-        margin-top: var(--spacing-sm);
-      }
-      
-      .moveset-label {
-        font-family: var(--font-title);
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        margin-bottom: 0.25rem;
-      }
-      
-      .moveset-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.25rem;
-      }
-      
-      .move-tag {
-        background: rgba(124, 58, 237, 0.2);
-        color: var(--purple);
-        border: 1px solid var(--purple);
-        padding: 0.2rem 0.5rem;
-        border-radius: 3px;
-        font-family: var(--font-title);
-        font-size: 0.75rem;
-      }
-      
-      /* Skill Entry States - OLD (kept for compatibility) */
-      .skill-entry {
-        padding: 0.5rem;
-        border-radius: var(--border-radius);
-        font-family: var(--font-body);
-        font-size: 0.95rem;
-      }
-      
-      .skill-seen {
-        opacity: 0.5;
-        color: var(--text-muted);
-      }
-      
-      .skill-studied {
-        font-weight: 600;
-        color: var(--blue);
-        border-bottom: 2px solid var(--blue);
-      }
-      
-      .skill-active {
-        position: relative;
-        padding-left: 1.5rem;
-      }
-      
-      /* Pokéball Indicator */
-      .pokeball-indicator {
-        position: absolute;
-        left: var(--spacing-sm);
-        top: 50%;
-        transform: translateY(-50%);
-        width: 16px;
-        height: 16px;
-        background: radial-gradient(
-          circle at 30% 30%,
-          var(--cherry) 0%,
-          var(--cherry) 45%,
-          var(--text) 45%,
-          var(--text) 55%,
-          var(--cherry) 55%,
-          var(--cherry) 100%
-        );
-        border: 2px solid var(--text);
-        border-radius: 50%;
-      }
-
-      /* PC Box Skills Grid - New Styles */
-      .skill-pc-card {
-        background: linear-gradient(180deg, rgba(17, 24, 39, 0.9) 0%, rgba(31, 41, 55, 0.6) 100%);
-        border: 2px solid var(--border);
-        border-radius: 6px;
-        padding: var(--spacing-md);
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        position: relative;
-        min-height: 120px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-      }
-
-      .skill-pc-card:hover,
-      .skill-pc-card:focus {
-        transform: translateY(-3px);
-        box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
-        border-color: var(--purple);
-        outline: none;
-      }
-
-      .skill-pc-icon {
-        font-size: 2rem;
-        margin-bottom: 0.25rem;
-      }
-
-      .skill-pc-name {
-        font-family: var(--font-title);
-        font-size: 0.95rem;
-        color: var(--text);
-        margin: 0;
-        line-height: 1.2;
-      }
-
-      .skill-pc-state {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        margin-top: 0.25rem;
-      }
-
-      .skill-pc-seen-dot {
-        background: var(--text-muted);
-        opacity: 0.5;
-      }
-
-      .skill-pc-studied-dot {
-        background: var(--blue);
-      }
-
-      .skill-pc-active-dot {
-        background: var(--green);
-        box-shadow: 0 0 8px var(--green);
-      }
-
-      .skill-pc-seen {
-        opacity: 0.6;
-        border-color: var(--text-muted);
-      }
-
-      .skill-pc-studied {
-        border-color: var(--blue);
-        background: linear-gradient(180deg, rgba(59, 130, 246, 0.1) 0%, rgba(31, 41, 55, 0.6) 100%);
-      }
-
-      .skill-pc-active {
-        border-color: var(--green);
-        background: linear-gradient(180deg, rgba(16, 185, 129, 0.1) 0%, rgba(31, 41, 55, 0.6) 100%);
-      }
-
-      /* Skill Modal (PC Box Expansion) */
-      .skill-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(10, 10, 15, 0.85);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 2000;
-        backdrop-filter: blur(4px);
-      }
-
-      .skill-modal[hidden] {
-        display: none;
-      }
-
-      .skill-modal-content {
-        background: var(--bg-card);
-        border: 3px solid var(--purple);
-        border-radius: 8px;
-        padding: var(--spacing-xl);
-        max-width: 500px;
-        width: 90%;
-        max-height: 90vh;
-        overflow-y: auto;
-        position: relative;
-        box-shadow: 0 0 30px rgba(124, 58, 237, 0.4);
-      }
-
-      .skill-modal-close {
-        position: absolute;
-        top: var(--spacing-sm);
-        right: var(--spacing-sm);
-        background: transparent;
-        border: none;
-        color: var(--text-muted);
-        font-size: 1.5rem;
-        cursor: pointer;
-        padding: 0.25rem;
-        line-height: 1;
-        transition: color 0.2s ease;
-      }
-
-      .skill-modal-close:hover,
-      .skill-modal-close:focus {
-        color: var(--cherry);
-        outline: none;
-      }
-
-      .skill-modal-header {
-        display: flex;
-        align-items: center;
-        gap: var(--spacing-md);
-        margin-bottom: var(--spacing-lg);
-        padding-bottom: var(--spacing-md);
-        border-bottom: 2px dashed var(--purple);
-      }
-
-      .skill-modal-icon {
-        font-size: 3rem;
-        flex-shrink: 0;
-      }
-
-      .skill-modal-title {
-        font-family: var(--font-title);
-        font-size: 1.5rem;
-        color: var(--purple);
-        margin: 0;
-      }
-
-      .skill-modal-type {
-        font-family: var(--font-body);
-        font-size: 0.9rem;
-        color: var(--text-muted);
-        margin: 0;
-      }
-
-      .skill-modal-stats {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: var(--spacing-lg);
-        margin-bottom: var(--spacing-lg);
-        align-items: center;
-      }
-
-      .skill-modal-level {
-        grid-column: 1 / -1;
-      }
-
-      .skill-modal-status {
-        display: flex;
-        align-items: center;
-        gap: var(--spacing-sm);
-        font-family: var(--font-body);
-        font-size: 0.9rem;
-        color: var(--text-muted);
-      }
-
-      .skill-status-badge {
-        padding: 0.2rem 0.6rem;
-        border-radius: 3px;
-        font-family: var(--font-title);
-        font-size: 0.8rem;
-        border: 1px solid;
-      }
-
-      .skill-status-badge.active {
-        background: rgba(16, 185, 129, 0.2);
-        border-color: var(--green);
-        color: var(--green);
-      }
-
-      .skill-status-badge.studied {
-        background: rgba(59, 130, 246, 0.2);
-        border-color: var(--blue);
-        color: var(--blue);
-      }
-
-      .skill-status-badge.seen {
-        background: rgba(156, 163, 175, 0.2);
-        border-color: var(--text-muted);
-        color: var(--text-muted);
-      }
-
-      .skill-modal-moveset,
-      .skill-modal-description {
-        margin-bottom: var(--spacing-lg);
-      }
-
-      /* Responsive adjustments */
-      @media (max-width: 640px) {
-        .captured-skills {
-          grid-template-columns: 1fr;
-        }
-        
-        .skills-pc-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-
-        .skill-modal-stats {
-          grid-template-columns: 1fr;
-        }
-        
-        .skills-legend {
-          justify-content: center;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .skills-pc-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-    `;
-    document.head.appendChild(skillStyles);
   </script>
 </body>
 </html>
