@@ -59,13 +59,13 @@ jobs:
 
       - name: Post comment on issue
         uses: actions/github-script@v7
+        # ✅ 'env' vem PRIMEIRO para evitar conflito de parsing com o bloco multiline 'script'
+        env:
+          AI_RESPONSE: ${{ steps.ollama.outputs.response }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-        env:
-          # ✅ Solução para string longa: passa via env var, não via template literal
-          AI_RESPONSE: ${{ steps.ollama.outputs.response }}
           script: |
-            // ✅ Lê da env var para evitar corte/escaping de string
+            // ✅ Lê da variável de ambiente (evita injeção direta problemática)
             const rawOutput = (process.env.AI_RESPONSE || '').trim();
             
             // ✅ Remove blocos markdown acidentais
@@ -76,8 +76,9 @@ jobs:
               data = JSON.parse(cleaned);
             } catch (e) {
               console.error('❌ Falha ao parsear JSON:', e.message);
-              console.log('📦 Resposta bruta recebida:', rawOutput.substring(0, 500) + '...');
-              // ✅ Fallback robusto: cria estrutura mínima válida
+              console.log('📦 Resposta bruta (primeiros 300 chars):', rawOutput.substring(0, 300));
+              
+              // ✅ Fallback robusto: nunca deixa o job falhar
               data = {
                 summary: "⚠️ Não foi possível gerar análise estruturada. Veja a resposta bruta abaixo:",
                 estimated_hours: null,
@@ -97,7 +98,7 @@ jobs:
             const costText = data.estimated_cost_brl != null ? `R$ ${Number(data.estimated_cost_brl).toFixed(2)}` : 'N/A';
             const modelName = `${{ vars.OLLAMA_MODEL || 'llama3.2' }}`;
 
-            // ✅ Monta o comentário via array.join() para evitar conflitos de template literal
+            // ✅ Monta comentário via array.join() para evitar conflitos de template literal
             const comment = [
               '## 🤖 Análise Automática por IA',
               '',
