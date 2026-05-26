@@ -1156,14 +1156,14 @@
     
     // ⚙️ CONFIGURAÇÃO DO GITHUB
     // Para usar token (necessário para repos privados ou evitar rate limits):
-    // window.GITHUB_TOKEN = 'ghp_seu_token_aqui';
+    window.GITHUB_TOKEN = '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';
     // Ou defina via variável de ambiente: process.env.GITHUB_TOKEN
     
     // GitHub Issue Creator - Creates an issue in the repository when form is submitted
     window.createGitHubIssue = async function(name, email, type, message) {
       // ⚙️ CONFIGURAÇÃO: Atualize com as informações do seu repositório GitHub
       const githubOwner = 'btfshadow'; // Seu username do GitHub
-      const githubRepo = 'portfolio';  // Nome do seu repositório
+      const githubRepo = 'btfshadow.github.io';  // Nome do seu repositório
       
       const issueTitle = `🎮 Quest Request: ${type} - ${name}`;
       const issueBody = `## New Quest Request\n\n**Trainer:** ${name}\n**Email:** ${email}\n**Quest Type:** ${type}\n\n**Quest Details:**\n${message}\n\n---\n*Submitted via portfolio contact form on ${new Date().toLocaleString()}*`;
