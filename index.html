@@ -1154,8 +1154,45 @@
       });
     }
     
+    // GitHub Issue Creator - Creates an issue in the repository when form is submitted
+    window.createGitHubIssue = async function(name, email, type, message) {
+      // ⚙️ CONFIGURAÇÃO: Atualize com as informações do seu repositório GitHub
+      const githubOwner = 'btfshadow'; // Seu username do GitHub
+      const githubRepo = 'portfolio';  // Nome do seu repositório
+      
+      const issueTitle = `🎮 Quest Request: ${type} - ${name}`;
+      const issueBody = `## New Quest Request\n\n**Trainer:** ${name}\n**Email:** ${email}\n**Quest Type:** ${type}\n\n**Quest Details:**\n${message}\n\n---\n*Submitted via portfolio contact form on ${new Date().toLocaleString()}*`;
+      
+      try {
+        const response = await fetch(`https://api.github.com/repos/${githubOwner}/${githubRepo}/issues`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${window.GITHUB_TOKEN || ''}`,
+            'Accept': 'application/vnd.github.v3+json'
+          },
+          body: JSON.stringify({
+            title: issueTitle,
+            body: issueBody,
+            labels: ['contact-form', type, 'quest-request']
+          })
+        });
+        
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to create issue');
+        }
+        
+        const issueData = await response.json();
+        return { success: true, issueUrl: issueData.html_url, issueNumber: issueData.number };
+      } catch (error) {
+        console.error('Error creating GitHub issue:', error);
+        return { success: false, error: error.message };
+      }
+    };
+    
     // Form submission handler
-    window.handleQuestSubmit = function(event) {
+    window.handleQuestSubmit = async function(event) {
       event.preventDefault();
       
       const form = document.getElementById('quest-form');
@@ -1188,27 +1225,58 @@
         return;
       }
       
-      // Simulate form submission (in production, replace with actual API call)
-      console.log('📬 Quest Request Submitted:', { name, email, type, message });
-      
-      // Show success message (using i18n)
+      // Show loading state
       responseDiv.style.display = 'block';
-      responseDiv.style.background = 'var(--green)';
-      responseDiv.style.color = '#000';
+      responseDiv.style.background = 'var(--purple)';
+      responseDiv.style.color = '#fff';
       responseDiv.style.padding = '1rem';
+      responseDiv.innerHTML = '⏳ Creating quest issue on GitHub...';
       
-      const successMsg = i18nData?.ui?.form?.success || 'Quest received! I\'ll respond soon.';
-      responseDiv.innerHTML = `<strong>✅ ${successMsg}</strong><br>Thank you, ${name}!`;
+      // Submit button loading state
+      const submitBtn = document.getElementById('btn-submit-quest');
+      const originalBtnText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '🔄 Sending...';
+      submitBtn.style.opacity = '0.7';
       
-      // Reset form
-      form.reset();
-      charCountSpan.textContent = '0';
-      charCountSpan.style.color = 'var(--text-muted)';
-      
-      // Hide success message after 10 seconds
-      setTimeout(() => {
-        responseDiv.style.display = 'none';
-      }, 10000);
+      try {
+        // Create GitHub issue
+        const result = await window.createGitHubIssue(name, email, type, message);
+        
+        if (result.success) {
+          // Show success message with issue link
+          responseDiv.style.background = 'var(--green)';
+          responseDiv.style.color = '#000';
+          const successMsg = i18nData?.ui?.form?.success || 'Quest received! I\'ll respond soon.';
+          responseDiv.innerHTML = `
+            <strong>✅ ${successMsg}</strong><br>
+            Thank you, ${name}!<br>
+            <small>Your quest has been registered as <a href="${result.issueUrl}" target="_blank" style="color: #000; text-decoration: underline;">Issue #${result.issueNumber}</a></small>
+          `;
+          
+          // Reset form
+          form.reset();
+          charCountSpan.textContent = '0';
+          charCountSpan.style.color = 'var(--text-muted)';
+        } else {
+          throw new Error(result.error || 'Failed to create issue');
+        }
+      } catch (error) {
+        console.error('📬 Quest Request Error:', error);
+        responseDiv.style.background = 'var(--cherry)';
+        responseDiv.style.color = '#fff';
+        responseDiv.innerHTML = `❌ Error: ${error.message}<br><small>Note: Make sure GITHUB_TOKEN is configured for automatic issue creation.</small>`;
+      } finally {
+        // Restore button state
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.style.opacity = '1';
+        
+        // Hide message after 15 seconds
+        setTimeout(() => {
+          responseDiv.style.display = 'none';
+        }, 15000);
+      }
     };
 
     /**
