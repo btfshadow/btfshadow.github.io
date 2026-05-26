@@ -4,6 +4,7 @@
     "date": "2024-12-01",
     "excerpt": "LLM、CrewAI エージェント、プロンプトエンジニアリングが、エッジケースのカバレッジを向上させながら、テストシナリオの 70% を自動化する方法。",
     "icon": "🤖",
+    "tags": ["QA", "人工知能", "自動化", "LLM"],
     "links": {
       "github": null,
       "article": "https://dev.to/sophiasimoes8/ai-augmented-testing-future-qa"
@@ -14,6 +15,7 @@
     "date": "2024-11-15",
     "excerpt": "品質やカバレッジを犠牲にすることなく、テストピラミッドアーキテクチャとインフラコストを最適化するための戦略。",
     "icon": "💰",
+    "tags": ["DevOps", "CI/CD", "最適化", "インフラ"],
     "links": {
       "github": null,
       "article": "https://dev.to/sophiasimoes8/reducing-cicd-costs-50"
@@ -24,6 +26,7 @@
     "date": "2024-10-20",
     "excerpt": "7 名以上の QA エンジニアのキャリアをガイドし、エンジニアリングマネジメントへの昇進も含むサポートから学んだ教訓。",
     "icon": "🌱",
+    "tags": ["リーダーシップ", "メンタリング", "キャリア", "マネジメント"],
     "links": {
       "github": null,
       "article": "https://dev.to/sophiasimoes8/mentoring-junior-leadership"

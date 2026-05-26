@@ -4,6 +4,7 @@
     "date": "2024-12-01",
     "excerpt": "Como LLMs, agentes CrewAI e engenharia de prompt estão automatizando 70% dos cenários de teste enquanto melhoram a cobertura de casos de borda.",
     "icon": "🤖",
+    "tags": ["QA", "Inteligência Artificial", "Automação", "LLM"],
     "links": {
       "github": null,
       "article": "https://dev.to/sophiasimoes8/ai-augmented-testing-future-qa"
@@ -14,6 +15,7 @@
     "date": "2024-11-15",
     "excerpt": "Estratégias para otimizar a arquitetura da pirâmide de testes e custos de infraestrutura sem sacrificar qualidade ou cobertura.",
     "icon": "💰",
+    "tags": ["DevOps", "CI/CD", "Otimização", "Infraestrutura"],
     "links": {
       "github": null,
       "article": "https://dev.to/sophiasimoes8/reducing-cicd-costs-50"
@@ -24,6 +26,7 @@
     "date": "2024-10-20",
     "excerpt": "Lições aprendidas ao orientar 7+ engenheiros de QA em suas carreiras, incluindo uma promoção para Gerência de Engenharia.",
     "icon": "🌱",
+    "tags": ["Liderança", "Mentoria", "Carreira", "Gestão"],
     "links": {
       "github": null,
       "article": "https://dev.to/sophiasimoes8/mentoring-junior-leadership"
