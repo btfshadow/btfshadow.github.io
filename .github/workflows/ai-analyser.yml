@@ -1,0 +1,115 @@
+name: AI Issue Analysis & Estimate
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  analyze-issue:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10 # Evita jobs travados indefinidamente
+
+    steps:
+      # ✅ REMOVIDO: actions/checkout é desnecessário aqui (só usamos a API de Issues)
+
+      - name: Get issue body
+        id: get_issue
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue = await github.rest.issues.get({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            core.setOutput('body', issue.data.body || '');
+            core.setOutput('title', issue.data.title || '');
+
+      - name: Analyze with Ollama
+        # ⚠️ Verifique se esta action suporta URL remota ou se precisa de Docker setup
+        uses: ai-action/ollama-action@v2
+        id: ollama
+        with:
+          model: ${{ vars.OLLAMA_MODEL || 'llama3.2' }}
+          prompt: |
+            Você é um especialista em análise de projetos de software.
+            Analise a seguinte solicitação recebida via formulário de contato:
+
+            Título: ${{ steps.get_issue.outputs.title }}
+
+            Descrição:
+            ${{ steps.get_issue.outputs.body }}
+
+            Gere uma resposta APENAS no seguinte formato JSON estrito. 
+            NÃO use markdown, NÃO use blocos de código, NÃO adicione texto antes ou depois.
+            {
+              "summary": "Resumo claro do que foi solicitado em 1-2 frases",
+              "estimated_hours": number,
+              "estimated_cost_brl": number,
+              "complexity": "Baixa|Média|Alta",
+              "tech_stack_suggested": ["lista", "de", "tecnologias"],
+              "project_prompt": "Prompt detalhado e otimizado que pode ser usado para iniciar o desenvolvimento deste projeto com IA, incluindo requisitos funcionais, nao-funcionais e arquitetura sugerida"
+            }
+
+      - name: Post comment on issue
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // 🛡️ Sanitiza a resposta removendo blocos markdown acidentais (ex: ```json)
+            let rawOutput = `${{ steps.ollama.outputs.response }}`.trim();
+            rawOutput = rawOutput.replace(/^```[a-z]*\s*|\s*```$/gi, '');
+
+            let data;
+            try {
+              data = JSON.parse(rawOutput);
+            } catch (e) {
+              console.error('Erro ao parsear JSON:', e);
+              console.log('Output bruto:', rawOutput);
+              data = {
+                summary: "⚠️ Não foi possível analisar automaticamente a solicitação.",
+                estimated_hours: null,
+                estimated_cost_brl: null,
+                complexity: "N/A",
+                tech_stack_suggested: [],
+                project_prompt: rawOutput
+              };
+            }
+
+            const comment = `## 🤖 Análise Automática por IA
+
+### 📋 Resumo
+${data.summary}
+
+### 💰 Orçamento Estimado
+- **Complexidade:** ${data.complexity}
+- **Horas estimadas:** ${data.estimated_hours != null ? data.estimated_hours + 'h' : 'N/A'}
+- **Valor estimado:** ${data.estimated_cost_brl != null ? 'R$ ' + Number(data.estimated_cost_brl).toFixed(2) : 'N/A'}
+
+### 🛠️ Stack Sugerida
+${data.tech_stack_suggested && data.tech_stack_suggested.length > 0 ? data.tech_stack_suggested.map(t => '- \`${t}\`').join('\n') : 'N/A'}
+
+### 🚀 Prompt para Iniciar o Projeto
+<details>
+<summary>Clique para ver o prompt gerado pela IA</summary>
+
+\`\`\`text
+${data.project_prompt}
+\`\`\`
+
+</details>
+
+---
+*Esta análise foi gerada automaticamente por IA usando o modelo \`${{ vars.OLLAMA_MODEL || 'llama3.2' }}\`. Valores são estimativas iniciais e podem variar após análise técnica detalhada.*`;
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
