@@ -1154,6 +1154,11 @@
       });
     }
     
+    // ⚙️ CONFIGURAÇÃO DO GITHUB
+    // Para usar token (necessário para repos privados ou evitar rate limits):
+    // window.GITHUB_TOKEN = 'ghp_seu_token_aqui';
+    // Ou defina via variável de ambiente: process.env.GITHUB_TOKEN
+    
     // GitHub Issue Creator - Creates an issue in the repository when form is submitted
     window.createGitHubIssue = async function(name, email, type, message) {
       // ⚙️ CONFIGURAÇÃO: Atualize com as informações do seu repositório GitHub

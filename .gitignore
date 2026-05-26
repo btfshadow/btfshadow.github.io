@@ -1,4 +1,4 @@
-# Examples 1:
+# Examples
 
     Input:
     ### Added files:
@@ -50,5 +50,3 @@ Expected Output:
     .idea/
     #Original rules preserved
     *.log
-
-# Final reminder: Output ONLY the .gitignore content. If nothing should be ignored, output NOTHING.

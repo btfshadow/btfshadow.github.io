@@ -50,11 +50,23 @@ const githubRepo = 'portfolio';  // Nome do seu repositório
 
 Para repositórios **públicos**, não é necessário token. Para repositórios **privados**:
 
-#### Opção A: Definir no JavaScript (para testes locais)
+#### Opção A: Definir no JavaScript (apenas para testes locais)
 
-Adicione antes do script ser executado:
+No arquivo `index.html`, logo no início da função `createGitHubIssue`, adicione:
+
 ```javascript
+// ⚙️ CONFIGURAÇÃO DO GITHUB
+// Descomente e substitua pelo seu token (apenas para testes locais!)
 window.GITHUB_TOKEN = 'ghp_SEU_TOKEN_AQUI';
+```
+
+**Localização:** Linha ~1157-1160 do `index.html`
+
+Exemplo completo:
+```javascript
+// ⚙️ CONFIGURAÇÃO DO GITHUB
+// Para usar token (necessário para repos privados ou evitar rate limits):
+window.GITHUB_TOKEN = 'ghp_abc123xyz456...'; // Substitua pelo seu token real
 ```
 
 #### Opção B: Backend Proxy (Recomendado para produção)
