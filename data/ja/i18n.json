@@ -27,20 +27,27 @@
     },
     "form": {
       "title": "クエスト依頼（見積もり）",
-      "name": "トレーナー名",
-      "email": "連絡先メール",
-      "type": "クエストタイプ",
+      "intro": "> 次のクエストを開始する準備はできましたか？QA 監査、AI テストワークショップ、技術メンタリングのお見積もりをご希望の方は、以下のフォームにご記入ください。",
+      "name": "トレーナー名 *",
+      "email": "メール *",
+      "type": "クエストタイプ *",
+      "selectType": "クエストタイプを選択...",
       "types": {
-        "audit": "QA 監査",
-        "ai": "AI コンサルティング",
-        "dev": "フルスタック開発",
+        "qa-audit": "QA 監査＆戦略",
+        "ai-workshop": "AI テストワークショップ",
+        "mentorship": "技術メンタリング",
+        "freelance": "フリーランスパートナーシップ",
         "other": "その他"
       },
-      "message": "ミッション詳細",
-      "submit": "ミッションを送信",
+      "message": "クエスト詳細 *",
+      "placeholderName": "名前を入力してください",
+      "placeholderEmail": "your@email.com",
+      "placeholderMessage": "クエストの目的、スケジュール、特定の要件について説明してください...",
+      "characters": "文字",
+      "submit": "🎮 クエスト依頼を送信",
       "sending": "送信中...",
-      "success": "ミッション受信！すぐにご返信します。",
-      "error": "送信失敗。もう一度お試しください。"
+      "success": "クエストを受信しました！すぐにご返信します。",
+      "error": "送信に失敗しました。もう一度お試しください。"
     },
     "footer": "DevDex © 2024. All rights reserved."
   }

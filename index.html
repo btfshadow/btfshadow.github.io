@@ -667,48 +667,49 @@
         <h2 id="quest-form-title" data-i18n="ui.requestQuest">Request a Quest</h2>
       </div>
       <div class="pixel-border" style="background: var(--bg-card); padding: var(--spacing-lg); max-width: 600px;">
-        <p style="margin-bottom: var(--spacing-md); color: var(--text-muted);">
+        <p id="quest-intro" style="margin-bottom: var(--spacing-md); color: var(--text-muted);" data-i18n="ui.form.intro">
           > Ready to start your next quest? Fill out the form below to request a quote for QA audits, AI testing workshops, or technical mentorship.
         </p>
         <form id="quest-form" onsubmit="handleQuestSubmit(event)" novalidate>
           <div style="margin-bottom: var(--spacing-sm);">
-            <label for="quest-name" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Trainer Name *</label>
+            <label for="quest-name" id="label-quest-name" style="display: block; margin-bottom: 0.5rem; font-weight: bold;" data-i18n="ui.form.name">Trainer Name *</label>
             <input type="text" id="quest-name" name="name" required maxlength="100" 
-                   style="width: 100%; padding: 0.75rem; background: var(--bg); border: 2px solid var(--text-muted); color: var(--text); font-family: var(--font-body);"
-                   placeholder="Enter your name"/>
+                   data-i18n-placeholder="ui.form.placeholderName"
+                   style="width: 100%; padding: 0.75rem; background: var(--bg); border: 2px solid var(--text-muted); color: var(--text); font-family: var(--font-body);"/>
           </div>
           
           <div style="margin-bottom: var(--spacing-sm);">
-            <label for="quest-email" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Email *</label>
+            <label for="quest-email" id="label-quest-email" style="display: block; margin-bottom: 0.5rem; font-weight: bold;" data-i18n="ui.form.email">Email *</label>
             <input type="email" id="quest-email" name="email" required maxlength="200"
-                   style="width: 100%; padding: 0.75rem; background: var(--bg); border: 2px solid var(--text-muted); color: var(--text); font-family: var(--font-body);"
-                   placeholder="your@email.com"/>
+                   data-i18n-placeholder="ui.form.placeholderEmail"
+                   style="width: 100%; padding: 0.75rem; background: var(--bg); border: 2px solid var(--text-muted); color: var(--text); font-family: var(--font-body);"/>
           </div>
           
           <div style="margin-bottom: var(--spacing-sm);">
-            <label for="quest-type" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Quest Type *</label>
+            <label for="quest-type" id="label-quest-type" style="display: block; margin-bottom: 0.5rem; font-weight: bold;" data-i18n="ui.form.type">Quest Type *</label>
             <select id="quest-type" name="type" required
                     style="width: 100%; padding: 0.75rem; background: var(--bg); border: 2px solid var(--text-muted); color: var(--text); font-family: var(--font-body);">
-              <option value="">Select a quest type...</option>
-              <option value="qa-audit">QA Audit & Strategy</option>
-              <option value="ai-workshop">AI Testing Workshop</option>
-              <option value="mentorship">Technical Mentorship</option>
-              <option value="freelance">Freelance Partnership</option>
-              <option value="other">Other</option>
+              <option value="" data-i18n="ui.form.selectType">Select a quest type...</option>
+              <option value="qa-audit" data-i18n="ui.form.types.qa-audit">QA Audit & Strategy</option>
+              <option value="ai-workshop" data-i18n="ui.form.types.ai-workshop">AI Testing Workshop</option>
+              <option value="mentorship" data-i18n="ui.form.types.mentorship">Technical Mentorship</option>
+              <option value="freelance" data-i18n="ui.form.types.freelance">Freelance Partnership</option>
+              <option value="other" data-i18n="ui.form.types.other">Other</option>
             </select>
           </div>
           
           <div style="margin-bottom: var(--spacing-sm);">
-            <label for="quest-message" style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Quest Details *</label>
+            <label for="quest-message" id="label-quest-message" style="display: block; margin-bottom: 0.5rem; font-weight: bold;" data-i18n="ui.form.message">Quest Details *</label>
             <textarea id="quest-message" name="message" required maxlength="1000" rows="5"
-                      style="width: 100%; padding: 0.75rem; background: var(--bg); border: 2px solid var(--text-muted); color: var(--text); font-family: var(--font-body); resize: vertical;"
-                      placeholder="Describe your quest objectives, timeline, and any specific requirements..."></textarea>
+                      data-i18n-placeholder="ui.form.placeholderMessage"
+                      style="width: 100%; padding: 0.75rem; background: var(--bg); border: 2px solid var(--text-muted); color: var(--text); font-family: var(--font-body); resize: vertical;"></textarea>
             <div style="text-align: right; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
-              <span id="char-count">0</span>/1000 characters
+              <span id="char-count">0</span>/1000 <span data-i18n="ui.form.characters">characters</span>
             </div>
           </div>
           
-          <button type="submit" 
+          <button type="submit" id="btn-submit-quest"
+                  data-i18n="ui.form.submit"
                   style="width: 100%; padding: 1rem; background: var(--purple); color: white; border: none; font-family: var(--font-title); font-size: 1.2rem; cursor: pointer; transition: all 0.2s;"
                   onmouseover="this.style.background='var(--cherry)'" onmouseout="this.style.background='var(--purple)'">
             🎮 Submit Quest Request
@@ -1172,7 +1173,8 @@
         responseDiv.style.background = 'var(--cherry)';
         responseDiv.style.color = '#fff';
         responseDiv.style.padding = '1rem';
-        responseDiv.innerHTML = '❌ Error: All fields are required!';
+        const errorMsg = i18nData?.ui?.form?.error || 'Error: All fields are required!';
+        responseDiv.innerHTML = `❌ ${errorMsg}`;
         return;
       }
       
@@ -1189,16 +1191,14 @@
       // Simulate form submission (in production, replace with actual API call)
       console.log('📬 Quest Request Submitted:', { name, email, type, message });
       
-      // Show success message
+      // Show success message (using i18n)
       responseDiv.style.display = 'block';
       responseDiv.style.background = 'var(--green)';
       responseDiv.style.color = '#000';
       responseDiv.style.padding = '1rem';
-      responseDiv.innerHTML = `
-        <strong>✅ Quest Received!</strong><br>
-        Thank you, ${name}! Your quest request has been logged. 
-        I'll review your details and respond via email within 2-3 business days.
-      `;
+      
+      const successMsg = i18nData?.ui?.form?.success || 'Quest received! I\'ll respond soon.';
+      responseDiv.innerHTML = `<strong>✅ ${successMsg}</strong><br>Thank you, ${name}!`;
       
       // Reset form
       form.reset();
@@ -1231,7 +1231,7 @@
     }
 
     function updateLanguageUI() {
-      // Update all elements with data-i18n attribute
+      // Update all elements with data-i18n attribute (text content)
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         const keys = key.split('.');
@@ -1240,6 +1240,17 @@
           value = value?.[k];
         }
         if (value) el.textContent = value;
+      });
+
+      // Update all elements with data-i18n-placeholder attribute (placeholder text)
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        const keys = key.split('.');
+        let value = i18nData;
+        for (const k of keys) {
+          value = value?.[k];
+        }
+        if (value) el.setAttribute('placeholder', value);
       });
 
       // Update proficiency display
