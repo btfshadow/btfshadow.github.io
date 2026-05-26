@@ -3,6 +3,7 @@
     "title": "Testes Aumentados por IA: O Futuro do QA",
     "date": "2024-12-01",
     "excerpt": "Como LLMs, agentes CrewAI e engenharia de prompt estão automatizando 70% dos cenários de teste enquanto melhoram a cobertura de casos de borda.",
+    "tags": ["Computer Vision", "AR", "Research"],
     "icon": "🤖",
     "links": {
       "github": null,
@@ -13,6 +14,7 @@
     "title": "Reduzindo Custos de CI/CD em 50%",
     "date": "2024-11-15",
     "excerpt": "Estratégias para otimizar a arquitetura da pirâmide de testes e custos de infraestrutura sem sacrificar qualidade ou cobertura.",
+    "tags": ["Computer Vision", "AR", "Research"],
     "icon": "💰",
     "links": {
       "github": null,
@@ -23,6 +25,7 @@
     "title": "Mentorando Juniors para Liderança",
     "date": "2024-10-20",
     "excerpt": "Lições aprendidas ao orientar 7+ engenheiros de QA em suas carreiras, incluindo uma promoção para Gerência de Engenharia.",
+    "tags": ["Computer Vision", "AR", "Research"],
     "icon": "🌱",
     "links": {
       "github": null,
