@@ -5,6 +5,7 @@
     "excerpt": "How LLMs, CrewAI agents, and prompt engineering are automating 70% of test scenarios while improving edge-case coverage.",
     "tags": ["Computer Vision", "AR", "Research"],
     "icon": "🤖",
+    "tags": ["QA", "Artificial Intelligence", "Automation", "LLM"],
     "links": {
       "github": null,
       "article": "https://dev.to/sophiasimoes8/ai-augmented-testing-future-qa"
@@ -16,6 +17,7 @@
     "excerpt": "Strategies for optimizing test pyramid architecture and infrastructure costs without sacrificing quality or coverage.",
     "tags": ["Computer Vision", "AR", "Research"],
     "icon": "💰",
+    "tags": ["DevOps", "CI/CD", "Optimization", "Infrastructure"],
     "links": {
       "github": null,
       "article": "https://dev.to/sophiasimoes8/reducing-cicd-costs-50"
@@ -27,6 +29,7 @@
     "excerpt": "Lessons learned from guiding 7+ QA engineers through their careers, including one promotion to Engineering Management.",
     "tags": ["Computer Vision", "AR", "Research"],
     "icon": "🌱",
+    "tags": ["Leadership", "Mentorship", "Career", "Management"],
     "links": {
       "github": null,
       "article": "https://dev.to/sophiasimoes8/mentoring-junior-leadership"

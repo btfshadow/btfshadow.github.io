@@ -5,6 +5,7 @@
     "excerpt": "LLM、CrewAI エージェント、プロンプトエンジニアリングが、エッジケースのカバレッジを向上させながら、テストシナリオの 70% を自動化する方法。",
     "tags": ["Computer Vision", "AR", "Research"],
     "icon": "🤖",
+    "tags": ["QA", "人工知能", "自動化", "LLM"],
     "links": {
       "github": null,
       "article": "https://dev.to/sophiasimoes8/ai-augmented-testing-future-qa"
@@ -16,6 +17,7 @@
     "excerpt": "品質やカバレッジを犠牲にすることなく、テストピラミッドアーキテクチャとインフラコストを最適化するための戦略。",
     "tags": ["Computer Vision", "AR", "Research"],
     "icon": "💰",
+    "tags": ["DevOps", "CI/CD", "最適化", "インフラ"],
     "links": {
       "github": null,
       "article": "https://dev.to/sophiasimoes8/reducing-cicd-costs-50"
@@ -27,6 +29,7 @@
     "excerpt": "7 名以上の QA エンジニアのキャリアをガイドし、エンジニアリングマネジメントへの昇進も含むサポートから学んだ教訓。",
     "tags": ["Computer Vision", "AR", "Research"],
     "icon": "🌱",
+    "tags": ["リーダーシップ", "メンタリング", "キャリア", "マネジメント"],
     "links": {
       "github": null,
       "article": "https://dev.to/sophiasimoes8/mentoring-junior-leadership"
