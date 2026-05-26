@@ -1,6 +1,8 @@
 [
   {
     "title": "Augmented Reality Research",
+    "date": "2013-06-01",
+    "excerpt": "Object trajectory prediction using AR and computer vision",
     "description": "Researched object trajectory prediction using AR and computer vision. Presented at UNIP Annual Research Convention (2013).",
     "tags": ["Computer Vision", "AR", "Research"],
     "icon": "🔬",
@@ -11,6 +13,8 @@
   },
   {
     "title": "Mobile-Controlled Wheelchair Prototype",
+    "date": "2014-12-01",
+    "excerpt": "Bluetooth-based wheelchair remote control",
     "description": "Capstone project: Built integrated hardware+software prototype for Bluetooth-based remote control. Showcased at campus outreach event.",
     "tags": ["Embedded Systems", "Bluetooth", "Accessibility", "IoT"],
     "icon": "♿",
@@ -21,6 +25,8 @@
   },
   {
     "title": "DevDex Portfolio",
+    "date": "2025-01-15",
+    "excerpt": "Pokédex-style portfolio with retro aesthetic",
     "description": "Pokédex-style portfolio with retro terminal aesthetic. Pure HTML/CSS/JS with dynamic JSON data loading.",
     "tags": ["HTML", "CSS", "JavaScript", "JSON"],
     "icon": "🎮",

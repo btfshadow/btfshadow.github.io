@@ -1,6 +1,8 @@
 [
   {
     "title": "Pesquisa em Realidade Aumentada",
+    "date": "2013-06-01",
+    "excerpt": "Previsão de trajetória de objetos usando RA e visão computacional",
     "description": "Pesquisei previsão de trajetória de objetos usando RA e visão computacional. Apresentado na Convenção Anual de Pesquisa da UNIP (2013).",
     "tags": ["Visão Computacional", "RA", "Pesquisa"],
     "icon": "🔬",
@@ -11,6 +13,8 @@
   },
   {
     "title": "Protótipo de Cadeira de Rodas Controlada por Mobile",
+    "date": "2014-12-01",
+    "excerpt": "Controle remoto de cadeira de rodas via Bluetooth",
     "description": "Projeto de conclusão: Construí protótipo integrado de hardware+software para controle remoto via Bluetooth. Apresentado em evento de extensão no campus.",
     "tags": ["Sistemas Embarcados", "Bluetooth", "Acessibilidade", "IoT"],
     "icon": "♿",
@@ -21,6 +25,8 @@
   },
   {
     "title": "Portfólio DevDex",
+    "date": "2025-01-15",
+    "excerpt": "Portfólio estilo Pokédex com estética retrô",
     "description": "Portfólio estilo Pokédex com estética de terminal retrô. HTML/CSS/JS puro com carregamento dinâmico de dados JSON.",
     "tags": ["HTML", "CSS", "JavaScript", "JSON"],
     "icon": "🎮",
