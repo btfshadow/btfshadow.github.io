@@ -61,51 +61,59 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            // 🛡️ Sanitiza a resposta removendo blocos markdown acidentais (ex: ```json)
-            let rawOutput = `${{ steps.ollama.outputs.response }}`.trim();
-            rawOutput = rawOutput.replace(/^```[a-z]*\s*|\s*```$/gi, '');
+            const rawOutput = `${{ steps.ollama.outputs.response }}`.trim();
+            const cleanedOutput = rawOutput.replace(/^```[a-z]*\s*|\s*```$/gi, '');
 
             let data;
             try {
-              data = JSON.parse(rawOutput);
+              data = JSON.parse(cleanedOutput);
             } catch (e) {
               console.error('Erro ao parsear JSON:', e);
-              console.log('Output bruto:', rawOutput);
               data = {
                 summary: "⚠️ Não foi possível analisar automaticamente a solicitação.",
                 estimated_hours: null,
                 estimated_cost_brl: null,
                 complexity: "N/A",
                 tech_stack_suggested: [],
-                project_prompt: rawOutput
+                project_prompt: cleanedOutput
               };
             }
 
-            const comment = `## 🤖 Análise Automática por IA
+            const stackText = (data.tech_stack_suggested && data.tech_stack_suggested.length > 0)
+              ? data.tech_stack_suggested.map(t => `- \`${t}\``).join('\n')
+              : 'N/A';
 
-### 📋 Resumo
-${data.summary}
+            const hoursText = data.estimated_hours != null ? `${data.estimated_hours}h` : 'N/A';
+            const costText = data.estimated_cost_brl != null ? `R$ ${Number(data.estimated_cost_brl).toFixed(2)}` : 'N/A';
+            const modelName = `${{ vars.OLLAMA_MODEL || 'llama3.2' }}`;
 
-### 💰 Orçamento Estimado
-- **Complexidade:** ${data.complexity}
-- **Horas estimadas:** ${data.estimated_hours != null ? data.estimated_hours + 'h' : 'N/A'}
-- **Valor estimado:** ${data.estimated_cost_brl != null ? 'R$ ' + Number(data.estimated_cost_brl).toFixed(2) : 'N/A'}
-
-### 🛠️ Stack Sugerida
-${data.tech_stack_suggested && data.tech_stack_suggested.length > 0 ? data.tech_stack_suggested.map(t => '- \`${t}\`').join('\n') : 'N/A'}
-
-### 🚀 Prompt para Iniciar o Projeto
-<details>
-<summary>Clique para ver o prompt gerado pela IA</summary>
-
-\`\`\`text
-${data.project_prompt}
-\`\`\`
-
-</details>
-
----
-*Esta análise foi gerada automaticamente por IA usando o modelo \`${{ vars.OLLAMA_MODEL || 'llama3.2' }}\`. Valores são estimativas iniciais e podem variar após análise técnica detalhada.*`;
+            const comment = [
+              '## 🤖 Análise Automática por IA',
+              '',
+              '### 📋 Resumo',
+              data.summary,
+              '',
+              '### 💰 Orçamento Estimado',
+              `- **Complexidade:** ${data.complexity}`,
+              `- **Horas estimadas:** ${hoursText}`,
+              `- **Valor estimado:** ${costText}`,
+              '',
+              '### 🛠️ Stack Sugerida',
+              stackText,
+              '',
+              '### 🚀 Prompt para Iniciar o Projeto',
+              '<details>',
+              '<summary>Clique para ver o prompt gerado pela IA</summary>',
+              '',
+              '```text',
+              data.project_prompt,
+              '```',
+              '',
+              '</details>',
+              '',
+              '---',
+              `*Esta análise foi gerada automaticamente por IA usando o modelo \`${modelName}\`. Valores são estimativas iniciais e podem variar após análise técnica detalhada.*`
+            ].join('\n');
 
             await github.rest.issues.createComment({
               issue_number: context.issue.number,
