@@ -11,11 +11,9 @@ permissions:
 jobs:
   analyze-issue:
     runs-on: ubuntu-latest
-    timeout-minutes: 10 # Evita jobs travados indefinidamente
+    timeout-minutes: 10
 
     steps:
-      # ✅ REMOVIDO: actions/checkout é desnecessário aqui (só usamos a API de Issues)
-
       - name: Get issue body
         id: get_issue
         uses: actions/github-script@v7
@@ -31,93 +29,106 @@ jobs:
             core.setOutput('title', issue.data.title || '');
 
       - name: Analyze with Ollama
-        # ⚠️ Verifique se esta action suporta URL remota ou se precisa de Docker setup
         uses: ai-action/ollama-action@v2
         id: ollama
         with:
           model: ${{ vars.OLLAMA_MODEL || 'llama3.2' }}
           prompt: |
             Você é um especialista em análise de projetos de software.
-            Analise a seguinte solicitação recebida via formulário de contato:
+            Sua tarefa: analisar a solicitação abaixo e retornar APENAS um objeto JSON válido, sem texto antes, depois ou ao redor.
 
+            Entrada:
             Título: ${{ steps.get_issue.outputs.title }}
+            Descrição: ${{ steps.get_issue.outputs.body }}
 
-            Descrição:
-            ${{ steps.get_issue.outputs.body }}
-
-            Gere uma resposta APENAS no seguinte formato JSON estrito. 
-            NÃO use markdown, NÃO use blocos de código, NÃO adicione texto antes ou depois.
+            Formato de saída OBRIGATÓRIO (exemplo):
             {
-              "summary": "Resumo claro do que foi solicitado em 1-2 frases",
-              "estimated_hours": number,
-              "estimated_cost_brl": number,
-              "complexity": "Baixa|Média|Alta",
-              "tech_stack_suggested": ["lista", "de", "tecnologias"],
-              "project_prompt": "Prompt detalhado e otimizado que pode ser usado para iniciar o desenvolvimento deste projeto com IA, incluindo requisitos funcionais, nao-funcionais e arquitetura sugerida"
+              "summary": "Cliente quer um mapa interativo para vender produtos.",
+              "estimated_hours": 12,
+              "estimated_cost_brl": 1800.00,
+              "complexity": "Média",
+              "tech_stack_suggested": ["React", "Leaflet", "Node.js"],
+              "project_prompt": "Crie um mapa interativo com Leaflet que exiba produtos como markers. Requisitos: responsivo, busca por categoria, integração com API de pagamentos. Arquitetura: frontend em React, backend em Node/Express."
             }
+
+            Regras:
+            - NUNCA use markdown, blocos de código ou texto explicativo.
+            - NUNCA adicione chaves extras ou comentários no JSON.
+            - Se não souber um valor, use null ou string vazia, mas mantenha a estrutura.
+            - RETORNE APENAS O JSON.
 
       - name: Post comment on issue
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const rawOutput = `${{ steps.ollama.outputs.response }}`.trim();
-            const cleanedOutput = rawOutput.replace(/^```[a-z]*\s*|\s*```$/gi, '');
+        env:
+          # ✅ Solução para string longa: passa via env var, não via template literal
+          AI_RESPONSE: ${{ steps.ollama.outputs.response }}
+        script: |
+          // ✅ Lê da env var para evitar corte/escaping de string
+          const rawOutput = (process.env.AI_RESPONSE || '').trim();
+          
+          // ✅ Remove blocos markdown acidentais
+          const cleaned = rawOutput.replace(/^```[a-z]*\s*|\s*```$/gi, '').trim();
+          
+          let data;
+          try {
+            data = JSON.parse(cleaned);
+          } catch (e) {
+            console.error('❌ Falha ao parsear JSON:', e.message);
+            console.log('📦 Resposta bruta recebida:', rawOutput.substring(0, 500) + '...');
+            // ✅ Fallback robusto: cria estrutura mínima válida
+            data = {
+              summary: "⚠️ Não foi possível gerar análise estruturada. Veja a resposta bruta abaixo:",
+              estimated_hours: null,
+              estimated_cost_brl: null,
+              complexity: "N/A",
+              tech_stack_suggested: [],
+              project_prompt: rawOutput
+            };
+          }
 
-            let data;
-            try {
-              data = JSON.parse(cleanedOutput);
-            } catch (e) {
-              console.error('Erro ao parsear JSON:', e);
-              data = {
-                summary: "⚠️ Não foi possível analisar automaticamente a solicitação.",
-                estimated_hours: null,
-                estimated_cost_brl: null,
-                complexity: "N/A",
-                tech_stack_suggested: [],
-                project_prompt: cleanedOutput
-              };
-            }
+          // ✅ Formatação segura dos valores
+          const stackText = Array.isArray(data.tech_stack_suggested) && data.tech_stack_suggested.length > 0
+            ? data.tech_stack_suggested.map(t => `- \`${String(t)}\``).join('\n')
+            : 'N/A';
+          
+          const hoursText = data.estimated_hours != null ? `${Number(data.estimated_hours)}h` : 'N/A';
+          const costText = data.estimated_cost_brl != null ? `R$ ${Number(data.estimated_cost_brl).toFixed(2)}` : 'N/A';
+          const modelName = `${{ vars.OLLAMA_MODEL || 'llama3.2' }}`;
 
-            const stackText = (data.tech_stack_suggested && data.tech_stack_suggested.length > 0)
-              ? data.tech_stack_suggested.map(t => `- \`${t}\``).join('\n')
-              : 'N/A';
+          // ✅ Monta o comentário via array.join() para evitar conflitos de template literal
+          const comment = [
+            '## 🤖 Análise Automática por IA',
+            '',
+            '### 📋 Resumo',
+            String(data.summary || ''),
+            '',
+            '### 💰 Orçamento Estimado',
+            `- **Complexidade:** ${data.complexity || 'N/A'}`,
+            `- **Horas estimadas:** ${hoursText}`,
+            `- **Valor estimado:** ${costText}`,
+            '',
+            '### 🛠️ Stack Sugerida',
+            stackText,
+            '',
+            '### 🚀 Prompt para Iniciar o Projeto',
+            '<details>',
+            '<summary>Clique para ver o prompt gerado pela IA</summary>',
+            '',
+            '```text',
+            String(data.project_prompt || ''),
+            '```',
+            '',
+            '</details>',
+            '',
+            '---',
+            `*Esta análise foi gerada automaticamente por IA usando o modelo \`${modelName}\`. Valores são estimativas iniciais e podem variar após análise técnica detalhada.*`
+          ].join('\n');
 
-            const hoursText = data.estimated_hours != null ? `${data.estimated_hours}h` : 'N/A';
-            const costText = data.estimated_cost_brl != null ? `R$ ${Number(data.estimated_cost_brl).toFixed(2)}` : 'N/A';
-            const modelName = `${{ vars.OLLAMA_MODEL || 'llama3.2' }}`;
-
-            const comment = [
-              '## 🤖 Análise Automática por IA',
-              '',
-              '### 📋 Resumo',
-              data.summary,
-              '',
-              '### 💰 Orçamento Estimado',
-              `- **Complexidade:** ${data.complexity}`,
-              `- **Horas estimadas:** ${hoursText}`,
-              `- **Valor estimado:** ${costText}`,
-              '',
-              '### 🛠️ Stack Sugerida',
-              stackText,
-              '',
-              '### 🚀 Prompt para Iniciar o Projeto',
-              '<details>',
-              '<summary>Clique para ver o prompt gerado pela IA</summary>',
-              '',
-              '```text',
-              data.project_prompt,
-              '```',
-              '',
-              '</details>',
-              '',
-              '---',
-              `*Esta análise foi gerada automaticamente por IA usando o modelo \`${modelName}\`. Valores são estimativas iniciais e podem variar após análise técnica detalhada.*`
-            ].join('\n');
-
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: comment
-            });
+          await github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: comment
+          });
