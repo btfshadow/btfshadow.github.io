@@ -64,71 +64,71 @@ jobs:
         env:
           # ✅ Solução para string longa: passa via env var, não via template literal
           AI_RESPONSE: ${{ steps.ollama.outputs.response }}
-        script: |
-          // ✅ Lê da env var para evitar corte/escaping de string
-          const rawOutput = (process.env.AI_RESPONSE || '').trim();
-          
-          // ✅ Remove blocos markdown acidentais
-          const cleaned = rawOutput.replace(/^```[a-z]*\s*|\s*```$/gi, '').trim();
-          
-          let data;
-          try {
-            data = JSON.parse(cleaned);
-          } catch (e) {
-            console.error('❌ Falha ao parsear JSON:', e.message);
-            console.log('📦 Resposta bruta recebida:', rawOutput.substring(0, 500) + '...');
-            // ✅ Fallback robusto: cria estrutura mínima válida
-            data = {
-              summary: "⚠️ Não foi possível gerar análise estruturada. Veja a resposta bruta abaixo:",
-              estimated_hours: null,
-              estimated_cost_brl: null,
-              complexity: "N/A",
-              tech_stack_suggested: [],
-              project_prompt: rawOutput
-            };
-          }
+          script: |
+            // ✅ Lê da env var para evitar corte/escaping de string
+            const rawOutput = (process.env.AI_RESPONSE || '').trim();
+            
+            // ✅ Remove blocos markdown acidentais
+            const cleaned = rawOutput.replace(/^```[a-z]*\s*|\s*```$/gi, '').trim();
+            
+            let data;
+            try {
+              data = JSON.parse(cleaned);
+            } catch (e) {
+              console.error('❌ Falha ao parsear JSON:', e.message);
+              console.log('📦 Resposta bruta recebida:', rawOutput.substring(0, 500) + '...');
+              // ✅ Fallback robusto: cria estrutura mínima válida
+              data = {
+                summary: "⚠️ Não foi possível gerar análise estruturada. Veja a resposta bruta abaixo:",
+                estimated_hours: null,
+                estimated_cost_brl: null,
+                complexity: "N/A",
+                tech_stack_suggested: [],
+                project_prompt: rawOutput
+              };
+            }
 
-          // ✅ Formatação segura dos valores
-          const stackText = Array.isArray(data.tech_stack_suggested) && data.tech_stack_suggested.length > 0
-            ? data.tech_stack_suggested.map(t => `- \`${String(t)}\``).join('\n')
-            : 'N/A';
-          
-          const hoursText = data.estimated_hours != null ? `${Number(data.estimated_hours)}h` : 'N/A';
-          const costText = data.estimated_cost_brl != null ? `R$ ${Number(data.estimated_cost_brl).toFixed(2)}` : 'N/A';
-          const modelName = `${{ vars.OLLAMA_MODEL || 'llama3.2' }}`;
+            // ✅ Formatação segura dos valores
+            const stackText = Array.isArray(data.tech_stack_suggested) && data.tech_stack_suggested.length > 0
+              ? data.tech_stack_suggested.map(t => `- \`${String(t)}\``).join('\n')
+              : 'N/A';
+            
+            const hoursText = data.estimated_hours != null ? `${Number(data.estimated_hours)}h` : 'N/A';
+            const costText = data.estimated_cost_brl != null ? `R$ ${Number(data.estimated_cost_brl).toFixed(2)}` : 'N/A';
+            const modelName = `${{ vars.OLLAMA_MODEL || 'llama3.2' }}`;
 
-          // ✅ Monta o comentário via array.join() para evitar conflitos de template literal
-          const comment = [
-            '## 🤖 Análise Automática por IA',
-            '',
-            '### 📋 Resumo',
-            String(data.summary || ''),
-            '',
-            '### 💰 Orçamento Estimado',
-            `- **Complexidade:** ${data.complexity || 'N/A'}`,
-            `- **Horas estimadas:** ${hoursText}`,
-            `- **Valor estimado:** ${costText}`,
-            '',
-            '### 🛠️ Stack Sugerida',
-            stackText,
-            '',
-            '### 🚀 Prompt para Iniciar o Projeto',
-            '<details>',
-            '<summary>Clique para ver o prompt gerado pela IA</summary>',
-            '',
-            '```text',
-            String(data.project_prompt || ''),
-            '```',
-            '',
-            '</details>',
-            '',
-            '---',
-            `*Esta análise foi gerada automaticamente por IA usando o modelo \`${modelName}\`. Valores são estimativas iniciais e podem variar após análise técnica detalhada.*`
-          ].join('\n');
+            // ✅ Monta o comentário via array.join() para evitar conflitos de template literal
+            const comment = [
+              '## 🤖 Análise Automática por IA',
+              '',
+              '### 📋 Resumo',
+              String(data.summary || ''),
+              '',
+              '### 💰 Orçamento Estimado',
+              `- **Complexidade:** ${data.complexity || 'N/A'}`,
+              `- **Horas estimadas:** ${hoursText}`,
+              `- **Valor estimado:** ${costText}`,
+              '',
+              '### 🛠️ Stack Sugerida',
+              stackText,
+              '',
+              '### 🚀 Prompt para Iniciar o Projeto',
+              '<details>',
+              '<summary>Clique para ver o prompt gerado pela IA</summary>',
+              '',
+              '```text',
+              String(data.project_prompt || ''),
+              '```',
+              '',
+              '</details>',
+              '',
+              '---',
+              `*Esta análise foi gerada automaticamente por IA usando o modelo \`${modelName}\`. Valores são estimativas iniciais e podem variar após análise técnica detalhada.*`
+            ].join('\n');
 
-          await github.rest.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: comment
-          });
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
