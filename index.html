@@ -1154,44 +1154,49 @@
       });
     }
     //
-    // ⚙️ CONFIGURAÇÃO DO GITHUB
-    // Para usar token (necessário para repos privados ou evitar rate limits):
-    // Ou defina via variável de ambiente: process.env.GITHUB_TOKEN
+    // ⚙️ CONFIGURAÇÃO DO FORMULÁRIO - SEM TOKEN EXPOSTO
+    // Usando FormSubmit.co - Serviço gratuito que envia os dados por email
+    // Não requer token exposto no frontend - mais seguro!
     
-    // GitHub Issue Creator - Creates an issue in the repository when form is submitted
+    // Form Handler - Envia dados via FormSubmit (receba por email)
     window.createGitHubIssue = async function(name, email, type, message) {
-      // ⚙️ CONFIGURAÇÃO: Atualize com as informações do seu repositório GitHub
-      const githubOwner = 'btfshadow'; // Seu username do GitHub
-      const githubRepo = 'btfshadow.github.io';  // Nome do seu repositório
-      const proxyUrl = 'https://corsproxy.io/?'; 
-      const targetUrl = `https://api.github.com/repos/${githubOwner}/${githubRepo}/issues`;
-      const url = proxyUrl + encodeURIComponent(targetUrl);      
-      const issueTitle = `🎮 Quest Request: ${type} - ${name}`;
-      const issueBody = `## New Quest Request\n\n**Trainer:** ${name}\n**Email:** ${email}\n**Quest Type:** ${type}\n\n**Quest Details:**\n${message}\n\n---\n*Submitted via portfolio contact form on ${new Date().toLocaleString()}*`;
+      // ⚙️ CONFIGURAÇÃO: Substitua pelo SEU email real
+      const yourEmail = 'btfshadow@gmail.com'; // ← COLOQUE SEU EMAIL AQUI
+      
+      const formSubmitUrl = 'https://formsubmit.co/ajax/' + yourEmail;
+      
+      const subject = `🎮 Quest Request: ${type} - ${name}`;
       
       try {
-        const response = await fetch(url, {
+        const response = await fetch(formSubmitUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/vnd.github.v3+json'
+            'Accept': 'application/json'
           },
           body: JSON.stringify({
-            title: issueTitle,
-            body: issueBody,
-            labels: ['contact-form', type, 'quest-request']
+            name: name,
+            email: email,
+            type: type,
+            message: message,
+            _subject: subject,
+            _template: 'table',
+            _captcha: 'false'
           })
         });
         
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.message || 'Failed to create issue');
+          throw new Error(errorData.message || 'Failed to submit form');
         }
         
-        const issueData = await response.json();
-        return { success: true, issueUrl: issueData.html_url, issueNumber: issueData.number };
+        return { 
+          success: true, 
+          message: 'Form submitted successfully!',
+          info: 'Check your email for confirmation!'
+        };
       } catch (error) {
-        console.error('Error creating GitHub issue:', error);
+        console.error('Error submitting form:', error);
         return { success: false, error: error.message };
       }
     };
@@ -1252,11 +1257,11 @@
           // Show success message with issue link
           responseDiv.style.background = 'var(--green)';
           responseDiv.style.color = '#000';
-          const successMsg = i18nData?.ui?.form?.success || 'Quest received! I\'ll respond soon.';
+          const successMsg = i18nData?.ui?.form?.success || 'Quest submitted! Check your email to activate the form.';
           responseDiv.innerHTML = `
             <strong>✅ ${successMsg}</strong><br>
             Thank you, ${name}!<br>
-            <small>Your quest has been registered as <a href="${result.issueUrl}" target="_blank" style="color: #000; text-decoration: underline;">Issue #${result.issueNumber}</a></small>
+            <small>${result.info || 'I will review your quest and respond via email!'}</small>
           `;
           
           // Reset form
@@ -1270,7 +1275,7 @@
         console.error('📬 Quest Request Error:', error);
         responseDiv.style.background = 'var(--cherry)';
         responseDiv.style.color = '#fff';
-        responseDiv.innerHTML = `❌ Error: ${error.message}<br><small>Note: Make sure GITHUB_TOKEN is configured for automatic issue creation.</small>`;
+        responseDiv.innerHTML = `❌ Error: ${error.message}<br><small>Tip: First-time users need to confirm their email with FormSubmit. Check your inbox!</small>`;
       } finally {
         // Restore button state
         submitBtn.disabled = false;
