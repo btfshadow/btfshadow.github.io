@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "99216943516",
+    "firebase_url": "https://space-shoter-pro.firebaseio.com",
+    "project_id": "space-shoter-pro",
+    "storage_bucket": "space-shoter-pro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:99216943516:android:5d298cc4433293d8714059",
+        "android_client_info": {
+          "package_name": "com.pastelbinario.SpaceShooterPro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "99216943516-1rv5hrg9q63rhr0c4brvnfmcq7nb8fi3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvv1YbVWEypkUjSXiezR2lMEz3nGa9ECY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "99216943516-1rv5hrg9q63rhr0c4brvnfmcq7nb8fi3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "99216943516-ne8g3bdvl4i4qj9a0gmtah1krjeiafme.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.pastelbinario.SpaceShooterPro"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
