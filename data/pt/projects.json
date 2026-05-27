@@ -34,17 +34,5 @@
       "github": null,
       "article": null
     }
-  },
-  {
-    "title": "Portfólio DevDex",
-    "date": "2025-01-15",
-    "excerpt": "Portfólio estilo Pokédex com estética retrô",
-    "description": "Portfólio estilo Pokédex com estética de terminal retrô. HTML/CSS/JS puro com carregamento dinâmico de dados JSON.",
-    "tags": ["HTML", "CSS", "JavaScript", "JSON"],
-    "icon": "🎮",
-    "links": {
-      "github": "https://github.com/sophiasimoes8/devdex",
-      "article": null
-    }
   }
 ]

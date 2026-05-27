@@ -31,16 +31,5 @@
       "github": null,
       "article": null
     }
-  },
-  {
-    "title": "DevDex Portfolio",
-    "description": "Pokédex-style portfolio with retro terminal aesthetic. Pure HTML/CSS/JS with dynamic JSON data loading.",
-    "date": "2024-11-15",
-    "tags": ["HTML", "CSS", "JavaScript", "JSON"],
-    "icon": "🎮",
-    "links": {
-      "github": "https://github.com/sophiasimoes8/devdex",
-      "article": null
-    }
   }
 ]

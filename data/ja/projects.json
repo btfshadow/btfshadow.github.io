@@ -34,17 +34,5 @@
       "github": null,
       "article": null
     }
-  },
-  {
-    "title": "DevDex ポートフォリオ",
-    "date": "2025-01-15",
-    "excerpt": "レトロスタイルの Pokédex 風ポートフォリオ",
-    "description": "レトロターミナルスタイルの Pokédex 風ポートフォリオ。動的 JSON データローディングを備えたピュア HTML/CSS/JS。",
-    "tags": ["HTML", "CSS", "JavaScript", "JSON"],
-    "icon": "🎮",
-    "links": {
-      "github": "https://github.com/sophiasimoes8/devdex",
-      "article": null
-    }
   }
 ]
