@@ -31,5 +31,38 @@
       "github": null,
       "article": "https://dev.to/sophiasimoes8/mentoring-junior-leadership"
     }
+  },
+  {
+    "title": "Allure Dashboard: Explorando o Menu e os Gráficos",
+    "date": "2024-09-15",
+    "excerpt": "Um guia completo sobre como navegar e utilizar os recursos do Allure Dashboard, incluindo análise de gráficos e métricas de testes para melhor visualização dos resultados de QA.",
+    "tags": ["QA", "Testing", "Allure", "Dashboards"],
+    "icon": "📊",
+    "links": {
+      "github": null,
+      "article": "https://medium.com/stonetech/allure-dashboard-explorando-o-menu-e-os-gr%C3%A1ficos-c345ab942f9d"
+    }
+  },
+  {
+    "title": "White Label Mobile",
+    "date": "2024-08-20",
+    "excerpt": "Exploração das estratégias e desafios no desenvolvimento de soluções mobile white-label, abordando arquitetura, customização e escalabilidade para múltiplos clientes.",
+    "tags": ["Mobile", "White Label", "Architecture", "Development"],
+    "icon": "📱",
+    "links": {
+      "github": null,
+      "article": "https://medium.com/@sophiasimoes/white-label-mobile-5dc95babfdc"
+    }
+  },
+  {
+    "title": "Appium com Ruby: Dividindo o Esforço",
+    "date": "2024-07-10",
+    "excerpt": "Como otimizar testes automatizados de mobile usando Appium com Ruby, compartilhando código e dividindo esforços entre equipes para aumentar a eficiência e cobertura de testes.",
+    "tags": ["Appium", "Ruby", "Test Automation", "Mobile Testing"],
+    "icon": "💎",
+    "links": {
+      "github": null,
+      "article": "https://medium.com/assertqualityassurance/appium-com-ruby-dividindo-o-esfor%C3%A7o-4c5af33b1686"
+    }
   }
 ]

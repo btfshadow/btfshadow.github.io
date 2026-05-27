@@ -3,9 +3,8 @@
     "title": "AI-Augmented Testing: The Future of QA",
     "date": "2024-12-01",
     "excerpt": "How LLMs, CrewAI agents, and prompt engineering are automating 70% of test scenarios while improving edge-case coverage.",
-    "tags": ["Computer Vision", "AR", "Research"],
-    "icon": "🤖",
     "tags": ["QA", "Artificial Intelligence", "Automation", "LLM"],
+    "icon": "🤖",
     "links": {
       "github": null,
       "article": "https://dev.to/sophiasimoes8/ai-augmented-testing-future-qa"
@@ -15,9 +14,8 @@
     "title": "Reducing CI/CD Costs by 50%",
     "date": "2024-11-15",
     "excerpt": "Strategies for optimizing test pyramid architecture and infrastructure costs without sacrificing quality or coverage.",
-    "tags": ["Computer Vision", "AR", "Research"],
-    "icon": "💰",
     "tags": ["DevOps", "CI/CD", "Optimization", "Infrastructure"],
+    "icon": "💰",
     "links": {
       "github": null,
       "article": "https://dev.to/sophiasimoes8/reducing-cicd-costs-50"
@@ -27,12 +25,44 @@
     "title": "Mentoring Juniors to Leadership",
     "date": "2024-10-20",
     "excerpt": "Lessons learned from guiding 7+ QA engineers through their careers, including one promotion to Engineering Management.",
-    "tags": ["Computer Vision", "AR", "Research"],
-    "icon": "🌱",
     "tags": ["Leadership", "Mentorship", "Career", "Management"],
+    "icon": "🌱",
     "links": {
       "github": null,
       "article": "https://dev.to/sophiasimoes8/mentoring-junior-leadership"
+    }
+  },
+  {
+    "title": "Allure Dashboard: Exploring Menu and Charts",
+    "date": "2024-09-15",
+    "excerpt": "Complete guide on Allure Dashboard navigation and features, including chart analysis and test metrics to improve QA results visibility.",
+    "tags": ["QA", "Testing", "Allure", "Dashboards"],
+    "icon": "📊",
+    "links": {
+      "github": null,
+      "article": "https://medium.com/stonetech/allure-dashboard-explorando-o-menu-e-os-gr%C3%A1ficos-c345ab942f9d"
+    }
+  },
+  {
+    "title": "White Label Mobile",
+    "date": "2024-08-20",
+    "excerpt": "Strategies and challenges in developing white-label mobile solutions, covering architecture, customization, and scalability for multiple clients.",
+    "tags": ["Mobile", "White Label", "Architecture", "Development"],
+    "icon": "📱",
+    "links": {
+      "github": null,
+      "article": "https://medium.com/@sophiasimoes/white-label-mobile-5dc95babfdc"
+    }
+  },
+  {
+    "title": "Appium with Ruby: Sharing the Effort",
+    "date": "2024-07-10",
+    "excerpt": "How to optimize mobile automated testing using Appium with Ruby, sharing code and reducing effort across QA teams.",
+    "tags": ["Appium", "Ruby", "Test Automation", "Mobile Testing"],
+    "icon": "💎",
+    "links": {
+      "github": null,
+      "article": "https://medium.com/assertqualityassurance/appium-com-ruby-dividindo-o-esfor%C3%A7o-4c5af33b1686"
     }
   }
 ]
