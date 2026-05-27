@@ -53,16 +53,44 @@
 
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/space-web.loader.js";
-      var config = {
-        arguments: [],
-        dataUrl: buildUrl + "/space-web.data.gz",
-        frameworkUrl: buildUrl + "/space-web.framework.js.gz",
-        codeUrl: buildUrl + "/space-web.wasm.gz",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "PastelBinário",
-        productName: "Galaxy Shooter",
-        productVersion: "1.0.1",
-        showBanner: unityShowBanner,
+
+      // Detect if the hosting server provides Content-Encoding for pre-compressed files.
+      // If not, fall back to uncompressed files (no ".gz" suffix).
+      (async function() {
+        async function serverSupportsGzip(nonGzUrl) {
+          try {
+            // Try HEAD first (browser typically includes Accept-Encoding automatically)
+            let res = await fetch(nonGzUrl, { method: 'HEAD' });
+            if (res && res.ok) {
+              const ce = res.headers.get('Content-Encoding');
+              if (ce && (ce.includes('gzip') || ce.includes('br'))) return true;
+            }
+
+            // Fallback to small ranged GET to inspect headers without downloading whole file
+            res = await fetch(nonGzUrl, { method: 'GET', headers: { 'Range': 'bytes=0-0' } });
+            if (res && res.ok) {
+              const ce2 = res.headers.get('Content-Encoding');
+              return ce2 && (ce2.includes('gzip') || ce2.includes('br'));
+            }
+          } catch (e) {
+            return false;
+          }
+          return false;
+        }
+
+        const frameworkBase = buildUrl + '/space-web.framework.js';
+        const useGz = await serverSupportsGzip(frameworkBase);
+
+        var config = {
+          arguments: [],
+          dataUrl: buildUrl + "/space-web.data" + (useGz ? ".gz" : ""),
+          frameworkUrl: buildUrl + "/space-web.framework.js" + (useGz ? ".gz" : ""),
+          codeUrl: buildUrl + "/space-web.wasm" + (useGz ? ".gz" : ""),
+          streamingAssetsUrl: "StreamingAssets",
+          companyName: "PastelBinário",
+          productName: "Galaxy Shooter",
+          productVersion: "1.0.1",
+          showBanner: unityShowBanner,
         // errorHandler: function(err, url, line) {
         //    alert("error " + err + " occurred at line " + line);
         //    // Return 'true' if you handled this error and don't want Unity
@@ -128,6 +156,8 @@
             };
 
       document.body.appendChild(script);
+
+    })();
 
     </script>
   </body>
