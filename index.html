@@ -993,7 +993,7 @@
     }
 
     // Main Quests (Education) Renderer
-    function renderEducation(data) {
+    function renderEducation(data, i18nData = {}) {
       const container = document.getElementById('education-container');
       const section = document.querySelector('section[aria-labelledby="edu-title"]');
       
@@ -1007,9 +1007,11 @@
       if (section) section.style.display = 'block';
 
       container.innerHTML = data.map(edu => {
-        const isCompleted = edu.status === 'completed' || edu.completed === true;
+        const isCompleted = edu.status === 'completed' || edu.status === 'concluído' || edu.completed === true;
         const statusClass = isCompleted ? 'completed' : 'incomplete';
-        const statusText = isCompleted ? '✓ Completed' : '○ In Progress';
+        const statusText = isCompleted 
+          ? (i18nData?.ui?.status?.completed || '✓ Completed') 
+          : (i18nData?.ui?.status?.inProgress || '○ In Progress');
         
         return `
           <article class="quest-card pixel-border">
@@ -1367,7 +1369,7 @@
       renderMainSkills(skills);
       renderPCBox(skills);
       renderExperiences(experiences);
-      renderEducation(education);
+      renderEducation(education, i18nData);
       renderGenericList(courses, 'courses-container', 'courses');
       renderGenericList(certifications, 'certs-container', 'certifications');
       renderGenericList(projects, 'projects-container', 'projects');
@@ -1411,7 +1413,7 @@
       renderMainSkills(skills);
       renderPCBox(skills);
       renderExperiences(experiences);
-      renderEducation(education);
+      renderEducation(education, i18nData);
       renderGenericList(courses, 'courses-container', 'courses', 'courses-section');
       renderGenericList(certifications, 'certs-container', 'certifications', 'certs-section');
       renderGenericList(projects, 'projects-container', 'projects', 'projects-section');
