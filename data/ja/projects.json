@@ -1,5 +1,17 @@
 [
   {
+    "title": "ギャラクシーシュータープロ",
+    "date": "2020-05-27",
+    "excerpt": "WebGL 向けに最適化された Unity の 2D アーケードシューター",
+    "description": "Unity を使用して開発した 2D アーケードシューター（Galaxy Shooter Pro）。敵のウェーブ、ボス、パワーアップの設計、キーボード/タッチ操作の実装、ブラウザ向けにパフォーマンス最適化、スコアと永続化機能の追加を行いました。ビルドはリポジトリ内の galaxy-shoter-pro/ にあります。",
+    "tags": ["Unity", "WebGL", "ゲーム開発", "C#"],
+    "icon": "🚀",
+    "links": {
+      "github": null,
+      "article": "galaxy-shoter-pro/index.html"
+    }
+  },
+  {
     "title": "拡張現実研究",
     "date": "2013-06-01",
     "excerpt": "AR とコンピュータビジョンを使用した物体軌道予測",

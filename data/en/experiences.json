@@ -1,6 +1,6 @@
 [
   {
-    "company": "Pagar.me",
+    "company": "Stone Pagamentos",
     "role": "Staff QA Engineer",
     "period": "Jan 2023 – Present",
     "summary": "Lead quality strategy reducing production incidents by 40%. Pioneered AI-augmented testing with LLMs and CrewAI agents, cutting test design time by 35%. Optimized CI/CD pipelines reducing infrastructure costs by 50%.",
@@ -8,7 +8,7 @@
     "rarity": "legendary"
   },
   {
-    "company": "Pagar.me",
+    "company": "Stone Pagamentos",
     "role": "Tech Lead QA",
     "period": "Oct 2021 – Jan 2023",
     "summary": "Led squad of 7 QAs across 3 product teams. Architected device farm for POS testing reducing manual validation by 60%. Integrated static security analysis (SonarQube, MobSF) catching 90% of critical vulnerabilities pre-merge.",
@@ -16,7 +16,7 @@
     "rarity": "elite"
   },
   {
-    "company": "Pagar.me",
+    "company": "Stone Pagamentos",
     "role": "Test Engineer",
     "period": "Sep 2020 – Dec 2022",
     "summary": "Optimized CI/CD pipelines and restructured test automation strategy. Reduced infrastructure costs by 50% while accelerating feedback loops and increasing test reliability.",

@@ -14,7 +14,6 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      # ✅ CORREÇÃO: Adicionado 'id: get_issue' para os outputs serem acessíveis
       - name: Get issue data
         id: get_issue
         uses: actions/github-script@v7
@@ -34,30 +33,25 @@ jobs:
         id: ollama
         with:
           model: ${{ vars.OLLAMA_MODEL || 'llama3.2' }}
-          temperature: "0.2"
           prompt: |
-            Você é um assistente de pré-venda técnico.
-            Analise a solicitação e gere UM PARÁGRAFO CURTO e PRÁTICO em português.
-
-            Formato OBRIGATÓRIO (exatamente assim, sem texto antes/depois):
-            ```
-            Quest solicitada por [nome]
-            Tipo de quest: [tipo]
-            Orçamento estimado: R$ [valor com ponto e vírgula]
-            Sugestão técnica: [1-2 frases com stack + modelo de IA sugerido]
-
-            Se fizer sentido, entre em contato: [email extraído do corpo]
-            ```
-
-            Regras:
-            - Máximo 6 linhas
-            - Zero emojis, zero markdown complexo
-            - Use "N/A" se não encontrar o email
-            - Calcule o valor usando R$150/hora com base na complexidade
-
-            Entrada:
+            [SISTEMA] Responda APENAS em português do Brasil. Seja direto. Máximo 5 linhas.
+            [FORMATO] Siga EXATAMENTE este modelo. Zero texto antes ou depois.
+            Quest solicitada por [NOME]
+            Tipo de quest: [TIPO]
+            Orçamento estimado: R$ [VALOR]
+            Sugestão técnica: [STACK + IA em 1 frase]
+            Se fizer sentido, entre em contato: [EMAIL]
+            
+            [REGRAS]
+            - Calcule com base em R$150/hora. Se não der para estimar, use R$ 0,00.
+            - Use N/A se faltar email ou tipo.
+            - Não explique, não saude, não repita.
+            
+            [ENTRADA]
             Título: ${{ steps.get_issue.outputs.title }}
             Descrição: ${{ steps.get_issue.outputs.body }}
+            
+            [SAÍDA]
 
       - name: Post simple comment
         uses: actions/github-script@v7
@@ -68,14 +62,27 @@ jobs:
           script: |
             let raw = process.env.AI_RESPONSE || '';
             
-            // Remove códigos ANSI e controles de terminal
-            raw = raw.replace(/\x1b\[[0-9;]*[a-zA-Z]/g, '').replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
-            raw = raw.replace(/^```[a-z]*\s*|\s*```$/gi, '').trim();
+            // ✅ 1. Remove ANSI/códigos de terminal
+            raw = raw.replace(/\x1b\[[0-9;]*[a-zA-Z]/g, '')
+                     .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '')
+                     .trim();
             
-            // Fallback mínimo se a IA falhar
-            if (raw.length < 20) {
-              raw = '⚠️ Não foi possível gerar estimativa automática. Revise a issue e contate o solicitante manualmente.';
+            // ✅ 2. Corta qualquer "conversa" do CLI que venha antes ou depois do padrão
+            const match = raw.match(/Quest solicitada por[\s\S]*?entre em contato:.*$/i);
+            if (match) {
+              raw = match[0].trim();
+            } else {
+              // ✅ 3. Fallback se o modelo ignorou o formato
+              raw = '⚠️ Estimativa automática indisponível. Contate o solicitante manualmente para avaliar a quest.';
             }
+            
+            // ✅ 4. Remove linhas duplicadas consecutivas (loop do modelo)
+            const lines = raw.split('\n').filter(l => l.trim());
+            const unique = [];
+            for (const l of lines) {
+              if (unique.length === 0 || unique[unique.length - 1] !== l) unique.push(l);
+            }
+            raw = unique.join('\n');
             
             await github.rest.issues.createComment({
               issue_number: context.issue.number,

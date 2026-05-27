@@ -1,5 +1,17 @@
 [
   {
+    "title": "Galaxy Shooter Pro",
+    "date": "2020-05-27",
+    "excerpt": "Jogo arcade 2D em Unity otimizado para WebGL",
+    "description": "Desenvolvi um jogo arcade 2D em Unity (Galaxy Shooter Pro) otimizado para WebGL. Projetei ondas de inimigos, chefes e power-ups; implementei controles por teclado e toque; otimizei o build para navegadores; e adicionei sistema de pontuação e persistência. Build disponível em galaxy-shoter-pro/ no repositório.",
+    "tags": ["Unity", "WebGL", "Desenvolvimento de Jogos", "C#"],
+    "icon": "🚀",
+    "links": {
+      "github": null,
+      "article": "galaxy-shoter-pro/index.html"
+    }
+  },
+  {
     "title": "Pesquisa em Realidade Aumentada",
     "date": "2013-06-01",
     "excerpt": "Previsão de trajetória de objetos usando RA e visão computacional",

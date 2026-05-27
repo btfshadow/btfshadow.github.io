@@ -50,7 +50,7 @@ CORE COMPETENCIES
 
 PROFESSIONAL EXPERIENCE
 
-Pagar.me — São Paulo, Brazil (Remote/Hybrid)
+Stone Pagamentos — São Paulo, Brazil (Remote/Hybrid)
 
 Staff QA Engineer | Jan 2023 – Present
 • Lead quality strategy for the payments business unit, reducing critical production incidents 

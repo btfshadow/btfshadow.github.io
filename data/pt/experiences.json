@@ -1,6 +1,6 @@
 [
   {
-    "company": "Pagar.me",
+    "company": "Stone Pagamentos",
     "role": "Staff QA Engineer",
     "period": "Jan 2023 – Presente",
     "summary": "Lidero a estratégia de qualidade reduzindo incidentes em produção em 40%. Pioneiro em testes aumentados por IA com LLMs e agentes CrewAI, reduzindo o tempo de design de testes em 35%. Otimizei pipelines CI/CD reduzindo custos de infraestrutura em 50%.",
@@ -8,7 +8,7 @@
     "rarity": "lendário"
   },
   {
-    "company": "Pagar.me",
+    "company": "Stone Pagamentos",
     "role": "Tech Lead QA",
     "period": "Out 2021 – Jan 2023",
     "summary": "Liderei equipe de 7 QAs em 3 equipes de produto. Arquitetei farm de dispositivos para testes POS reduzindo validação manual em 60%. Integrei análise estática de segurança (SonarQube, MobSF) detectando 90% das vulnerabilidades críticas antes do merge.",
@@ -16,7 +16,7 @@
     "rarity": "elite"
   },
   {
-    "company": "Pagar.me",
+    "company": "Stone Pagamentos",
     "role": "Engenheiro de Testes",
     "period": "Set 2020 – Dez 2022",
     "summary": "Otimizei pipelines CI/CD e reestruturei a estratégia de automação de testes. Reduzi custos de infraestrutura em 50% enquanto acelerava loops de feedback e aumentava a confiabilidade dos testes.",

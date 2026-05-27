@@ -83,7 +83,7 @@ Edite em `skills.json`:
 ```json
 "gymBadges": [
   {
-    "company": "Pagar.me",
+    "company": "Stone Pagamentos",
     "role": "Staff QA Engineer",
     "period": "2021 - Presente",
     "type": "Legendary",        // Legendary | Elite | Rare | Common | Mystic

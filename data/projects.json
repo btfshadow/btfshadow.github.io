@@ -1,5 +1,16 @@
 [
   {
+    "title": "Galaxy Shooter Pro",
+    "description": "Unity-based 2D arcade shooter optimized for WebGL. Designed enemy waves, bosses and power-ups; implemented keyboard and touch controls; performance-tuned browser builds; added scoring and persistence. Build located in the repository at galaxy-shoter-pro/ (Unity WebGL).",
+    "date": "2020-05-27",
+    "tags": ["Unity", "WebGL", "Game Development", "C#"],
+    "icon": "🚀",
+    "links": {
+      "github": null,
+      "article": "galaxy-shoter-pro/index.html"
+    }
+  },
+  {
     "title": "Augmented Reality Research",
     "description": "Researched object trajectory prediction using AR and computer vision. Presented at UNIP Annual Research Convention (2013).",
     "date": "2024-11-15",

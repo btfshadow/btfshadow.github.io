@@ -1,6 +1,6 @@
 [
   {
-    "company": "Pagar.me",
+    "company": "Stone Pagamentos",
     "role": "Staff QA エンジニア",
     "period": "2023 年 1 月 – 現在",
     "summary": "品質戦略を主導し、本番環境でのインシデントを 40% 削減。LLM と CrewAI エージェントを使用した AI 拡張テストのパイオニアとして、テスト設計時間を 35% 短縮。CI/CD パイプラインを最適化し、インフラコストを 50% 削減。",
@@ -8,7 +8,7 @@
     "rarity": "legendary"
   },
   {
-    "company": "Pagar.me",
+    "company": "Stone Pagamentos",
     "role": "Tech Lead QA",
     "period": "2021 年 10 月 – 2023 年 1 月",
     "summary": "3 つのプロダクトチームにまたがる 7 名の QA チームをリード。POS テスト用のデバイスファームを設計し、手動検証を 60% 削減。静的セキュリティ分析（SonarQube、MobSF）を統合し、マージ前の重要な脆弱性の 90% を検出。",
@@ -16,7 +16,7 @@
     "rarity": "elite"
   },
   {
-    "company": "Pagar.me",
+    "company": "Stone Pagamentos",
     "role": "テストエンジニア",
     "period": "2020 年 9 月 – 2022 年 12 月",
     "summary": "CI/CD パイプラインを最適化し、テスト自動化戦略を再構築。フィードバックループを加速し、テストの信頼性を向上させながら、インフラコストを 50% 削減。",
