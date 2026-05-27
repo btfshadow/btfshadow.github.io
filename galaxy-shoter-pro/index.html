@@ -57,29 +57,28 @@
       // Detect if the hosting server provides Content-Encoding for pre-compressed files.
       // If not, fall back to uncompressed files (no ".gz" suffix).
       (async function() {
-        async function serverSupportsGzip(nonGzUrl) {
+        // Check the .gz file directly and only use explicit .gz paths if the server
+        // responds with a Content-Encoding header for the .gz resource. Many hosts
+        // (GitHub Pages) will serve the compressed content for the original filename
+        // but will NOT set Content-Encoding for the literal .gz file; in that case
+        // we must NOT request the .gz URL.
+        async function serverSupportsGzipForGzUrl(gzUrl) {
           try {
-            // Try HEAD first (browser typically includes Accept-Encoding automatically)
-            let res = await fetch(nonGzUrl, { method: 'HEAD' });
+            // HEAD the gz URL and inspect Content-Encoding
+            const res = await fetch(gzUrl, { method: 'HEAD' });
             if (res && res.ok) {
               const ce = res.headers.get('Content-Encoding');
               if (ce && (ce.includes('gzip') || ce.includes('br'))) return true;
             }
-
-            // Fallback to small ranged GET to inspect headers without downloading whole file
-            res = await fetch(nonGzUrl, { method: 'GET', headers: { 'Range': 'bytes=0-0' } });
-            if (res && res.ok) {
-              const ce2 = res.headers.get('Content-Encoding');
-              return ce2 && (ce2.includes('gzip') || ce2.includes('br'));
-            }
           } catch (e) {
+            // network error or CORS — treat as unsupported
             return false;
           }
           return false;
         }
 
-        const frameworkBase = buildUrl + '/space-web.framework.js';
-        const useGz = await serverSupportsGzip(frameworkBase);
+        const gzFrameworkUrl = buildUrl + '/space-web.framework.js.gz';
+        const useGz = await serverSupportsGzipForGzUrl(gzFrameworkUrl);
 
         var config = {
           arguments: [],
