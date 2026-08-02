@@ -206,6 +206,30 @@ Abra o Console do navegador (F12) para ver:
 ```
 3. Salve e recarregue!
 
+## 🔍 SEO & Visibilidade
+
+Este portfólio inclui otimizações avançadas de SEO para maximizar sua visibilidade nos mecanismos de busca:
+
+### ✅ Implementado
+- **Meta tags completas**: Title, description, keywords, author, robots
+- **Open Graph**: Para compartilhamento no Facebook/LinkedIn
+- **Twitter Cards**: Para compartilhamento no Twitter/X
+- **Structured Data (JSON-LD)**: Schema.org Person e WebSite
+- **Sitemap.xml**: Mapeamento do site para Google
+- **robots.txt**: Instruções para crawlers
+- **Favicon personalizado**: Emoji 👩‍💻 em SVG inline
+- **Canonical URL**: Previne conteúdo duplicado
+- **Multilíngue**: Suporte a en_US, pt_BR, ja_JP
+
+### 📋 Próximos Passos
+1. Criar `og-image.png` (1200x630px) para redes sociais
+2. Criar `apple-touch-icon.png` (180x180px)
+3. Configurar Google Search Console
+4. Enviar sitemap.xml para indexação
+5. Adicionar Google Analytics (opcional)
+
+📖 **Leia o guia completo**: [SEO_GUIDE.md](./SEO_GUIDE.md)
+
 ---
 
 **Criado com ❤️ e nostalgia Pokémon**

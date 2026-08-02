@@ -1,0 +1,70 @@
+# Robots.txt para sophiasimoes.dev
+# Otimizado para SEO - Permite indexação completa do portfólio
+
+# Permitir todos os crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://sophiasimoes.dev/sitemap.xml
+
+# Crawl-delay (opcional - remover se quiser indexação mais rápida)
+# Crawl-delay: 1
+
+# ============================================
+# DIRECTÓRIOS BLOQUEADOS (Boas Práticas)
+# ============================================
+# Bloquear diretórios administrativos (se existirem)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /config/
+Disallow: /.git/
+Disallow: /node_modules/
+
+# Bloquear arquivos de sistema e backup
+Disallow: /*.log$
+Disallow: /*.tmp$
+Disallow: /*.bak$
+
+# ============================================
+# USER-AGENTS ESPECÍFICOS (Opcional)
+# ============================================
+
+# Google Bot - Prioridade máxima
+User-agent: Googlebot
+Allow: /
+# Crawl-delay: 0.5
+
+# Bing Bot
+User-agent: Bingbot
+Allow: /
+
+# DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
+
+# Baidu (China)
+User-agent: Baiduspider
+Allow: /
+
+# Yandex (Rússia)
+User-agent: YandexBot
+Allow: /
+
+# ============================================
+# RECOMENDAÇÕES DE SEO INCLUÍDAS
+# ============================================
+# 1. ✅ Sitemap.xml referenciado corretamente
+# 2. ✅ Todos os crawlers principais permitidos
+# 3. ✅ Diretórios sensíveis bloqueados
+# 4. ✅ Estrutura limpa e documentada
+#
+# PRÓXIMOS PASSOS RECOMENDADOS:
+# - Criar og-image.png (1200x630px) para social sharing
+# - Criar apple-touch-icon.png (180x180px) para iOS
+# - Registrar no Google Search Console
+# - Enviar sitemap.xml para indexação
+# - Monitorar performance no Google Analytics (opcional)
+# - Adicionar structured data adicional se necessário
+# - Manecer conteúdo atualizado regularmente
+# ============================================
