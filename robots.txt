@@ -1,0 +1,13 @@
+# Robots.txt para sophiasimoes.dev
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://sophiasimoes.dev/sitemap.xml
+
+# Crawl-delay (opcional, para servidores com recursos limitados)
+# Crawl-delay: 1
+
+# Bloquear diretórios desnecessários (se aplicável)
+# Disallow: /admin/
+# Disallow: /private/
